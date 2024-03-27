@@ -168,6 +168,7 @@ namespace Azure.Provisioning.Authorization
         public static Azure.Provisioning.Authorization.RoleDefinition StorageBlobDataContributor { get { throw null; } }
         public static Azure.Provisioning.Authorization.RoleDefinition StorageQueueDataContributor { get { throw null; } }
         public static Azure.Provisioning.Authorization.RoleDefinition StorageTableDataContributor { get { throw null; } }
+        public static Azure.Provisioning.Authorization.RoleDefinition WebPubSubServiceOwner { get { throw null; } }
         public bool Equals(Azure.Provisioning.Authorization.RoleDefinition other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object? obj) { throw null; }
@@ -462,5 +463,20 @@ namespace Azure.Provisioning.Storage
     {
         public static Azure.Provisioning.Storage.BlobService AddBlobService(this Azure.Provisioning.IConstruct scope) { throw null; }
         public static Azure.Provisioning.Storage.StorageAccount AddStorageAccount(this Azure.Provisioning.IConstruct scope, Azure.ResourceManager.Storage.Models.StorageKind kind, Azure.ResourceManager.Storage.Models.StorageSkuName sku, Azure.Provisioning.ResourceManager.ResourceGroup? parent = null, string name = "sa") { throw null; }
+    }
+}
+namespace Azure.Provisioning.WebPubSub
+{
+    public partial class WebPubSubHub : Azure.Provisioning.Resource<Azure.ResourceManager.WebPubSub.WebPubSubHubData>
+    {
+        public WebPubSubHub(Azure.Provisioning.IConstruct scope, Azure.ResourceManager.WebPubSub.Models.WebPubSubHubProperties properties, Azure.Provisioning.WebPubSub.WebPubSubService? parent = null, string name = "Hub", string version = "2021-10-01") : base (default(Azure.Provisioning.IConstruct), default(Azure.Provisioning.Resource), default(string), default(Azure.Core.ResourceType), default(string), default(System.Func<string, Azure.ResourceManager.WebPubSub.WebPubSubHubData>)) { }
+        protected override Azure.Provisioning.Resource? FindParentInScope(Azure.Provisioning.IConstruct scope) { throw null; }
+        public static Azure.Provisioning.WebPubSub.WebPubSubHub FromExisting(Azure.Provisioning.IConstruct scope, string name, Azure.Provisioning.WebPubSub.WebPubSubService? parent = null) { throw null; }
+    }
+    public partial class WebPubSubService : Azure.Provisioning.Resource<Azure.ResourceManager.WebPubSub.WebPubSubData>
+    {
+        public WebPubSubService(Azure.Provisioning.IConstruct scope, Azure.ResourceManager.WebPubSub.Models.BillingInfoSku? sku = null, Azure.Provisioning.ResourceManager.ResourceGroup? parent = null, string name = "WebPubSub", string version = "2021-10-01", Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?)) : base (default(Azure.Provisioning.IConstruct), default(Azure.Provisioning.Resource), default(string), default(Azure.Core.ResourceType), default(string), default(System.Func<string, Azure.ResourceManager.WebPubSub.WebPubSubData>)) { }
+        public static Azure.Provisioning.WebPubSub.WebPubSubService FromExisting(Azure.Provisioning.IConstruct scope, string name, Azure.Provisioning.ResourceManager.ResourceGroup? parent = null) { throw null; }
+        protected override string GetAzureName(Azure.Provisioning.IConstruct scope, string resourceName) { throw null; }
     }
 }
