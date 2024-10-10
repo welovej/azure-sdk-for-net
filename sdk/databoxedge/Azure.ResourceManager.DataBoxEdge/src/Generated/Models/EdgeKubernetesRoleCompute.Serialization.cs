@@ -19,21 +19,13 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
 
         void IJsonModel<EdgeKubernetesRoleCompute>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<EdgeKubernetesRoleCompute>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(EdgeKubernetesRoleCompute)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             writer.WritePropertyName("vmProfile"u8);
             writer.WriteStringValue(VmProfile);
             if (options.Format != "W" && Optional.IsDefined(MemoryInBytes))
@@ -61,6 +53,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         EdgeKubernetesRoleCompute IJsonModel<EdgeKubernetesRoleCompute>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -19,33 +20,13 @@ namespace Azure.Analytics.Purview.DataMap.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityAddCustomAttribute()
+        public void Example_Entity_CreateOrUpdate_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entity = new
-                {
-                    typeName = "azure_storage_account",
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        name = "ExampleStorageAccount",
-                    },
-                    customAttributes = new
-                    {
-                        custAttr1 = "attr1",
-                        custAttr2 = "attr2",
-                    },
-                },
-            });
+            using RequestContent content = RequestContent.Create(new object());
             Response response = client.CreateOrUpdate(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
@@ -54,33 +35,13 @@ namespace Azure.Analytics.Purview.DataMap.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityAddCustomAttribute_Async()
+        public async Task Example_Entity_CreateOrUpdate_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entity = new
-                {
-                    typeName = "azure_storage_account",
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        name = "ExampleStorageAccount",
-                    },
-                    customAttributes = new
-                    {
-                        custAttr1 = "attr1",
-                        custAttr2 = "attr2",
-                    },
-                },
-            });
+            using RequestContent content = RequestContent.Create(new object());
             Response response = await client.CreateOrUpdateAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
@@ -89,758 +50,793 @@ namespace Azure.Analytics.Purview.DataMap.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityAddCustomAttribute_Convenience()
+        public void Example_Entity_CreateOrUpdate_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CustomAttributes =
-{
-["custAttr1"] = "attr1",
-["custAttr2"] = "attr2"
-},
-                },
-            };
+            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo();
             Response<EntityMutationResult> response = client.CreateOrUpdate(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityAddCustomAttribute_Convenience_Async()
+        public async Task Example_Entity_CreateOrUpdate_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CustomAttributes =
-{
-["custAttr1"] = "attr1",
-["custAttr2"] = "attr2"
-},
-                },
-            };
+            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo();
             Response<EntityMutationResult> response = await client.CreateOrUpdateAsync(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityCreate()
+        public void Example_Entity_CreateOrUpdate_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
 
             using RequestContent content = RequestContent.Create(new
             {
-                referredEntities = new object(),
-                entity = new
+                referredEntities = new
                 {
-                    typeName = "azure_storage_account",
-                    attributes = new
+                    key = new
                     {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        name = "ExampleStorageAccount",
-                    },
-                    contacts = new
-                    {
-                        Expert = new object[]
+                        attributes = new
+                        {
+                            key = new object(),
+                        },
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        businessAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        classifications = new object[]
             {
 new
 {
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
-}
-            },
-                        Owner = new object[]
-            {
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-            },
-                    },
-                    status = "ACTIVE",
-                    createdBy = "ExampleCreator",
-                    updatedBy = "ExampleUpdator",
-                    version = 0L,
-                },
-            });
-            Response response = client.CreateOrUpdate(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityCreate_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entity = new
-                {
-                    typeName = "azure_storage_account",
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        name = "ExampleStorageAccount",
-                    },
-                    contacts = new
-                    {
-                        Expert = new object[]
-            {
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
-}
-            },
-                        Owner = new object[]
-            {
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-            },
-                    },
-                    status = "ACTIVE",
-                    createdBy = "ExampleCreator",
-                    updatedBy = "ExampleUpdator",
-                    version = 0L,
-                },
-            });
-            Response response = await client.CreateOrUpdateAsync(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityCreate_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CreatedBy = "ExampleCreator",
-                    Status = EntityStatus.Active,
-                    UpdatedBy = "ExampleUpdator",
-                    Version = 0L,
-                    Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-                },
-            };
-            Response<EntityMutationResult> response = client.CreateOrUpdate(body);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityCreate_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CreatedBy = "ExampleCreator",
-                    Status = EntityStatus.Active,
-                    UpdatedBy = "ExampleUpdator",
-                    Version = 0L,
-                    Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-                },
-            };
-            Response<EntityMutationResult> response = await client.CreateOrUpdateAsync(body);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityCreateOrUpdateWithRichText()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entity = new
-                {
-                    typeName = "azure_storage_account",
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        name = "ExampleStorageAccount",
-                        userDescription = "<div><b>testing</b></div>",
-                    },
-                    customAttributes = new
-                    {
-                        microsoft_isDescriptionRichText = "true",
-                    },
-                    status = "ACTIVE",
-                    createdBy = "ExampleCreator",
-                    updatedBy = "ExampleUpdator",
-                    version = 0L,
-                },
-            });
-            Response response = client.CreateOrUpdate(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityCreateOrUpdateWithRichText_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entity = new
-                {
-                    typeName = "azure_storage_account",
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        name = "ExampleStorageAccount",
-                        userDescription = "<div><b>testing</b></div>",
-                    },
-                    customAttributes = new
-                    {
-                        microsoft_isDescriptionRichText = "true",
-                    },
-                    status = "ACTIVE",
-                    createdBy = "ExampleCreator",
-                    updatedBy = "ExampleUpdator",
-                    version = 0L,
-                },
-            });
-            Response response = await client.CreateOrUpdateAsync(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityCreateOrUpdateWithRichText_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["userDescription"] = BinaryData.FromObjectAsJson("<div><b>testing</b></div>"),
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CreatedBy = "ExampleCreator",
-                    CustomAttributes =
-{
-["microsoft_isDescriptionRichText"] = "true"
-},
-                    Status = EntityStatus.Active,
-                    UpdatedBy = "ExampleUpdator",
-                    Version = 0L,
-                },
-            };
-            Response<EntityMutationResult> response = client.CreateOrUpdate(body);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityCreateOrUpdateWithRichText_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["userDescription"] = BinaryData.FromObjectAsJson("<div><b>testing</b></div>"),
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CreatedBy = "ExampleCreator",
-                    CustomAttributes =
-{
-["microsoft_isDescriptionRichText"] = "true"
-},
-                    Status = EntityStatus.Active,
-                    UpdatedBy = "ExampleUpdator",
-                    Version = 0L,
-                },
-            };
-            Response<EntityMutationResult> response = await client.CreateOrUpdateAsync(body);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityUpdate()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entity = new
-                {
-                    typeName = "azure_storage_account",
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "exampleaccount",
-                        name = "ExampleStorageAccount",
-                    },
-                    contacts = new
-                    {
-                        Expert = new object[]
-            {
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
-}
-            },
-                        Owner = new object[]
-            {
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-            },
-                    },
-                    status = "ACTIVE",
-                    createdBy = "ExampleCreator",
-                    updatedBy = "ExampleUpdator",
-                    version = 0L,
-                },
-            });
-            Response response = client.CreateOrUpdate(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityUpdate_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entity = new
-                {
-                    typeName = "azure_storage_account",
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        modifiedTime = 0,
-                        createTime = 0,
-                        qualifiedName = "exampleaccount",
-                        name = "ExampleStorageAccount",
-                    },
-                    contacts = new
-                    {
-                        Expert = new object[]
-            {
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
-}
-            },
-                        Owner = new object[]
-            {
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-            },
-                    },
-                    status = "ACTIVE",
-                    createdBy = "ExampleCreator",
-                    updatedBy = "ExampleUpdator",
-                    version = 0L,
-                },
-            });
-            Response response = await client.CreateOrUpdateAsync(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_CreateOrUpdate_EntityUpdate_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("exampleaccount"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CreatedBy = "ExampleCreator",
-                    Status = EntityStatus.Active,
-                    UpdatedBy = "ExampleUpdator",
-                    Version = 0L,
-                    Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-                },
-            };
-            Response<EntityMutationResult> response = client.CreateOrUpdate(body);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_CreateOrUpdate_EntityUpdate_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
-
-            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
-            {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("exampleaccount"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-                    TypeName = "azure_storage_account",
-                    CreatedBy = "ExampleCreator",
-                    Status = EntityStatus.Active,
-                    UpdatedBy = "ExampleUpdator",
-                    Version = 0L,
-                    Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-                },
-            };
-            Response<EntityMutationResult> response = await client.CreateOrUpdateAsync(body);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetByIds_EntityListByGuids()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = client.GetByIds(new string[] { "784c0f2f-afd2-e26b-f9cb-984f6c2c5021", "b4ebc8be-cef4-860a-bee9-28cc34cb5caa" }, true, null, null);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetByIds_EntityListByGuids_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = await client.GetByIdsAsync(new string[] { "784c0f2f-afd2-e26b-f9cb-984f6c2c5021", "b4ebc8be-cef4-860a-bee9-28cc34cb5caa" }, true, null, null);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetByIds_EntityListByGuids_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response<AtlasEntitiesWithExtInfo> response = client.GetByIds(new string[] { "784c0f2f-afd2-e26b-f9cb-984f6c2c5021", "b4ebc8be-cef4-860a-bee9-28cc34cb5caa" });
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetByIds_EntityListByGuids_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response<AtlasEntitiesWithExtInfo> response = await client.GetByIdsAsync(new string[] { "784c0f2f-afd2-e26b-f9cb-984f6c2c5021", "b4ebc8be-cef4-860a-bee9-28cc34cb5caa" });
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchCreateOrUpdate_EntityBulkCreateOrUpdate()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entities = new object[]
-            {
-new
-{
-typeName = "azure_storage_account",
 attributes = new
 {
-owner = "ExampleOwner",
-modifiedTime = 0,
-createTime = 0,
-qualifiedName = "exampleaccount1",
-name = "ExampleStorageAccount1",
+key = new object(),
 },
-contacts = new
-{
-Expert = new object[]
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
 {
 new
 {
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
 }
 },
-Owner = new object[]
-{
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-},
-},
-status = "ACTIVE",
-createdBy = "ExampleCreator",
-updatedBy = "ExampleUpdator",
-version = 0L,
-},
-new
-{
-typeName = "azure_storage_account",
-attributes = new
-{
-owner = "ExampleOwner",
-modifiedTime = 0,
-createTime = 0,
-qualifiedName = "exampleaccount2",
-name = "ExampleStorageAccount2",
-description = "Example Description",
-},
-contacts = new
-{
-Expert = new object[]
-{
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
-}
-},
-Owner = new object[]
-{
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-},
-},
-status = "ACTIVE",
-createdBy = "ExampleCreator",
-updatedBy = "ExampleUpdator",
-version = 0L,
 }
             },
+                        createTime = 1234L,
+                        createdBy = "<createdBy>",
+                        customAttributes = new
+                        {
+                            key = "<customAttributes>",
+                        },
+                        guid = "<guid>",
+                        homeId = "<homeId>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        provenanceType = 1234,
+                        proxy = true,
+                        relationshipAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        status = "ACTIVE",
+                        updateTime = 1234L,
+                        updatedBy = "<updatedBy>",
+                        version = 1234L,
+                        contacts = new
+                        {
+                            key = new object[]
+            {
+new
+{
+id = "<id>",
+info = "<info>",
+}
+            },
+                        },
+                    },
+                },
             });
+            Response response = client.CreateOrUpdate(content, businessAttributeUpdateBehavior: "ignore", collectionId: "<collectionId>");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_CreateOrUpdate_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                referredEntities = new
+                {
+                    key = new
+                    {
+                        attributes = new
+                        {
+                            key = new object(),
+                        },
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        businessAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        classifications = new object[]
+            {
+new
+{
+attributes = new
+{
+key = new object(),
+},
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
+}
+            },
+                        createTime = 1234L,
+                        createdBy = "<createdBy>",
+                        customAttributes = new
+                        {
+                            key = "<customAttributes>",
+                        },
+                        guid = "<guid>",
+                        homeId = "<homeId>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        provenanceType = 1234,
+                        proxy = true,
+                        relationshipAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        status = "ACTIVE",
+                        updateTime = 1234L,
+                        updatedBy = "<updatedBy>",
+                        version = 1234L,
+                        contacts = new
+                        {
+                            key = new object[]
+            {
+new
+{
+id = "<id>",
+info = "<info>",
+}
+            },
+                        },
+                    },
+                },
+            });
+            Response response = await client.CreateOrUpdateAsync(content, businessAttributeUpdateBehavior: "ignore", collectionId: "<collectionId>");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_CreateOrUpdate_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
+            {
+                ReferredEntities =
+{
+["key"] = new AtlasEntity
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+BusinessAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Classifications = {new AtlasClassification
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
+}},
+CreateTime = 1234L,
+CreatedBy = "<createdBy>",
+CustomAttributes =
+{
+["key"] = "<customAttributes>"
+},
+Guid = "<guid>",
+HomeId = "<homeId>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+ProvenanceType = 1234,
+Proxy = true,
+RelationshipAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Status = EntityStatus.Active,
+UpdateTime = 1234L,
+UpdatedBy = "<updatedBy>",
+Version = 1234L,
+Contacts =
+{
+["key"] = {new ContactInfo
+{
+Id = "<id>",
+Info = "<info>",
+}}
+},
+}
+},
+                Entity = default,
+            };
+            Response<EntityMutationResult> response = client.CreateOrUpdate(body, businessAttributeUpdateBehavior: BusinessAttributeUpdateBehavior.Ignore, collectionId: "<collectionId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_CreateOrUpdate_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
+            {
+                ReferredEntities =
+{
+["key"] = new AtlasEntity
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+BusinessAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Classifications = {new AtlasClassification
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
+}},
+CreateTime = 1234L,
+CreatedBy = "<createdBy>",
+CustomAttributes =
+{
+["key"] = "<customAttributes>"
+},
+Guid = "<guid>",
+HomeId = "<homeId>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+ProvenanceType = 1234,
+Proxy = true,
+RelationshipAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Status = EntityStatus.Active,
+UpdateTime = 1234L,
+UpdatedBy = "<updatedBy>",
+Version = 1234L,
+Contacts =
+{
+["key"] = {new ContactInfo
+{
+Id = "<id>",
+Info = "<info>",
+}}
+},
+}
+},
+                Entity = default,
+            };
+            Response<EntityMutationResult> response = await client.CreateOrUpdateAsync(body, businessAttributeUpdateBehavior: BusinessAttributeUpdateBehavior.Ignore, collectionId: "<collectionId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetByIds_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.GetByIds(new string[] { "<guid>" }, null, null, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetByIds_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.GetByIdsAsync(new string[] { "<guid>" }, null, null, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetByIds_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntitiesWithExtInfo> response = client.GetByIds(new string[] { "<guid>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetByIds_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntitiesWithExtInfo> response = await client.GetByIdsAsync(new string[] { "<guid>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetByIds_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            Response response = client.GetByIds(new string[] { "<guid>" }, true, true, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetByIds_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            Response response = await client.GetByIdsAsync(new string[] { "<guid>" }, true, true, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetByIds_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            Response<AtlasEntitiesWithExtInfo> response = client.GetByIds(new string[] { "<guid>" }, minExtInfo: true, ignoreRelationships: true);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetByIds_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            Response<AtlasEntitiesWithExtInfo> response = await client.GetByIdsAsync(new string[] { "<guid>" }, minExtInfo: true, ignoreRelationships: true);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_BatchCreateOrUpdate_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
             Response response = client.BatchCreateOrUpdate(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
@@ -849,90 +845,13 @@ version = 0L,
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchCreateOrUpdate_EntityBulkCreateOrUpdate_Async()
+        public async Task Example_Entity_BatchCreateOrUpdate_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            using RequestContent content = RequestContent.Create(new
-            {
-                referredEntities = new object(),
-                entities = new object[]
-            {
-new
-{
-typeName = "azure_storage_account",
-attributes = new
-{
-owner = "ExampleOwner",
-modifiedTime = 0,
-createTime = 0,
-qualifiedName = "exampleaccount1",
-name = "ExampleStorageAccount1",
-},
-contacts = new
-{
-Expert = new object[]
-{
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
-}
-},
-Owner = new object[]
-{
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-},
-},
-status = "ACTIVE",
-createdBy = "ExampleCreator",
-updatedBy = "ExampleUpdator",
-version = 0L,
-},
-new
-{
-typeName = "azure_storage_account",
-attributes = new
-{
-owner = "ExampleOwner",
-modifiedTime = 0,
-createTime = 0,
-qualifiedName = "exampleaccount2",
-name = "ExampleStorageAccount2",
-description = "Example Description",
-},
-contacts = new
-{
-Expert = new object[]
-{
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Expert Info",
-}
-},
-Owner = new object[]
-{
-new
-{
-id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-info = "Example Owner Info",
-}
-},
-},
-status = "ACTIVE",
-createdBy = "ExampleCreator",
-updatedBy = "ExampleUpdator",
-version = 0L,
-}
-            },
-            });
+            using RequestContent content = RequestContent.Create(new object());
             Response response = await client.BatchCreateOrUpdateAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
@@ -941,165 +860,547 @@ version = 0L,
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchCreateOrUpdate_EntityBulkCreateOrUpdate_Convenience()
+        public void Example_Entity_BatchCreateOrUpdate_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            AtlasEntitiesWithExtInfo body = new AtlasEntitiesWithExtInfo
-            {
-                ReferredEntities = { },
-                Entities = {new AtlasEntity
-{
-Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("exampleaccount1"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount1"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-TypeName = "azure_storage_account",
-CreatedBy = "ExampleCreator",
-Status = EntityStatus.Active,
-UpdatedBy = "ExampleUpdator",
-Version = 0L,
-Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-}, new AtlasEntity
-{
-Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("exampleaccount2"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount2"),
-["description"] = BinaryData.FromObjectAsJson("Example Description"),
-["publicAccessLevel"] = null
-},
-TypeName = "azure_storage_account",
-CreatedBy = "ExampleCreator",
-Status = EntityStatus.Active,
-UpdatedBy = "ExampleUpdator",
-Version = 0L,
-Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-}},
-            };
+            AtlasEntitiesWithExtInfo body = new AtlasEntitiesWithExtInfo();
             Response<EntityMutationResult> response = client.BatchCreateOrUpdate(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchCreateOrUpdate_EntityBulkCreateOrUpdate_Convenience_Async()
+        public async Task Example_Entity_BatchCreateOrUpdate_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            AtlasEntitiesWithExtInfo body = new AtlasEntitiesWithExtInfo
-            {
-                ReferredEntities = { },
-                Entities = {new AtlasEntity
-{
-Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("exampleaccount1"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount1"),
-["description"] = null,
-["publicAccessLevel"] = null
-},
-TypeName = "azure_storage_account",
-CreatedBy = "ExampleCreator",
-Status = EntityStatus.Active,
-UpdatedBy = "ExampleUpdator",
-Version = 0L,
-Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-}, new AtlasEntity
-{
-Attributes =
-{
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["modifiedTime"] = BinaryData.FromObjectAsJson(0),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["qualifiedName"] = BinaryData.FromObjectAsJson("exampleaccount2"),
-["name"] = BinaryData.FromObjectAsJson("ExampleStorageAccount2"),
-["description"] = BinaryData.FromObjectAsJson("Example Description"),
-["publicAccessLevel"] = null
-},
-TypeName = "azure_storage_account",
-CreatedBy = "ExampleCreator",
-Status = EntityStatus.Active,
-UpdatedBy = "ExampleUpdator",
-Version = 0L,
-Contacts =
-{
-["Expert"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Expert Info",
-}},
-["Owner"] = {new ContactInfo
-{
-Id = "30435ff9-9b96-44af-a5a9-e05c8b1ae2df",
-Info = "Example Owner Info",
-}}
-},
-}},
-            };
+            AtlasEntitiesWithExtInfo body = new AtlasEntitiesWithExtInfo();
             Response<EntityMutationResult> response = await client.BatchCreateOrUpdateAsync(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchDelete_EntityBulkDelete()
+        public void Example_Entity_BatchCreateOrUpdate_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                referredEntities = new
+                {
+                    key = new
+                    {
+                        attributes = new
+                        {
+                            key = new object(),
+                        },
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        businessAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        classifications = new object[]
+            {
+new
+{
+attributes = new
+{
+key = new object(),
+},
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
+}
+            },
+                        createTime = 1234L,
+                        createdBy = "<createdBy>",
+                        customAttributes = new
+                        {
+                            key = "<customAttributes>",
+                        },
+                        guid = "<guid>",
+                        homeId = "<homeId>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        provenanceType = 1234,
+                        proxy = true,
+                        relationshipAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        status = "ACTIVE",
+                        updateTime = 1234L,
+                        updatedBy = "<updatedBy>",
+                        version = 1234L,
+                        contacts = new
+                        {
+                            key = new object[]
+            {
+new
+{
+id = "<id>",
+info = "<info>",
+}
+            },
+                        },
+                    },
+                },
+                entities = new object[]
+            {
+null
+            },
+            });
+            Response response = client.BatchCreateOrUpdate(content, collectionId: "<collectionId>", businessAttributeUpdateBehavior: "ignore");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchCreateOrUpdate_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                referredEntities = new
+                {
+                    key = new
+                    {
+                        attributes = new
+                        {
+                            key = new object(),
+                        },
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        businessAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        classifications = new object[]
+            {
+new
+{
+attributes = new
+{
+key = new object(),
+},
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
+}
+            },
+                        createTime = 1234L,
+                        createdBy = "<createdBy>",
+                        customAttributes = new
+                        {
+                            key = "<customAttributes>",
+                        },
+                        guid = "<guid>",
+                        homeId = "<homeId>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        provenanceType = 1234,
+                        proxy = true,
+                        relationshipAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        status = "ACTIVE",
+                        updateTime = 1234L,
+                        updatedBy = "<updatedBy>",
+                        version = 1234L,
+                        contacts = new
+                        {
+                            key = new object[]
+            {
+new
+{
+id = "<id>",
+info = "<info>",
+}
+            },
+                        },
+                    },
+                },
+                entities = new object[]
+            {
+null
+            },
+            });
+            Response response = await client.BatchCreateOrUpdateAsync(content, collectionId: "<collectionId>", businessAttributeUpdateBehavior: "ignore");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_BatchCreateOrUpdate_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            AtlasEntitiesWithExtInfo body = new AtlasEntitiesWithExtInfo
+            {
+                ReferredEntities =
+{
+["key"] = new AtlasEntity
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+BusinessAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Classifications = {new AtlasClassification
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
+}},
+CreateTime = 1234L,
+CreatedBy = "<createdBy>",
+CustomAttributes =
+{
+["key"] = "<customAttributes>"
+},
+Guid = "<guid>",
+HomeId = "<homeId>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+ProvenanceType = 1234,
+Proxy = true,
+RelationshipAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Status = EntityStatus.Active,
+UpdateTime = 1234L,
+UpdatedBy = "<updatedBy>",
+Version = 1234L,
+Contacts =
+{
+["key"] = {new ContactInfo
+{
+Id = "<id>",
+Info = "<info>",
+}}
+},
+}
+},
+                Entities = { default },
+            };
+            Response<EntityMutationResult> response = client.BatchCreateOrUpdate(body, collectionId: "<collectionId>", businessAttributeUpdateBehavior: BusinessAttributeUpdateBehavior.Ignore);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchCreateOrUpdate_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            AtlasEntitiesWithExtInfo body = new AtlasEntitiesWithExtInfo
+            {
+                ReferredEntities =
+{
+["key"] = new AtlasEntity
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+BusinessAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Classifications = {new AtlasClassification
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
+}},
+CreateTime = 1234L,
+CreatedBy = "<createdBy>",
+CustomAttributes =
+{
+["key"] = "<customAttributes>"
+},
+Guid = "<guid>",
+HomeId = "<homeId>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+ProvenanceType = 1234,
+Proxy = true,
+RelationshipAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Status = EntityStatus.Active,
+UpdateTime = 1234L,
+UpdatedBy = "<updatedBy>",
+Version = 1234L,
+Contacts =
+{
+["key"] = {new ContactInfo
+{
+Id = "<id>",
+Info = "<info>",
+}}
+},
+}
+},
+                Entities = { default },
+            };
+            Response<EntityMutationResult> response = await client.BatchCreateOrUpdateAsync(body, collectionId: "<collectionId>", businessAttributeUpdateBehavior: BusinessAttributeUpdateBehavior.Ignore);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_BatchDelete_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.BatchDelete(new string[] { "18e06957-e265-967a-07f1-e14e2ab8940f", "cc0730ba-9b30-41f0-6953-559d17626d2b" }, null);
+            Response response = client.BatchDelete(new string[] { "<guid>" }, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1107,13 +1408,13 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchDelete_EntityBulkDelete_Async()
+        public async Task Example_Entity_BatchDelete_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.BatchDeleteAsync(new string[] { "18e06957-e265-967a-07f1-e14e2ab8940f", "cc0730ba-9b30-41f0-6953-559d17626d2b" }, null);
+            Response response = await client.BatchDeleteAsync(new string[] { "<guid>" }, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1121,31 +1422,245 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchDelete_EntityBulkDelete_Convenience()
+        public void Example_Entity_BatchDelete_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = client.BatchDelete(new string[] { "18e06957-e265-967a-07f1-e14e2ab8940f", "cc0730ba-9b30-41f0-6953-559d17626d2b" });
+            Response<EntityMutationResult> response = client.BatchDelete(new string[] { "<guid>" });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchDelete_EntityBulkDelete_Convenience_Async()
+        public async Task Example_Entity_BatchDelete_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = await client.BatchDeleteAsync(new string[] { "18e06957-e265-967a-07f1-e14e2ab8940f", "cc0730ba-9b30-41f0-6953-559d17626d2b" });
+            Response<EntityMutationResult> response = await client.BatchDeleteAsync(new string[] { "<guid>" });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddClassification_EntityAddClassificationToEntityByGuids()
+        public void Example_Entity_BatchDelete_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.BatchDelete(new string[] { "<guid>" }, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchDelete_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.BatchDeleteAsync(new string[] { "<guid>" }, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_BatchDelete_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = client.BatchDelete(new string[] { "<guid>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchDelete_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = await client.BatchDeleteAsync(new string[] { "<guid>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassification_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.AddClassification(content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddClassification_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.AddClassificationAsync(content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassification_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            ClassificationAssociateConfig body = new ClassificationAssociateConfig();
+            Response response = client.AddClassification(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddClassification_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            ClassificationAssociateConfig body = new ClassificationAssociateConfig();
+            Response response = await client.AddClassificationAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassification_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1153,14 +1668,28 @@ Info = "Example Owner Info",
             {
                 classification = new
                 {
-                    typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-                    attributes = new object(),
-                    validityPeriods = Array.Empty<object>(),
+                    attributes = new
+                    {
+                        key = new object(),
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "ACTIVE",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new object[]
+            {
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+            },
                 },
                 entityGuids = new object[]
             {
-"784c0f2f-afd2-e26b-f9cb-984f6c2c5021",
-"b4ebc8be-cef4-860a-bee9-28cc34cb5caa"
+"<entityGuids>"
             },
             });
             Response response = client.AddClassification(content);
@@ -1170,9 +1699,9 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddClassification_EntityAddClassificationToEntityByGuids_Async()
+        public async Task Example_Entity_AddClassification_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1180,14 +1709,28 @@ Info = "Example Owner Info",
             {
                 classification = new
                 {
-                    typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-                    attributes = new object(),
-                    validityPeriods = Array.Empty<object>(),
+                    attributes = new
+                    {
+                        key = new object(),
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "ACTIVE",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new object[]
+            {
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+            },
                 },
                 entityGuids = new object[]
             {
-"784c0f2f-afd2-e26b-f9cb-984f6c2c5021",
-"b4ebc8be-cef4-860a-bee9-28cc34cb5caa"
+"<entityGuids>"
             },
             });
             Response response = await client.AddClassificationAsync(content);
@@ -1197,9 +1740,9 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddClassification_EntityAddClassificationToEntityByGuids_Convenience()
+        public void Example_Entity_AddClassification_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1207,20 +1750,32 @@ Info = "Example Owner Info",
             {
                 Classification = new AtlasClassification
                 {
-                    Attributes = { },
-                    TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-                    ValidityPeriods = { },
+                    Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+                    TypeName = "<typeName>",
+                    LastModifiedTS = "<lastModifiedTS>",
+                    EntityGuid = "<entityGuid>",
+                    EntityStatus = EntityStatus.Active,
+                    RemovePropagationsOnEntityDelete = true,
+                    ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
                 },
-                EntityGuids = { "784c0f2f-afd2-e26b-f9cb-984f6c2c5021", "b4ebc8be-cef4-860a-bee9-28cc34cb5caa" },
+                EntityGuids = { "<entityGuids>" },
             };
             Response response = client.AddClassification(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddClassification_EntityAddClassificationToEntityByGuids_Convenience_Async()
+        public async Task Example_Entity_AddClassification_AllParameters_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1228,24 +1783,36 @@ Info = "Example Owner Info",
             {
                 Classification = new AtlasClassification
                 {
-                    Attributes = { },
-                    TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-                    ValidityPeriods = { },
+                    Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+                    TypeName = "<typeName>",
+                    LastModifiedTS = "<lastModifiedTS>",
+                    EntityGuid = "<entityGuid>",
+                    EntityStatus = EntityStatus.Active,
+                    RemovePropagationsOnEntityDelete = true,
+                    ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
                 },
-                EntityGuids = { "784c0f2f-afd2-e26b-f9cb-984f6c2c5021", "b4ebc8be-cef4-860a-bee9-28cc34cb5caa" },
+                EntityGuids = { "<entityGuids>" },
             };
             Response response = await client.AddClassificationAsync(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetEntity_EntityGet()
+        public void Example_Entity_GetEntity_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.GetEntity("5cf8a9e5-c9fd-abe0-2e8c-d40024263dcb", true, null, null);
+            Response response = client.GetEntity("<guid>", null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1253,13 +1820,13 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetEntity_EntityGet_Async()
+        public async Task Example_Entity_GetEntity_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.GetEntityAsync("5cf8a9e5-c9fd-abe0-2e8c-d40024263dcb", true, null, null);
+            Response response = await client.GetEntityAsync("<guid>", null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1267,36 +1834,240 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetEntity_EntityGet_Convenience()
+        public void Example_Entity_GetEntity_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntityWithExtInfo> response = client.GetEntity("5cf8a9e5-c9fd-abe0-2e8c-d40024263dcb");
+            Response<AtlasEntityWithExtInfo> response = client.GetEntity("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetEntity_EntityGet_Convenience_Async()
+        public async Task Example_Entity_GetEntity_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntityWithExtInfo> response = await client.GetEntityAsync("5cf8a9e5-c9fd-abe0-2e8c-d40024263dcb");
+            Response<AtlasEntityWithExtInfo> response = await client.GetEntityAsync("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateAttributeById_EntityPartialUpdateAttributeByGuid()
+        public void Example_Entity_GetEntity_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            using RequestContent content = RequestContent.Create("ExampleNewName");
-            Response response = client.UpdateAttributeById("394d9a03-912e-483b-bbd2-bedee1a69798", "ExampleName", content);
+            Response response = client.GetEntity("<guid>", true, true, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetEntity_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.GetEntityAsync("<guid>", true, true, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetEntity_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntityWithExtInfo> response = client.GetEntity("<guid>", minExtInfo: true, ignoreRelationships: true);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetEntity_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntityWithExtInfo> response = await client.GetEntityAsync("<guid>", minExtInfo: true, ignoreRelationships: true);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateAttributeById_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.UpdateAttributeById("<guid>", "<name>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1304,14 +2075,14 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateAttributeById_EntityPartialUpdateAttributeByGuid_Async()
+        public async Task Example_Entity_UpdateAttributeById_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            using RequestContent content = RequestContent.Create("ExampleNewName");
-            Response response = await client.UpdateAttributeByIdAsync("394d9a03-912e-483b-bbd2-bedee1a69798", "ExampleName", content);
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.UpdateAttributeByIdAsync("<guid>", "<name>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1319,35 +2090,199 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateAttributeById_EntityPartialUpdateAttributeByGuid_Convenience()
+        public void Example_Entity_UpdateAttributeById_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = client.UpdateAttributeById("394d9a03-912e-483b-bbd2-bedee1a69798", "ExampleName", BinaryData.FromObjectAsJson("ExampleNewName"));
+            Response<EntityMutationResult> response = client.UpdateAttributeById("<guid>", "<name>", BinaryData.FromObjectAsJson(new object()));
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateAttributeById_EntityPartialUpdateAttributeByGuid_Convenience_Async()
+        public async Task Example_Entity_UpdateAttributeById_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = await client.UpdateAttributeByIdAsync("394d9a03-912e-483b-bbd2-bedee1a69798", "ExampleName", BinaryData.FromObjectAsJson("ExampleNewName"));
+            Response<EntityMutationResult> response = await client.UpdateAttributeByIdAsync("<guid>", "<name>", BinaryData.FromObjectAsJson(new object()));
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_Delete_EntityDelete()
+        public void Example_Entity_UpdateAttributeById_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.Delete("fd279eb4-f6c3-1b0b-ad67-e4f8abd2972f", null);
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.UpdateAttributeById("<guid>", "<name>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_UpdateAttributeById_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.UpdateAttributeByIdAsync("<guid>", "<name>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateAttributeById_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = client.UpdateAttributeById("<guid>", "<name>", BinaryData.FromObjectAsJson(new object()));
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_UpdateAttributeById_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = await client.UpdateAttributeByIdAsync("<guid>", "<name>", BinaryData.FromObjectAsJson(new object()));
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_Delete_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.Delete("<guid>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1355,13 +2290,13 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_Delete_EntityDelete_Async()
+        public async Task Example_Entity_Delete_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.DeleteAsync("fd279eb4-f6c3-1b0b-ad67-e4f8abd2972f", null);
+            Response response = await client.DeleteAsync("<guid>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1369,35 +2304,197 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_Delete_EntityDelete_Convenience()
+        public void Example_Entity_Delete_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = client.Delete("fd279eb4-f6c3-1b0b-ad67-e4f8abd2972f");
+            Response<EntityMutationResult> response = client.Delete("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_Delete_EntityDelete_Convenience_Async()
+        public async Task Example_Entity_Delete_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = await client.DeleteAsync("fd279eb4-f6c3-1b0b-ad67-e4f8abd2972f");
+            Response<EntityMutationResult> response = await client.DeleteAsync("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetClassification_EntityGetClassification()
+        public void Example_Entity_Delete_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.GetClassification("9347abc5-7b86-4b82-a1e2-ad77c7c3cac3", "MICROSOFT.PERSONAL.DATE_OF_BIRTH", null);
+            Response response = client.Delete("<guid>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_Delete_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.DeleteAsync("<guid>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_Delete_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = client.Delete("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_Delete_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = await client.DeleteAsync("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetClassification_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.GetClassification("<guid>", "<classificationName>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1405,13 +2502,13 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetClassification_EntityGetClassification_Async()
+        public async Task Example_Entity_GetClassification_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.GetClassificationAsync("9347abc5-7b86-4b82-a1e2-ad77c7c3cac3", "MICROSOFT.PERSONAL.DATE_OF_BIRTH", null);
+            Response response = await client.GetClassificationAsync("<guid>", "<classificationName>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1419,61 +2516,153 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetClassification_EntityGetClassification_Convenience()
+        public void Example_Entity_GetClassification_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasClassification> response = client.GetClassification("9347abc5-7b86-4b82-a1e2-ad77c7c3cac3", "MICROSOFT.PERSONAL.DATE_OF_BIRTH");
+            Response<AtlasClassification> response = client.GetClassification("<guid>", "<classificationName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetClassification_EntityGetClassification_Convenience_Async()
+        public async Task Example_Entity_GetClassification_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasClassification> response = await client.GetClassificationAsync("9347abc5-7b86-4b82-a1e2-ad77c7c3cac3", "MICROSOFT.PERSONAL.DATE_OF_BIRTH");
+            Response<AtlasClassification> response = await client.GetClassificationAsync("<guid>", "<classificationName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveClassification_EntityRemoveClassification()
+        public void Example_Entity_GetClassification_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.RemoveClassification("cc0730ba-9b30-41f0-6953-559d17626d2b", "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER");
+            Response response = client.GetClassification("<guid>", "<classificationName>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetClassification_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.GetClassificationAsync("<guid>", "<classificationName>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetClassification_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasClassification> response = client.GetClassification("<guid>", "<classificationName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetClassification_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasClassification> response = await client.GetClassificationAsync("<guid>", "<classificationName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveClassification_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveClassification("<guid>", "<classificationName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveClassification_EntityRemoveClassification_Async()
+        public async Task Example_Entity_RemoveClassification_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.RemoveClassificationAsync("cc0730ba-9b30-41f0-6953-559d17626d2b", "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER");
+            Response response = await client.RemoveClassificationAsync("<guid>", "<classificationName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetClassifications_EntityGetClassifications()
+        public void Example_Entity_RemoveClassification_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.GetClassifications("67d26de6-771d-1a2d-cb2b-dec4dbd2a9bd", null);
+            Response response = client.RemoveClassification("<guid>", "<classificationName>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveClassification_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.RemoveClassificationAsync("<guid>", "<classificationName>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetClassifications_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.GetClassifications("<guid>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1481,13 +2670,13 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetClassifications_EntityGetClassifications_Async()
+        public async Task Example_Entity_GetClassifications_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.GetClassificationsAsync("67d26de6-771d-1a2d-cb2b-dec4dbd2a9bd", null);
+            Response response = await client.GetClassificationsAsync("<guid>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1495,31 +2684,153 @@ Info = "Example Owner Info",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetClassifications_EntityGetClassifications_Convenience()
+        public void Example_Entity_GetClassifications_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasClassifications> response = client.GetClassifications("67d26de6-771d-1a2d-cb2b-dec4dbd2a9bd");
+            Response<AtlasClassifications> response = client.GetClassifications("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetClassifications_EntityGetClassifications_Convenience_Async()
+        public async Task Example_Entity_GetClassifications_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasClassifications> response = await client.GetClassificationsAsync("67d26de6-771d-1a2d-cb2b-dec4dbd2a9bd");
+            Response<AtlasClassifications> response = await client.GetClassificationsAsync("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddClassifications_EntityAddClassifications()
+        public void Example_Entity_GetClassifications_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.GetClassifications("<guid>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("list")[0].ToString());
+            Console.WriteLine(result.GetProperty("pageSize").ToString());
+            Console.WriteLine(result.GetProperty("sortBy").ToString());
+            Console.WriteLine(result.GetProperty("sortType").ToString());
+            Console.WriteLine(result.GetProperty("startIndex").ToString());
+            Console.WriteLine(result.GetProperty("totalCount").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetClassifications_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.GetClassificationsAsync("<guid>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("list")[0].ToString());
+            Console.WriteLine(result.GetProperty("pageSize").ToString());
+            Console.WriteLine(result.GetProperty("sortBy").ToString());
+            Console.WriteLine(result.GetProperty("sortType").ToString());
+            Console.WriteLine(result.GetProperty("startIndex").ToString());
+            Console.WriteLine(result.GetProperty("totalCount").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetClassifications_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasClassifications> response = client.GetClassifications("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetClassifications_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasClassifications> response = await client.GetClassificationsAsync("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassifications_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = client.AddClassifications("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddClassifications_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = await client.AddClassificationsAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassifications_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddClassifications("<guid>", new AtlasClassification[]
+            {
+new AtlasClassification()
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddClassifications_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddClassificationsAsync("<guid>", new AtlasClassification[]
+            {
+new AtlasClassification()
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassifications_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1527,25 +2838,36 @@ Info = "Example Owner Info",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-entityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-entityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = client.AddClassifications("cc0730ba-9b30-41f0-6953-559d17626d2b", content);
+            Response response = client.AddClassifications("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddClassifications_EntityAddClassifications_Async()
+        public async Task Example_Entity_AddClassifications_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1553,71 +2875,160 @@ entityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-entityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-entityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = await client.AddClassificationsAsync("cc0730ba-9b30-41f0-6953-559d17626d2b", content);
+            Response response = await client.AddClassificationsAsync("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddClassifications_EntityAddClassifications_Convenience()
+        public void Example_Entity_AddClassifications_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.AddClassifications("cc0730ba-9b30-41f0-6953-559d17626d2b", new AtlasClassification[]
+            Response response = client.AddClassifications("<guid>", new AtlasClassification[]
             {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-EntityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
-},
-new AtlasClassification
+Attributes =
 {
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-EntityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddClassifications_EntityAddClassifications_Convenience_Async()
+        public async Task Example_Entity_AddClassifications_AllParameters_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.AddClassificationsAsync("cc0730ba-9b30-41f0-6953-559d17626d2b", new AtlasClassification[]
+            Response response = await client.AddClassificationsAsync("<guid>", new AtlasClassification[]
             {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-EntityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
-},
-new AtlasClassification
+Attributes =
 {
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-EntityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateClassifications_EntityUpdateClassifications()
+        public void Example_Entity_UpdateClassifications_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = client.UpdateClassifications("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_UpdateClassifications_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = await client.UpdateClassificationsAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateClassifications_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.UpdateClassifications("<guid>", new AtlasClassification[]
+            {
+new AtlasClassification()
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_UpdateClassifications_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.UpdateClassificationsAsync("<guid>", new AtlasClassification[]
+            {
+new AtlasClassification()
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateClassifications_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1625,25 +3036,36 @@ EntityGuid = "cc0730ba-9b30-41f0-6953-559d17626d2b",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-entityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US_BANK_ACCOUNT_NUMBER",
-entityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = client.UpdateClassifications("45dd4404-e897-b7e2-ca3c-f6e6b11b4f24", content);
+            Response response = client.UpdateClassifications("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateClassifications_EntityUpdateClassifications_Async()
+        public async Task Example_Entity_UpdateClassifications_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -1651,75 +3073,102 @@ entityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-entityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US_BANK_ACCOUNT_NUMBER",
-entityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = await client.UpdateClassificationsAsync("45dd4404-e897-b7e2-ca3c-f6e6b11b4f24", content);
+            Response response = await client.UpdateClassificationsAsync("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateClassifications_EntityUpdateClassifications_Convenience()
+        public void Example_Entity_UpdateClassifications_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.UpdateClassifications("45dd4404-e897-b7e2-ca3c-f6e6b11b4f24", new AtlasClassification[]
+            Response response = client.UpdateClassifications("<guid>", new AtlasClassification[]
             {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
-},
-new AtlasClassification
+Attributes =
 {
-TypeName = "MICROSOFT.FINANCIAL.US_BANK_ACCOUNT_NUMBER",
-EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateClassifications_EntityUpdateClassifications_Convenience_Async()
+        public async Task Example_Entity_UpdateClassifications_AllParameters_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.UpdateClassificationsAsync("45dd4404-e897-b7e2-ca3c-f6e6b11b4f24", new AtlasClassification[]
+            Response response = await client.UpdateClassificationsAsync("<guid>", new AtlasClassification[]
             {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
-},
-new AtlasClassification
+Attributes =
 {
-TypeName = "MICROSOFT.FINANCIAL.US_BANK_ACCOUNT_NUMBER",
-EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetByUniqueAttribute_EntityGetByUniqueAttributes()
+        public void Example_Entity_GetByUniqueAttribute_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.GetByUniqueAttribute("azure_storage_account", true, null, "https://exampleaccount.core.windows.net", null);
+            Response response = client.GetByUniqueAttribute("<typeName>", null, null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1727,13 +3176,13 @@ EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetByUniqueAttribute_EntityGetByUniqueAttributes_Async()
+        public async Task Example_Entity_GetByUniqueAttribute_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.GetByUniqueAttributeAsync("azure_storage_account", true, null, "https://exampleaccount.core.windows.net", null);
+            Response response = await client.GetByUniqueAttributeAsync("<typeName>", null, null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1741,193 +3190,795 @@ EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetByUniqueAttribute_EntityGetByUniqueAttributes_Convenience()
+        public void Example_Entity_GetByUniqueAttribute_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntityWithExtInfo> response = client.GetByUniqueAttribute("azure_storage_account");
+            Response<AtlasEntityWithExtInfo> response = client.GetByUniqueAttribute("<typeName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetByUniqueAttribute_EntityGetByUniqueAttributes_Convenience_Async()
+        public async Task Example_Entity_GetByUniqueAttribute_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntityWithExtInfo> response = await client.GetByUniqueAttributeAsync("azure_storage_account");
+            Response<AtlasEntityWithExtInfo> response = await client.GetByUniqueAttributeAsync("<typeName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateByUniqueAttribute_EntityPartialUpdateByUniqueAttributes()
+        public void Example_Entity_GetByUniqueAttribute_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.GetByUniqueAttribute("<typeName>", true, true, "<attribute>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetByUniqueAttribute_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.GetByUniqueAttributeAsync("<typeName>", true, true, "<attribute>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entity").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetByUniqueAttribute_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntityWithExtInfo> response = client.GetByUniqueAttribute("<typeName>", minExtInfo: true, ignoreRelationships: true, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetByUniqueAttribute_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntityWithExtInfo> response = await client.GetByUniqueAttributeAsync("<typeName>", minExtInfo: true, ignoreRelationships: true, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateByUniqueAttribute_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.UpdateByUniqueAttribute("<typeName>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_UpdateByUniqueAttribute_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.UpdateByUniqueAttributeAsync("<typeName>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateByUniqueAttribute_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo();
+            Response<EntityMutationResult> response = client.UpdateByUniqueAttribute("<typeName>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_UpdateByUniqueAttribute_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo();
+            Response<EntityMutationResult> response = await client.UpdateByUniqueAttributeAsync("<typeName>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateByUniqueAttribute_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                entity = new
+                referredEntities = new
                 {
-                    createdBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    guid = "dc507ccf-0c57-4165-9327-f37b0d13fda0",
-                    relationshipAttributes = new
+                    key = new
                     {
-                        services = Array.Empty<object>(),
-                        meanings = Array.Empty<object>(),
+                        attributes = new
+                        {
+                            key = new object(),
+                        },
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        businessAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        classifications = new object[]
+            {
+new
+{
+attributes = new
+{
+key = new object(),
+},
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
+}
+            },
+                        createTime = 1234L,
+                        createdBy = "<createdBy>",
+                        customAttributes = new
+                        {
+                            key = "<customAttributes>",
+                        },
+                        guid = "<guid>",
+                        homeId = "<homeId>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        provenanceType = 1234,
+                        proxy = true,
+                        relationshipAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        status = "ACTIVE",
+                        updateTime = 1234L,
+                        updatedBy = "<updatedBy>",
+                        version = 1234L,
+                        contacts = new
+                        {
+                            key = new object[]
+            {
+new
+{
+id = "<id>",
+info = "<info>",
+}
+            },
+                        },
                     },
-                    status = "ACTIVE",
-                    updatedBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    lastModifiedTS = "1",
-                    version = 0L,
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        createTime = 0,
-                        name = "ExampleNewName",
-                    },
-                    typeName = "azure_storage_account",
                 },
-                referredEntities = new object(),
             });
-            Response response = client.UpdateByUniqueAttribute("azure_storage_account", content);
+            Response response = client.UpdateByUniqueAttribute("<typeName>", content, attribute: "<attribute>");
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateByUniqueAttribute_EntityPartialUpdateByUniqueAttributes_Async()
+        public async Task Example_Entity_UpdateByUniqueAttribute_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                entity = new
+                referredEntities = new
                 {
-                    createdBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    guid = "dc507ccf-0c57-4165-9327-f37b0d13fda0",
-                    relationshipAttributes = new
+                    key = new
                     {
-                        services = Array.Empty<object>(),
-                        meanings = Array.Empty<object>(),
+                        attributes = new
+                        {
+                            key = new object(),
+                        },
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        businessAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        classifications = new object[]
+            {
+new
+{
+attributes = new
+{
+key = new object(),
+},
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
+}
+            },
+                        createTime = 1234L,
+                        createdBy = "<createdBy>",
+                        customAttributes = new
+                        {
+                            key = "<customAttributes>",
+                        },
+                        guid = "<guid>",
+                        homeId = "<homeId>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        provenanceType = 1234,
+                        proxy = true,
+                        relationshipAttributes = new
+                        {
+                            key = new object(),
+                        },
+                        status = "ACTIVE",
+                        updateTime = 1234L,
+                        updatedBy = "<updatedBy>",
+                        version = 1234L,
+                        contacts = new
+                        {
+                            key = new object[]
+            {
+new
+{
+id = "<id>",
+info = "<info>",
+}
+            },
+                        },
                     },
-                    status = "ACTIVE",
-                    updatedBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    lastModifiedTS = "1",
-                    version = 0L,
-                    attributes = new
-                    {
-                        owner = "ExampleOwner",
-                        qualifiedName = "https://exampleaccount.core.windows.net",
-                        createTime = 0,
-                        name = "ExampleNewName",
-                    },
-                    typeName = "azure_storage_account",
                 },
-                referredEntities = new object(),
             });
-            Response response = await client.UpdateByUniqueAttributeAsync("azure_storage_account", content);
+            Response response = await client.UpdateByUniqueAttributeAsync("<typeName>", content, attribute: "<attribute>");
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateByUniqueAttribute_EntityPartialUpdateByUniqueAttributes_Convenience()
+        public void Example_Entity_UpdateByUniqueAttribute_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
             {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
+                ReferredEntities =
 {
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["name"] = BinaryData.FromObjectAsJson("ExampleNewName")
-},
-                    TypeName = "azure_storage_account",
-                    LastModifiedTS = "1",
-                    CreateTime = default,
-                    CreatedBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    Guid = "dc507ccf-0c57-4165-9327-f37b0d13fda0",
-                    RelationshipAttributes =
+["key"] = new AtlasEntity
 {
-["services"] = BinaryData.FromObjectAsJson(Array.Empty<object>()),
-["meanings"] = BinaryData.FromObjectAsJson(Array.Empty<object>())
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
 },
-                    Status = EntityStatus.Active,
-                    UpdateTime = default,
-                    UpdatedBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    Version = 0L,
-                },
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+BusinessAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Classifications = {new AtlasClassification
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
+}},
+CreateTime = 1234L,
+CreatedBy = "<createdBy>",
+CustomAttributes =
+{
+["key"] = "<customAttributes>"
+},
+Guid = "<guid>",
+HomeId = "<homeId>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+ProvenanceType = 1234,
+Proxy = true,
+RelationshipAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Status = EntityStatus.Active,
+UpdateTime = 1234L,
+UpdatedBy = "<updatedBy>",
+Version = 1234L,
+Contacts =
+{
+["key"] = {new ContactInfo
+{
+Id = "<id>",
+Info = "<info>",
+}}
+},
+}
+},
+                Entity = default,
             };
-            Response<EntityMutationResult> response = client.UpdateByUniqueAttribute("azure_storage_account", body);
+            Response<EntityMutationResult> response = client.UpdateByUniqueAttribute("<typeName>", body, attribute: "<attribute>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateByUniqueAttribute_EntityPartialUpdateByUniqueAttributes_Convenience_Async()
+        public async Task Example_Entity_UpdateByUniqueAttribute_AllParameters_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             AtlasEntityWithExtInfo body = new AtlasEntityWithExtInfo
             {
-                ReferredEntities = { },
-                Entity = new AtlasEntity
-                {
-                    Attributes =
+                ReferredEntities =
 {
-["owner"] = BinaryData.FromObjectAsJson("ExampleOwner"),
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount.core.windows.net"),
-["createTime"] = BinaryData.FromObjectAsJson(0),
-["name"] = BinaryData.FromObjectAsJson("ExampleNewName")
-},
-                    TypeName = "azure_storage_account",
-                    LastModifiedTS = "1",
-                    CreateTime = default,
-                    CreatedBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    Guid = "dc507ccf-0c57-4165-9327-f37b0d13fda0",
-                    RelationshipAttributes =
+["key"] = new AtlasEntity
 {
-["services"] = BinaryData.FromObjectAsJson(Array.Empty<object>()),
-["meanings"] = BinaryData.FromObjectAsJson(Array.Empty<object>())
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
 },
-                    Status = EntityStatus.Active,
-                    UpdateTime = default,
-                    UpdatedBy = "8c062c84-5d25-449f-a990-9d8ab70b8ec7",
-                    Version = 0L,
-                },
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+BusinessAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Classifications = {new AtlasClassification
+{
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
+}},
+CreateTime = 1234L,
+CreatedBy = "<createdBy>",
+CustomAttributes =
+{
+["key"] = "<customAttributes>"
+},
+Guid = "<guid>",
+HomeId = "<homeId>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+ProvenanceType = 1234,
+Proxy = true,
+RelationshipAttributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+Status = EntityStatus.Active,
+UpdateTime = 1234L,
+UpdatedBy = "<updatedBy>",
+Version = 1234L,
+Contacts =
+{
+["key"] = {new ContactInfo
+{
+Id = "<id>",
+Info = "<info>",
+}}
+},
+}
+},
+                Entity = default,
             };
-            Response<EntityMutationResult> response = await client.UpdateByUniqueAttributeAsync("azure_storage_account", body);
+            Response<EntityMutationResult> response = await client.UpdateByUniqueAttributeAsync("<typeName>", body, attribute: "<attribute>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_DeleteByUniqueAttribute_EntityDeleteByUniqueAttribute()
+        public void Example_Entity_DeleteByUniqueAttribute_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.DeleteByUniqueAttribute("azure_storage_account", "https://exampleaccount.core.windows.net", null);
+            Response response = client.DeleteByUniqueAttribute("<typeName>", null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1935,13 +3986,13 @@ EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_DeleteByUniqueAttribute_EntityDeleteByUniqueAttribute_Async()
+        public async Task Example_Entity_DeleteByUniqueAttribute_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.DeleteByUniqueAttributeAsync("azure_storage_account", "https://exampleaccount.core.windows.net", null);
+            Response response = await client.DeleteByUniqueAttributeAsync("<typeName>", null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -1949,57 +4000,307 @@ EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_DeleteByUniqueAttribute_EntityDeleteByUniqueAttribute_Convenience()
+        public void Example_Entity_DeleteByUniqueAttribute_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = client.DeleteByUniqueAttribute("azure_storage_account");
+            Response<EntityMutationResult> response = client.DeleteByUniqueAttribute("<typeName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_DeleteByUniqueAttribute_EntityDeleteByUniqueAttribute_Convenience_Async()
+        public async Task Example_Entity_DeleteByUniqueAttribute_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<EntityMutationResult> response = await client.DeleteByUniqueAttributeAsync("azure_storage_account");
+            Response<EntityMutationResult> response = await client.DeleteByUniqueAttributeAsync("<typeName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveClassificationByUniqueAttribute_EntityRemoveClassificationByUniqueAttribute()
+        public void Example_Entity_DeleteByUniqueAttribute_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.RemoveClassificationByUniqueAttribute("column", "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER");
+            Response response = client.DeleteByUniqueAttribute("<typeName>", "<attribute>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_DeleteByUniqueAttribute_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.DeleteByUniqueAttributeAsync("<typeName>", "<attribute>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_DeleteByUniqueAttribute_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = client.DeleteByUniqueAttribute("<typeName>", attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_DeleteByUniqueAttribute_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<EntityMutationResult> response = await client.DeleteByUniqueAttributeAsync("<typeName>", attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveClassificationByUniqueAttribute_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveClassificationByUniqueAttribute("<typeName>", "<classificationName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveClassificationByUniqueAttribute_EntityRemoveClassificationByUniqueAttribute_Async()
+        public async Task Example_Entity_RemoveClassificationByUniqueAttribute_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.RemoveClassificationByUniqueAttributeAsync("column", "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER");
+            Response response = await client.RemoveClassificationByUniqueAttributeAsync("<typeName>", "<classificationName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddClassificationsByUniqueAttribute_EntityAddClassificationsByUniqueAttribute()
+        public void Example_Entity_RemoveClassificationByUniqueAttribute_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveClassificationByUniqueAttribute("<typeName>", "<classificationName>", attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveClassificationByUniqueAttribute_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.RemoveClassificationByUniqueAttributeAsync("<typeName>", "<classificationName>", attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassificationsByUniqueAttribute_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = client.AddClassificationsByUniqueAttribute("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddClassificationsByUniqueAttribute_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = await client.AddClassificationsByUniqueAttributeAsync("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassificationsByUniqueAttribute_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddClassificationsByUniqueAttribute("<typeName>", new AtlasClassification[]
+            {
+new AtlasClassification()
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddClassificationsByUniqueAttribute_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddClassificationsByUniqueAttributeAsync("<typeName>", new AtlasClassification[]
+            {
+new AtlasClassification()
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddClassificationsByUniqueAttribute_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2007,23 +4308,36 @@ EntityGuid = "45dd4404-e897-b7e2-ca3c-f6e6b11b4f24",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = client.AddClassificationsByUniqueAttribute("azure_storage_account", content);
+            Response response = client.AddClassificationsByUniqueAttribute("<typeName>", content, attribute: "<attribute>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddClassificationsByUniqueAttribute_EntityAddClassificationsByUniqueAttribute_Async()
+        public async Task Example_Entity_AddClassificationsByUniqueAttribute_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2031,65 +4345,160 @@ typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = await client.AddClassificationsByUniqueAttributeAsync("azure_storage_account", content);
+            Response response = await client.AddClassificationsByUniqueAttributeAsync("<typeName>", content, attribute: "<attribute>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddClassificationsByUniqueAttribute_EntityAddClassificationsByUniqueAttribute_Convenience()
+        public void Example_Entity_AddClassificationsByUniqueAttribute_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.AddClassificationsByUniqueAttribute("azure_storage_account", new AtlasClassification[]
+            Response response = client.AddClassificationsByUniqueAttribute("<typeName>", new AtlasClassification[]
             {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
 },
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
+}
+            }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddClassificationsByUniqueAttribute_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddClassificationsByUniqueAttributeAsync("<typeName>", new AtlasClassification[]
+            {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+Attributes =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
 }
+            }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateClassificationsUniqueByAttribute_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = client.UpdateClassificationsUniqueByAttribute("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_UpdateClassificationsUniqueByAttribute_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new object()
+            });
+            Response response = await client.UpdateClassificationsUniqueByAttributeAsync("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_UpdateClassificationsUniqueByAttribute_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.UpdateClassificationsUniqueByAttribute("<typeName>", new AtlasClassification[]
+            {
+new AtlasClassification()
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddClassificationsByUniqueAttribute_EntityAddClassificationsByUniqueAttribute_Convenience_Async()
+        public async Task Example_Entity_UpdateClassificationsUniqueByAttribute_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.AddClassificationsByUniqueAttributeAsync("azure_storage_account", new AtlasClassification[]
+            Response response = await client.UpdateClassificationsUniqueByAttributeAsync("<typeName>", new AtlasClassification[]
             {
-new AtlasClassification
-{
-TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-},
-new AtlasClassification
-{
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
-}
+new AtlasClassification()
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateClassificationsUniqueByAttribute_EntityUpdateClassificationsByUniqueAttribute()
+        public void Example_Entity_UpdateClassificationsUniqueByAttribute_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2097,23 +4506,36 @@ TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = client.UpdateClassificationsUniqueByAttribute("azure_storage_account", content);
+            Response response = client.UpdateClassificationsUniqueByAttribute("<typeName>", content, attribute: "<attribute>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateClassificationsUniqueByAttribute_EntityUpdateClassificationsByUniqueAttribute_Async()
+        public async Task Example_Entity_UpdateClassificationsUniqueByAttribute_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2121,102 +4543,223 @@ typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
             {
 new
 {
-typeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
+attributes = new
+{
+key = new object(),
 },
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
 new
 {
-typeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             });
-            Response response = await client.UpdateClassificationsUniqueByAttributeAsync("azure_storage_account", content);
+            Response response = await client.UpdateClassificationsUniqueByAttributeAsync("<typeName>", content, attribute: "<attribute>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_UpdateClassificationsUniqueByAttribute_EntityUpdateClassificationsByUniqueAttribute_Convenience()
+        public void Example_Entity_UpdateClassificationsUniqueByAttribute_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.UpdateClassificationsUniqueByAttribute("azure_storage_account", new AtlasClassification[]
+            Response response = client.UpdateClassificationsUniqueByAttribute("<typeName>", new AtlasClassification[]
             {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-},
-new AtlasClassification
+Attributes =
 {
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
 }
-            });
+            }, attribute: "<attribute>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_UpdateClassificationsUniqueByAttribute_EntityUpdateClassificationsByUniqueAttribute_Convenience_Async()
+        public async Task Example_Entity_UpdateClassificationsUniqueByAttribute_AllParameters_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.UpdateClassificationsUniqueByAttributeAsync("azure_storage_account", new AtlasClassification[]
+            Response response = await client.UpdateClassificationsUniqueByAttributeAsync("<typeName>", new AtlasClassification[]
             {
 new AtlasClassification
 {
-TypeName = "MICROSOFT.FINANCIAL.US.ABA_ROUTING_NUMBER",
-},
-new AtlasClassification
+Attributes =
 {
-TypeName = "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
+{
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
+}},
 }
-            });
+            }, attribute: "<attribute>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchSetClassifications_EntityBulkSetClassifications()
+        public void Example_Entity_BatchSetClassifications_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.BatchSetClassifications(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result[0].ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchSetClassifications_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.BatchSetClassificationsAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result[0].ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_BatchSetClassifications_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            AtlasEntityHeaders body = new AtlasEntityHeaders();
+            Response<IReadOnlyList<string>> response = client.BatchSetClassifications(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchSetClassifications_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            AtlasEntityHeaders body = new AtlasEntityHeaders();
+            Response<IReadOnlyList<string>> response = await client.BatchSetClassificationsAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_BatchSetClassifications_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                guidHeaderMap = new Dictionary<string, object>
+                guidHeaderMap = new
                 {
-                    ["9fb74c11-ac48-4650-95bc-760665c5bd92"] = new
+                    key = new
                     {
                         attributes = new
                         {
-                            qualifiedName = "https://exampleaccount1.core.windows.net",
+                            key = new object(),
                         },
-                        typeName = "azure_storage_account",
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        classificationNames = new object[]
+            {
+"<classificationNames>"
+            },
                         classifications = new object[]
             {
 new
 {
-typeName = "MICROSOFT.PERSONAL.EMAIL",
+attributes = new
+{
+key = new object(),
+},
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             },
+                        displayText = "<displayText>",
+                        guid = "<guid>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meaningNames = new object[]
+            {
+"<meaningNames>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        status = "ACTIVE",
                     },
-                    ["7fcc43ab-55ea-45d4-9971-ce0443cb10bb"] = new
-                    {
-                        attributes = new
-                        {
-                            qualifiedName = "https://exampleaccount2.core.windows.net",
-                        },
-                        typeName = "azure_storage_account",
-                        classifications = new object[]
-            {
-new
-{
-typeName = "MICROSOFT.PERSONAL.IPADDRESS",
-}
-            },
-                    }
                 },
             });
             Response response = client.BatchSetClassifications(content);
@@ -2227,46 +4770,80 @@ typeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchSetClassifications_EntityBulkSetClassifications_Async()
+        public async Task Example_Entity_BatchSetClassifications_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                guidHeaderMap = new Dictionary<string, object>
+                guidHeaderMap = new
                 {
-                    ["9fb74c11-ac48-4650-95bc-760665c5bd92"] = new
+                    key = new
                     {
                         attributes = new
                         {
-                            qualifiedName = "https://exampleaccount1.core.windows.net",
+                            key = new object(),
                         },
-                        typeName = "azure_storage_account",
+                        typeName = "<typeName>",
+                        lastModifiedTS = "<lastModifiedTS>",
+                        classificationNames = new object[]
+            {
+"<classificationNames>"
+            },
                         classifications = new object[]
             {
 new
 {
-typeName = "MICROSOFT.PERSONAL.EMAIL",
+attributes = new
+{
+key = new object(),
+},
+typeName = "<typeName>",
+lastModifiedTS = "<lastModifiedTS>",
+entityGuid = "<entityGuid>",
+entityStatus = "ACTIVE",
+removePropagationsOnEntityDelete = true,
+validityPeriods = new object[]
+{
+new
+{
+endTime = "<endTime>",
+startTime = "<startTime>",
+timeZone = "<timeZone>",
+}
+},
 }
             },
+                        displayText = "<displayText>",
+                        guid = "<guid>",
+                        isIncomplete = true,
+                        labels = new object[]
+            {
+"<labels>"
+            },
+                        meaningNames = new object[]
+            {
+"<meaningNames>"
+            },
+                        meanings = new object[]
+            {
+new
+{
+confidence = 1234,
+createdBy = "<createdBy>",
+description = "<description>",
+displayText = "<displayText>",
+expression = "<expression>",
+relationGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+status = "DISCOVERED",
+steward = "<steward>",
+termGuid = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+}
+            },
+                        status = "ACTIVE",
                     },
-                    ["7fcc43ab-55ea-45d4-9971-ce0443cb10bb"] = new
-                    {
-                        attributes = new
-                        {
-                            qualifiedName = "https://exampleaccount2.core.windows.net",
-                        },
-                        typeName = "azure_storage_account",
-                        classifications = new object[]
-            {
-new
-{
-typeName = "MICROSOFT.PERSONAL.IPADDRESS",
-}
-            },
-                    }
                 },
             });
             Response response = await client.BatchSetClassificationsAsync(content);
@@ -2277,9 +4854,9 @@ typeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchSetClassifications_EntityBulkSetClassifications_Convenience()
+        public void Example_Entity_BatchSetClassifications_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2287,29 +4864,51 @@ typeName = "MICROSOFT.PERSONAL.IPADDRESS",
             {
                 GuidHeaderMap =
 {
-["9fb74c11-ac48-4650-95bc-760665c5bd92"] = new AtlasEntityHeader
+["key"] = new AtlasEntityHeader
 {
 Attributes =
 {
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount1.core.windows.net")
+["key"] = BinaryData.FromObjectAsJson(new object())
 },
-TypeName = "azure_storage_account",
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+ClassificationNames = {"<classificationNames>"},
 Classifications = {new AtlasClassification
-{
-TypeName = "MICROSOFT.PERSONAL.EMAIL",
-}},
-},
-["7fcc43ab-55ea-45d4-9971-ce0443cb10bb"] = new AtlasEntityHeader
 {
 Attributes =
 {
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount2.core.windows.net")
+["key"] = BinaryData.FromObjectAsJson(new object())
 },
-TypeName = "azure_storage_account",
-Classifications = {new AtlasClassification
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
 {
-TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
 }},
+}},
+DisplayText = "<displayText>",
+Guid = "<guid>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+MeaningNames = {"<meaningNames>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+Status = EntityStatus.Active,
 }
 },
             };
@@ -2318,9 +4917,9 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchSetClassifications_EntityBulkSetClassifications_Convenience_Async()
+        public async Task Example_Entity_BatchSetClassifications_AllParameters_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2328,29 +4927,51 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
             {
                 GuidHeaderMap =
 {
-["9fb74c11-ac48-4650-95bc-760665c5bd92"] = new AtlasEntityHeader
+["key"] = new AtlasEntityHeader
 {
 Attributes =
 {
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount1.core.windows.net")
+["key"] = BinaryData.FromObjectAsJson(new object())
 },
-TypeName = "azure_storage_account",
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+ClassificationNames = {"<classificationNames>"},
 Classifications = {new AtlasClassification
-{
-TypeName = "MICROSOFT.PERSONAL.EMAIL",
-}},
-},
-["7fcc43ab-55ea-45d4-9971-ce0443cb10bb"] = new AtlasEntityHeader
 {
 Attributes =
 {
-["qualifiedName"] = BinaryData.FromObjectAsJson("https://exampleaccount2.core.windows.net")
+["key"] = BinaryData.FromObjectAsJson(new object())
 },
-TypeName = "azure_storage_account",
-Classifications = {new AtlasClassification
+TypeName = "<typeName>",
+LastModifiedTS = "<lastModifiedTS>",
+EntityGuid = "<entityGuid>",
+EntityStatus = EntityStatus.Active,
+RemovePropagationsOnEntityDelete = true,
+ValidityPeriods = {new TimeBoundary
 {
-TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
+EndTime = "<endTime>",
+StartTime = "<startTime>",
+TimeZone = "<timeZone>",
 }},
+}},
+DisplayText = "<displayText>",
+Guid = "<guid>",
+IsIncomplete = true,
+Labels = {"<labels>"},
+MeaningNames = {"<meaningNames>"},
+Meanings = {new AtlasTermAssignmentHeader
+{
+Confidence = 1234,
+CreatedBy = "<createdBy>",
+Description = "<description>",
+DisplayText = "<displayText>",
+Expression = "<expression>",
+RelationGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+Status = AtlasTermAssignmentStatus.Discovered,
+Steward = "<steward>",
+TermGuid = Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"),
+}},
+Status = EntityStatus.Active,
 }
 },
             };
@@ -2359,13 +4980,13 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchGetByUniqueAttributes_EntityListByUniqueAttributes()
+        public void Example_Entity_BatchGetByUniqueAttributes_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.BatchGetByUniqueAttributes("azure_storage_account", true, null, "adl://exampleaccount.azuredatalakestore.net/123/1/DP_TFS/CBT/Extensions/DTTP.targets#:xml/Project/PropertyGroup/ExampleName1", null);
+            Response response = client.BatchGetByUniqueAttributes("<typeName>", null, null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -2373,13 +4994,13 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchGetByUniqueAttributes_EntityListByUniqueAttributes_Async()
+        public async Task Example_Entity_BatchGetByUniqueAttributes_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.BatchGetByUniqueAttributesAsync("azure_storage_account", true, null, "adl://exampleaccount.azuredatalakestore.net/123/1/DP_TFS/CBT/Extensions/DTTP.targets#:xml/Project/PropertyGroup/ExampleName1", null);
+            Response response = await client.BatchGetByUniqueAttributesAsync("<typeName>", null, null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -2387,35 +5008,239 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_BatchGetByUniqueAttributes_EntityListByUniqueAttributes_Convenience()
+        public void Example_Entity_BatchGetByUniqueAttributes_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntitiesWithExtInfo> response = client.BatchGetByUniqueAttributes("azure_storage_account");
+            Response<AtlasEntitiesWithExtInfo> response = client.BatchGetByUniqueAttributes("<typeName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_BatchGetByUniqueAttributes_EntityListByUniqueAttributes_Convenience_Async()
+        public async Task Example_Entity_BatchGetByUniqueAttributes_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntitiesWithExtInfo> response = await client.BatchGetByUniqueAttributesAsync("azure_storage_account");
+            Response<AtlasEntitiesWithExtInfo> response = await client.BatchGetByUniqueAttributesAsync("<typeName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetHeader_EntityGetHeader()
+        public void Example_Entity_BatchGetByUniqueAttributes_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.GetHeader("9fb74c11-ac48-4650-95bc-760665c5bd92", null);
+            Response response = client.BatchGetByUniqueAttributes("<typeName>", true, true, "<attr_N:qualifiedName>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchGetByUniqueAttributes_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.BatchGetByUniqueAttributesAsync("<typeName>", true, true, "<attr_N:qualifiedName>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("referredEntities").GetProperty("<key>").GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("businessAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("customAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("homeId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("collectionId").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("provenanceType").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("proxy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("relationshipAttributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updateTime").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("updatedBy").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("version").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("entities")[0].GetProperty("contacts").GetProperty("<key>")[0].GetProperty("info").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_BatchGetByUniqueAttributes_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntitiesWithExtInfo> response = client.BatchGetByUniqueAttributes("<typeName>", minExtInfo: true, ignoreRelationships: true, attrNQualifiedName: "<attr_N:qualifiedName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_BatchGetByUniqueAttributes_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntitiesWithExtInfo> response = await client.BatchGetByUniqueAttributesAsync("<typeName>", minExtInfo: true, ignoreRelationships: true, attrNQualifiedName: "<attr_N:qualifiedName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetHeader_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.GetHeader("<guid>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -2423,13 +5248,13 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetHeader_EntityGetHeader_Async()
+        public async Task Example_Entity_GetHeader_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.GetHeaderAsync("9fb74c11-ac48-4650-95bc-760665c5bd92", null);
+            Response response = await client.GetHeaderAsync("<guid>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -2437,303 +5262,679 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetHeader_EntityGetHeader_Convenience()
+        public void Example_Entity_GetHeader_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntityHeader> response = client.GetHeader("9fb74c11-ac48-4650-95bc-760665c5bd92");
+            Response<AtlasEntityHeader> response = client.GetHeader("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetHeader_EntityGetHeader_Convenience_Async()
+        public async Task Example_Entity_GetHeader_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response<AtlasEntityHeader> response = await client.GetHeaderAsync("9fb74c11-ac48-4650-95bc-760665c5bd92");
+            Response<AtlasEntityHeader> response = await client.GetHeaderAsync("<guid>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveBusinessMetadata_EntityRemoveBusinessMetadata()
+        public void Example_Entity_GetHeader_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.GetHeader("<guid>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetHeader_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.GetHeaderAsync("<guid>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetHeader_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntityHeader> response = client.GetHeader("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetHeader_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<AtlasEntityHeader> response = await client.GetHeaderAsync("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveBusinessMetadata_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                myBizMetadata1 = new
+                key = new
                 {
-                    bizAttr1 = "myBizMetaData1.bizAttr1",
+                    key = new object(),
                 },
             });
-            Response response = client.RemoveBusinessMetadata("02c373fe-2823-4be3-97fa-55180a9faa06", content);
+            Response response = client.RemoveBusinessMetadata("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveBusinessMetadata_EntityRemoveBusinessMetadata_Async()
+        public async Task Example_Entity_RemoveBusinessMetadata_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                myBizMetadata1 = new
+                key = new
                 {
-                    bizAttr1 = "myBizMetaData1.bizAttr1",
+                    key = new object(),
                 },
             });
-            Response response = await client.RemoveBusinessMetadataAsync("02c373fe-2823-4be3-97fa-55180a9faa06", content);
+            Response response = await client.RemoveBusinessMetadataAsync("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveBusinessMetadata_EntityRemoveBusinessMetadata_Convenience()
+        public void Example_Entity_RemoveBusinessMetadata_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.RemoveBusinessMetadata("02c373fe-2823-4be3-97fa-55180a9faa06", new Dictionary<string, IDictionary<string, BinaryData>>
+            Response response = client.RemoveBusinessMetadata("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
             {
-                ["myBizMetadata1"] = new Dictionary<string, BinaryData>
+                ["key"] = new Dictionary<string, BinaryData>
                 {
-                    ["bizAttr1"] = BinaryData.FromObjectAsJson("myBizMetaData1.bizAttr1")
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
                 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveBusinessMetadata_EntityRemoveBusinessMetadata_Convenience_Async()
+        public async Task Example_Entity_RemoveBusinessMetadata_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.RemoveBusinessMetadataAsync("02c373fe-2823-4be3-97fa-55180a9faa06", new Dictionary<string, IDictionary<string, BinaryData>>
+            Response response = await client.RemoveBusinessMetadataAsync("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
             {
-                ["myBizMetadata1"] = new Dictionary<string, BinaryData>
+                ["key"] = new Dictionary<string, BinaryData>
                 {
-                    ["bizAttr1"] = BinaryData.FromObjectAsJson("myBizMetaData1.bizAttr1")
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
                 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddOrUpdateBusinessMetadata_EntityAddOrUpdateBusinessMetadata()
+        public void Example_Entity_RemoveBusinessMetadata_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                myBizMetadata1 = new
+                key = new
                 {
-                    bizAttr1 = "myBizMetaData1.bizAttr1",
+                    key = new object(),
                 },
             });
-            Response response = client.AddOrUpdateBusinessMetadata("02c373fe-2823-4be3-97fa-55180a9faa06", content);
+            Response response = client.RemoveBusinessMetadata("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddOrUpdateBusinessMetadata_EntityAddOrUpdateBusinessMetadata_Async()
+        public async Task Example_Entity_RemoveBusinessMetadata_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                myBizMetadata1 = new
+                key = new
                 {
-                    bizAttr1 = "myBizMetaData1.bizAttr1",
+                    key = new object(),
                 },
             });
-            Response response = await client.AddOrUpdateBusinessMetadataAsync("02c373fe-2823-4be3-97fa-55180a9faa06", content);
+            Response response = await client.RemoveBusinessMetadataAsync("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddOrUpdateBusinessMetadata_EntityAddOrUpdateBusinessMetadata_Convenience()
+        public void Example_Entity_RemoveBusinessMetadata_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.AddOrUpdateBusinessMetadata("02c373fe-2823-4be3-97fa-55180a9faa06", new Dictionary<string, IDictionary<string, BinaryData>>
+            Response response = client.RemoveBusinessMetadata("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
             {
-                ["myBizMetadata1"] = new Dictionary<string, BinaryData>
+                ["key"] = new Dictionary<string, BinaryData>
                 {
-                    ["bizAttr1"] = BinaryData.FromObjectAsJson("myBizMetaData1.bizAttr1")
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
                 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddOrUpdateBusinessMetadata_EntityAddOrUpdateBusinessMetadata_Convenience_Async()
+        public async Task Example_Entity_RemoveBusinessMetadata_AllParameters_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.AddOrUpdateBusinessMetadataAsync("02c373fe-2823-4be3-97fa-55180a9faa06", new Dictionary<string, IDictionary<string, BinaryData>>
+            Response response = await client.RemoveBusinessMetadataAsync("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
             {
-                ["myBizMetadata1"] = new Dictionary<string, BinaryData>
+                ["key"] = new Dictionary<string, BinaryData>
                 {
-                    ["bizAttr1"] = BinaryData.FromObjectAsJson("myBizMetaData1.bizAttr1")
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
                 }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveBusinessMetadataAttributes_EntityRemoveBusinessAttribute()
+        public void Example_Entity_AddOrUpdateBusinessMetadata_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                bizAttr1 = "bizAttr1",
+                key = new
+                {
+                    key = new object(),
+                },
             });
-            Response response = client.RemoveBusinessMetadataAttributes("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", content);
+            Response response = client.AddOrUpdateBusinessMetadata("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveBusinessMetadataAttributes_EntityRemoveBusinessAttribute_Async()
+        public async Task Example_Entity_AddOrUpdateBusinessMetadata_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                bizAttr1 = "bizAttr1",
+                key = new
+                {
+                    key = new object(),
+                },
             });
-            Response response = await client.RemoveBusinessMetadataAttributesAsync("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", content);
+            Response response = await client.AddOrUpdateBusinessMetadataAsync("<guid>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveBusinessMetadataAttributes_EntityRemoveBusinessAttribute_Convenience()
+        public void Example_Entity_AddOrUpdateBusinessMetadata_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.RemoveBusinessMetadataAttributes("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", new Dictionary<string, BinaryData>
+            Response response = client.AddOrUpdateBusinessMetadata("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
             {
-                ["bizAttr1"] = BinaryData.FromObjectAsJson("bizAttr1")
+                ["key"] = new Dictionary<string, BinaryData>
+                {
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
+                }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveBusinessMetadataAttributes_EntityRemoveBusinessAttribute_Convenience_Async()
+        public async Task Example_Entity_AddOrUpdateBusinessMetadata_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.RemoveBusinessMetadataAttributesAsync("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", new Dictionary<string, BinaryData>
+            Response response = await client.AddOrUpdateBusinessMetadataAsync("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
             {
-                ["bizAttr1"] = BinaryData.FromObjectAsJson("bizAttr1")
+                ["key"] = new Dictionary<string, BinaryData>
+                {
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
+                }
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddOrUpdateBusinessMetadataAttributes_EntityAddOrUpdateBusinessAttribute()
+        public void Example_Entity_AddOrUpdateBusinessMetadata_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                bizAttr1 = "bizAttr1",
+                key = new
+                {
+                    key = new object(),
+                },
             });
-            Response response = client.AddOrUpdateBusinessMetadataAttributes("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", content);
+            Response response = client.AddOrUpdateBusinessMetadata("<guid>", content, overwrite: true);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddOrUpdateBusinessMetadataAttributes_EntityAddOrUpdateBusinessAttribute_Async()
+        public async Task Example_Entity_AddOrUpdateBusinessMetadata_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
             using RequestContent content = RequestContent.Create(new
             {
-                bizAttr1 = "bizAttr1",
+                key = new
+                {
+                    key = new object(),
+                },
             });
-            Response response = await client.AddOrUpdateBusinessMetadataAttributesAsync("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", content);
+            Response response = await client.AddOrUpdateBusinessMetadataAsync("<guid>", content, overwrite: true);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddOrUpdateBusinessMetadataAttributes_EntityAddOrUpdateBusinessAttribute_Convenience()
+        public void Example_Entity_AddOrUpdateBusinessMetadata_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = client.AddOrUpdateBusinessMetadataAttributes("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", new Dictionary<string, BinaryData>
+            Response response = client.AddOrUpdateBusinessMetadata("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
             {
-                ["bizAttr1"] = BinaryData.FromObjectAsJson("bizAttr1")
+                ["key"] = new Dictionary<string, BinaryData>
+                {
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
+                }
+            }, overwrite: true);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddOrUpdateBusinessMetadata_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddOrUpdateBusinessMetadataAsync("<guid>", new Dictionary<string, IDictionary<string, BinaryData>>
+            {
+                ["key"] = new Dictionary<string, BinaryData>
+                {
+                    ["key"] = BinaryData.FromObjectAsJson(new object())
+                }
+            }, overwrite: true);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveBusinessMetadataAttributes_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = client.RemoveBusinessMetadataAttributes("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveBusinessMetadataAttributes_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = await client.RemoveBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveBusinessMetadataAttributes_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveBusinessMetadataAttributes("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddOrUpdateBusinessMetadataAttributes_EntityAddOrUpdateBusinessAttribute_Convenience_Async()
+        public async Task Example_Entity_RemoveBusinessMetadataAttributes_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            Response response = await client.AddOrUpdateBusinessMetadataAttributesAsync("02c373fe-2823-4be3-97fa-55180a9faa06", "myBizMetaData1", new Dictionary<string, BinaryData>
+            Response response = await client.RemoveBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
             {
-                ["bizAttr1"] = BinaryData.FromObjectAsJson("bizAttr1")
+                ["key"] = BinaryData.FromObjectAsJson(new object())
             });
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetBusinessMetadataTemplate_EntityGetSampleBusinessMetadataTemplate()
+        public void Example_Entity_RemoveBusinessMetadataAttributes_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = client.RemoveBusinessMetadataAttributes("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveBusinessMetadataAttributes_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = await client.RemoveBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveBusinessMetadataAttributes_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveBusinessMetadataAttributes("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveBusinessMetadataAttributes_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.RemoveBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddOrUpdateBusinessMetadataAttributes_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = client.AddOrUpdateBusinessMetadataAttributes("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddOrUpdateBusinessMetadataAttributes_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = await client.AddOrUpdateBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddOrUpdateBusinessMetadataAttributes_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddOrUpdateBusinessMetadataAttributes("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddOrUpdateBusinessMetadataAttributes_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddOrUpdateBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddOrUpdateBusinessMetadataAttributes_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = client.AddOrUpdateBusinessMetadataAttributes("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddOrUpdateBusinessMetadataAttributes_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                key = new object(),
+            });
+            Response response = await client.AddOrUpdateBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddOrUpdateBusinessMetadataAttributes_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddOrUpdateBusinessMetadataAttributes("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddOrUpdateBusinessMetadataAttributes_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddOrUpdateBusinessMetadataAttributesAsync("<guid>", "<businessMetadataName>", new Dictionary<string, BinaryData>
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_GetBusinessMetadataTemplate_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2745,9 +5946,9 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetBusinessMetadataTemplate_EntityGetSampleBusinessMetadataTemplate_Async()
+        public async Task Example_Entity_GetBusinessMetadataTemplate_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2759,9 +5960,9 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_GetBusinessMetadataTemplate_EntityGetSampleBusinessMetadataTemplate_Convenience()
+        public void Example_Entity_GetBusinessMetadataTemplate_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2770,9 +5971,9 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_GetBusinessMetadataTemplate_EntityGetSampleBusinessMetadataTemplate_Convenience_Async()
+        public async Task Example_Entity_GetBusinessMetadataTemplate_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
@@ -2781,14 +5982,13 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_ImportBusinessMetadata_EntityImportBusinessMetadata()
+        public void Example_Entity_GetBusinessMetadataTemplate_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            using RequestContent content = null;
-            Response response = client.ImportBusinessMetadata(content, null);
+            Response response = client.GetBusinessMetadataTemplate(null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -2796,14 +5996,13 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_ImportBusinessMetadata_EntityImportBusinessMetadata_Async()
+        public async Task Example_Entity_GetBusinessMetadataTemplate_AllParameters_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            using RequestContent content = null;
-            Response response = await client.ImportBusinessMetadataAsync(content, null);
+            Response response = await client.GetBusinessMetadataTemplateAsync(null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -2811,389 +6010,806 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_ImportBusinessMetadata_EntityImportBusinessMetadata_Convenience()
+        public void Example_Entity_GetBusinessMetadataTemplate_AllParameters_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            BusinessMetadataOptions body = null;
+            Response<BinaryData> response = client.GetBusinessMetadataTemplate();
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_GetBusinessMetadataTemplate_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response<BinaryData> response = await client.GetBusinessMetadataTemplateAsync();
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_ImportBusinessMetadata_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                file = File.OpenRead("<filePath>"),
+            });
+            Response response = client.ImportBusinessMetadata(content, "multipart/form-data");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_ImportBusinessMetadata_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                file = File.OpenRead("<filePath>"),
+            });
+            Response response = await client.ImportBusinessMetadataAsync(content, "multipart/form-data");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_ImportBusinessMetadata_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            BusinessMetadataOptions body = new BusinessMetadataOptions(null);
             Response<BulkImportResult> response = client.ImportBusinessMetadata(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_ImportBusinessMetadata_EntityImportBusinessMetadata_Convenience_Async()
+        public async Task Example_Entity_ImportBusinessMetadata_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
 
-            BusinessMetadataOptions body = null;
+            BusinessMetadataOptions body = new BusinessMetadataOptions(null);
             Response<BulkImportResult> response = await client.ImportBusinessMetadataAsync(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveLabels_EntityRemoveLabels()
+        public void Example_Entity_ImportBusinessMetadata_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = client.RemoveLabels("02c373fe-2823-4be3-97fa-55180a9faa06", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveLabels_EntityRemoveLabels_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = await client.RemoveLabelsAsync("02c373fe-2823-4be3-97fa-55180a9faa06", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveLabels_EntityRemoveLabels_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = client.RemoveLabels("02c373fe-2823-4be3-97fa-55180a9faa06");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveLabels_EntityRemoveLabels_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = await client.RemoveLabelsAsync("02c373fe-2823-4be3-97fa-55180a9faa06");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_SetLabels_EntitySetLabels()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = client.SetLabels("02c373fe-2823-4be3-97fa-55180a9faa06", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_SetLabels_EntitySetLabels_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = await client.SetLabelsAsync("02c373fe-2823-4be3-97fa-55180a9faa06", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_SetLabels_EntitySetLabels_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = client.SetLabels("02c373fe-2823-4be3-97fa-55180a9faa06");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_SetLabels_EntitySetLabels_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = await client.SetLabelsAsync("02c373fe-2823-4be3-97fa-55180a9faa06");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddLabel_EntityAddLabel()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = client.AddLabel("02c373fe-2823-4be3-97fa-55180a9faa06", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddLabel_EntityAddLabel_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = await client.AddLabelAsync("02c373fe-2823-4be3-97fa-55180a9faa06", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddLabel_EntityAddLabel_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = client.AddLabel("02c373fe-2823-4be3-97fa-55180a9faa06");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddLabel_EntityAddLabel_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = await client.AddLabelAsync("02c373fe-2823-4be3-97fa-55180a9faa06");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveLabelsByUniqueAttribute_EntityRemoveLabelsByUniqueAttribute()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1"
-            });
-            Response response = client.RemoveLabelsByUniqueAttribute("Asset", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveLabelsByUniqueAttribute_EntityRemoveLabelsByUniqueAttribute_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1"
-            });
-            Response response = await client.RemoveLabelsByUniqueAttributeAsync("Asset", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_RemoveLabelsByUniqueAttribute_EntityRemoveLabelsByUniqueAttribute_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = client.RemoveLabelsByUniqueAttribute("Asset");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_RemoveLabelsByUniqueAttribute_EntityRemoveLabelsByUniqueAttribute_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = await client.RemoveLabelsByUniqueAttributeAsync("Asset");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_SetLabelsByUniqueAttribute_EntitySetLabelsByUniqueAttribute()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = client.SetLabelsByUniqueAttribute("Asset", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_SetLabelsByUniqueAttribute_EntitySetLabelsByUniqueAttribute_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label1",
-"label2"
-            });
-            Response response = await client.SetLabelsByUniqueAttributeAsync("Asset", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_SetLabelsByUniqueAttribute_EntitySetLabelsByUniqueAttribute_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = client.SetLabelsByUniqueAttribute("Asset");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_SetLabelsByUniqueAttribute_EntitySetLabelsByUniqueAttribute_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = await client.SetLabelsByUniqueAttributeAsync("Asset");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddLabelsByUniqueAttribute_EntityAddLabelsByUniqueAttribute()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label3"
-            });
-            Response response = client.AddLabelsByUniqueAttribute("Asset", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddLabelsByUniqueAttribute_EntityAddLabelsByUniqueAttribute_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            using RequestContent content = RequestContent.Create(new object[]
-            {
-"label3"
-            });
-            Response response = await client.AddLabelsByUniqueAttributeAsync("Asset", content);
-
-            Console.WriteLine(response.Status);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_AddLabelsByUniqueAttribute_EntityAddLabelsByUniqueAttribute_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = client.AddLabelsByUniqueAttribute("Asset");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_AddLabelsByUniqueAttribute_EntityAddLabelsByUniqueAttribute_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
-
-            Response response = await client.AddLabelsByUniqueAttributeAsync("Asset");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_MoveEntitiesToCollection_EntityMoveEntitiesToCollection()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
 
             using RequestContent content = RequestContent.Create(new
             {
-                entityGuids = new object[]
-            {
-"321493e3-3fb7-4b3e-9df7-3b69154174c2",
-"b2f9c306-cf65-4bb0-878e-cfaafde156b1"
-            },
+                file = File.OpenRead("<filePath>"),
             });
-            Response response = client.MoveEntitiesToCollection("ExampleNewCollection", content);
+            Response response = client.ImportBusinessMetadata(content, "multipart/form-data");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("childObjectName").ToString());
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("importStatus").ToString());
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("parentObjectName").ToString());
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("remarks").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("childObjectName").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("importStatus").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("parentObjectName").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("remarks").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_ImportBusinessMetadata_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                file = File.OpenRead("<filePath>"),
+            });
+            Response response = await client.ImportBusinessMetadataAsync(content, "multipart/form-data");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("childObjectName").ToString());
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("importStatus").ToString());
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("parentObjectName").ToString());
+            Console.WriteLine(result.GetProperty("failedImportInfoList")[0].GetProperty("remarks").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("childObjectName").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("importStatus").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("parentObjectName").ToString());
+            Console.WriteLine(result.GetProperty("successImportInfoList")[0].GetProperty("remarks").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_ImportBusinessMetadata_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            BusinessMetadataOptions body = new BusinessMetadataOptions(null);
+            Response<BulkImportResult> response = client.ImportBusinessMetadata(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_ImportBusinessMetadata_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            BusinessMetadataOptions body = new BusinessMetadataOptions(null);
+            Response<BulkImportResult> response = await client.ImportBusinessMetadataAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabels_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = client.RemoveLabels("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabels_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = await client.RemoveLabelsAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabels_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveLabels("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabels_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.RemoveLabelsAsync("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabels_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = client.RemoveLabels("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabels_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = await client.RemoveLabelsAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabels_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveLabels("<guid>", body: new string[] { "<body>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabels_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.RemoveLabelsAsync("<guid>", body: new string[] { "<body>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabels_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = client.SetLabels("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabels_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = await client.SetLabelsAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabels_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.SetLabels("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabels_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.SetLabelsAsync("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabels_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = client.SetLabels("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabels_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = await client.SetLabelsAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabels_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.SetLabels("<guid>", body: new string[] { "<body>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabels_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.SetLabelsAsync("<guid>", body: new string[] { "<body>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabel_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = client.AddLabel("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabel_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = await client.AddLabelAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabel_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddLabel("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabel_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddLabelAsync("<guid>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabel_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = client.AddLabel("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabel_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = await client.AddLabelAsync("<guid>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabel_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddLabel("<guid>", body: new string[] { "<body>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabel_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddLabelAsync("<guid>", body: new string[] { "<body>" });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabelsByUniqueAttribute_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = client.RemoveLabelsByUniqueAttribute("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabelsByUniqueAttribute_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = await client.RemoveLabelsByUniqueAttributeAsync("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabelsByUniqueAttribute_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveLabelsByUniqueAttribute("<typeName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabelsByUniqueAttribute_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.RemoveLabelsByUniqueAttributeAsync("<typeName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabelsByUniqueAttribute_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = client.RemoveLabelsByUniqueAttribute("<typeName>", content, attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabelsByUniqueAttribute_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = await client.RemoveLabelsByUniqueAttributeAsync("<typeName>", content, attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_RemoveLabelsByUniqueAttribute_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.RemoveLabelsByUniqueAttribute("<typeName>", body: new string[] { "<body>" }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_RemoveLabelsByUniqueAttribute_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.RemoveLabelsByUniqueAttributeAsync("<typeName>", body: new string[] { "<body>" }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabelsByUniqueAttribute_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = client.SetLabelsByUniqueAttribute("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabelsByUniqueAttribute_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = await client.SetLabelsByUniqueAttributeAsync("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabelsByUniqueAttribute_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.SetLabelsByUniqueAttribute("<typeName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabelsByUniqueAttribute_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.SetLabelsByUniqueAttributeAsync("<typeName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabelsByUniqueAttribute_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = client.SetLabelsByUniqueAttribute("<typeName>", content, attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabelsByUniqueAttribute_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = await client.SetLabelsByUniqueAttributeAsync("<typeName>", content, attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_SetLabelsByUniqueAttribute_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.SetLabelsByUniqueAttribute("<typeName>", body: new string[] { "<body>" }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_SetLabelsByUniqueAttribute_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.SetLabelsByUniqueAttributeAsync("<typeName>", body: new string[] { "<body>" }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabelsByUniqueAttribute_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = client.AddLabelsByUniqueAttribute("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabelsByUniqueAttribute_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = null;
+            Response response = await client.AddLabelsByUniqueAttributeAsync("<typeName>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabelsByUniqueAttribute_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddLabelsByUniqueAttribute("<typeName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabelsByUniqueAttribute_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddLabelsByUniqueAttributeAsync("<typeName>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabelsByUniqueAttribute_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = client.AddLabelsByUniqueAttribute("<typeName>", content, attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabelsByUniqueAttribute_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+"<body>"
+            });
+            Response response = await client.AddLabelsByUniqueAttributeAsync("<typeName>", content, attribute: "<attribute>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_AddLabelsByUniqueAttribute_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = client.AddLabelsByUniqueAttribute("<typeName>", body: new string[] { "<body>" }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_AddLabelsByUniqueAttribute_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient();
+
+            Response response = await client.AddLabelsByUniqueAttributeAsync("<typeName>", body: new string[] { "<body>" }, attribute: "<attribute>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_MoveEntitiesToCollection_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.MoveEntitiesToCollection("<collectionId>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -3201,21 +6817,14 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_MoveEntitiesToCollection_EntityMoveEntitiesToCollection_Async()
+        public async Task Example_Entity_MoveEntitiesToCollection_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
 
-            using RequestContent content = RequestContent.Create(new
-            {
-                entityGuids = new object[]
-            {
-"321493e3-3fb7-4b3e-9df7-3b69154174c2",
-"b2f9c306-cf65-4bb0-878e-cfaafde156b1"
-            },
-            });
-            Response response = await client.MoveEntitiesToCollectionAsync("ExampleNewCollection", content);
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.MoveEntitiesToCollectionAsync("<collectionId>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -3223,32 +6832,210 @@ TypeName = "MICROSOFT.PERSONAL.IPADDRESS",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Entity_MoveEntitiesToCollection_EntityMoveEntitiesToCollection_Convenience()
+        public void Example_Entity_MoveEntitiesToCollection_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
 
-            MoveEntitiesConfig body = new MoveEntitiesConfig
-            {
-                EntityGuids = { "321493e3-3fb7-4b3e-9df7-3b69154174c2", "b2f9c306-cf65-4bb0-878e-cfaafde156b1" },
-            };
-            Response<EntityMutationResult> response = client.MoveEntitiesToCollection("ExampleNewCollection", body);
+            MoveEntitiesConfig body = new MoveEntitiesConfig();
+            Response<EntityMutationResult> response = client.MoveEntitiesToCollection("<collectionId>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Entity_MoveEntitiesToCollection_EntityMoveEntitiesToCollection_Convenience_Async()
+        public async Task Example_Entity_MoveEntitiesToCollection_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            MoveEntitiesConfig body = new MoveEntitiesConfig();
+            Response<EntityMutationResult> response = await client.MoveEntitiesToCollectionAsync("<collectionId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_MoveEntitiesToCollection_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                entityGuids = new object[]
+            {
+"<entityGuids>"
+            },
+            });
+            Response response = client.MoveEntitiesToCollection("<collectionId>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_MoveEntitiesToCollection_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                entityGuids = new object[]
+            {
+"<entityGuids>"
+            },
+            });
+            Response response = await client.MoveEntitiesToCollectionAsync("<collectionId>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<key>")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+            Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Entity_MoveEntitiesToCollection_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
 
             MoveEntitiesConfig body = new MoveEntitiesConfig
             {
-                EntityGuids = { "321493e3-3fb7-4b3e-9df7-3b69154174c2", "b2f9c306-cf65-4bb0-878e-cfaafde156b1" },
+                EntityGuids = { "<entityGuids>" },
             };
-            Response<EntityMutationResult> response = await client.MoveEntitiesToCollectionAsync("ExampleNewCollection", body);
+            Response<EntityMutationResult> response = client.MoveEntitiesToCollection("<collectionId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Entity_MoveEntitiesToCollection_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+
+            MoveEntitiesConfig body = new MoveEntitiesConfig
+            {
+                EntityGuids = { "<entityGuids>" },
+            };
+            Response<EntityMutationResult> response = await client.MoveEntitiesToCollectionAsync("<collectionId>", body);
         }
     }
 }

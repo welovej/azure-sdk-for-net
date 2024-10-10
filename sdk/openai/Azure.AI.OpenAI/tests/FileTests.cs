@@ -8,47 +8,33 @@ using OpenAI.TestFramework;
 
 namespace Azure.AI.OpenAI.Tests;
 
-public class FileTests : AoaiTestBase<OpenAIFileClient>
+public class FileTests : AoaiTestBase<FileClient>
 {
     public FileTests(bool isAsync) : base(isAsync)
     { }
 
-#if !AZURE_OPENAI_GA
-
     [Test]
     [Category("Smoke")]
-    public void CanCreateClient() => Assert.That(GetTestClient(), Is.InstanceOf<OpenAIFileClient>());
+    public void CanCreateClient() => Assert.That(GetTestClient(), Is.InstanceOf<FileClient>());
 
     [RecordedTest]
     public async Task CanUploadAndDeleteFiles()
     {
-        OpenAIFileClient client = GetTestClient();
-        OpenAIFile file = await client.UploadFileAsync(
+        FileClient client = GetTestClient();
+        OpenAIFileInfo file = await client.UploadFileAsync(
             BinaryData.FromString("hello, world!"),
             "test_file_delete_me.txt",
             FileUploadPurpose.Assistants);
         Validate(file);
-        FileDeletionResult deletionResult = await client.DeleteFileAsync(file.Id);
-        Assert.That(deletionResult.FileId, Is.EqualTo(file.Id));
-        Assert.IsTrue(deletionResult.Deleted);
+        bool deleted = await client.DeleteFileAsync(file.Id);
+        Assert.IsTrue(deleted);
     }
 
     [RecordedTest]
     public async Task CanListFiles()
     {
-        OpenAIFileClient client = GetTestClient();
-        OpenAIFileCollection files = await client.GetFilesAsync();
+        FileClient client = GetTestClient();
+        OpenAIFileInfoCollection files = await client.GetFilesAsync();
         Assert.That(files, Has.Count.GreaterThan(0));
     }
-
-#else
-
-    [Test]
-    [SyncOnly]
-    public void UnsupportedVersionFileClientThrows()
-    {
-        Assert.Throws<InvalidOperationException>(() => GetTestClient());
-    }
-
-#endif
 }

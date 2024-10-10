@@ -1,9 +1,14 @@
 # Release History
 
-## 1.15.0 (2024-10-14)
+## 1.15.0-beta.1 (Unreleased)
+
+### Features Added
+
+### Breaking Changes
 
 ### Bugs Fixed
-* Fixed the issue that the function return value from isolated-worker process is not handled correctly.
+
+### Other Changes
 
 ## 1.14.0 (2024-05-24)
 

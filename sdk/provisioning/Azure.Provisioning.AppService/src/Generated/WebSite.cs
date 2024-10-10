@@ -422,15 +422,11 @@ public partial class WebSite : Resource
     /// <summary>
     /// Creates a new WebSite.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the WebSite resource.  This can be
-    /// used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the WebSite.</param>
     /// <param name="resourceVersion">Version of the WebSite.</param>
-    public WebSite(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Web/sites", resourceVersion ?? "2024-04-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public WebSite(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Web/sites", resourceVersion ?? "2023-12-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -499,11 +495,6 @@ public partial class WebSite : Resource
     /// </summary>
     public static class ResourceVersions
     {
-        /// <summary>
-        /// 2024-04-01.
-        /// </summary>
-        public static readonly string V2024_04_01 = "2024-04-01";
-
         /// <summary>
         /// 2023-12-01.
         /// </summary>
@@ -658,16 +649,11 @@ public partial class WebSite : Resource
     /// <summary>
     /// Creates a reference to an existing WebSite.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the WebSite resource.  This can be
-    /// used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the WebSite.</param>
     /// <param name="resourceVersion">Version of the WebSite.</param>
     /// <returns>The existing WebSite resource.</returns>
-    public static WebSite FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static WebSite FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 
     /// <summary>
     /// Get the requirements for naming this WebSite resource.

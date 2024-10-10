@@ -3,8 +3,13 @@
 
 #nullable enable
 
+#pragma warning disable IDE0005 // Using directive is unnecessary.
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using OpenTelemetry.Internal;
+#pragma warning restore IDE0005 // Using directive is unnecessary.
 
 namespace OpenTelemetry.Instrumentation;
 

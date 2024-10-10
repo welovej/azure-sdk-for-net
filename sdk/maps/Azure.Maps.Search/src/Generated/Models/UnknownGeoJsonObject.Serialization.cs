@@ -11,7 +11,7 @@ using Azure.Maps.Common;
 
 namespace Azure.Maps.Search.Models
 {
-    internal partial class UnknownGeoJsonObject
+    public partial class UnknownGeoJsonObject
     {
         internal static UnknownGeoJsonObject DeserializeUnknownGeoJsonObject(JsonElement element)
         {

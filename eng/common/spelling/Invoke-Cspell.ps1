@@ -27,6 +27,9 @@ If set the PackageInstallCache will not be deleted. Use if there are multiple
 calls to Invoke-Cspell.ps1 to prevent creating multiple working directories and
 redundant calls `npm ci`.
 
+.PARAMETER Test
+Run test functions against the script logic
+
 .EXAMPLE
 ./eng/common/scripts/Invoke-Cspell.ps1 -ScanGlobs 'sdk/*/*/PublicAPI/**/*.md'
 
@@ -61,7 +64,10 @@ param(
   [string] $PackageInstallCache = (Join-Path ([System.IO.Path]::GetTempPath()) "cspell-tool-path"),
 
   [Parameter()]
-  [switch] $LeavePackageInstallCache
+  [switch] $LeavePackageInstallCache,
+
+  [Parameter()]
+  [switch] $Test
 )
 
 Set-StrictMode -Version 3.0
@@ -74,6 +80,30 @@ if (!(Get-Command npm -ErrorAction SilentlyContinue)) {
 if (!(Test-Path $CSpellConfigPath)) {
   LogError "Could not locate config file $CSpellConfigPath"
   exit 1
+}
+
+function Test-VersionReportMatches() {
+  # Arrange
+  $expectedPackageVersion = '6.12.0'
+
+  # Act
+  $actual = &"$PSScriptRoot/Invoke-Cspell.ps1" `
+    -JobType '--version'
+
+  # Assert
+  if ($actual -ne $expectedPackageVersion) {
+    throw "Mismatched version. Expected:`n$expectedPackageVersion`n`nActual:`n$actual"
+  }
+}
+
+function TestInvokeCspell() {
+  Test-VersionReportMatches
+}
+
+if ($Test) {
+  TestInvokeCspell
+  Write-Host "Test complete"
+  exit 0
 }
 
 # Prepare the working directory if it does not already have requirements in
@@ -140,11 +170,10 @@ try {
   npm ci | Write-Host
 
   # Use the mutated configuration file when calling cspell
-  $command = "npm exec --no -- cspell $JobType --config $CSpellConfigPath --no-must-find-files --root $SpellCheckRoot --relative"
+  $command = "npx cspell $JobType --config $CSpellConfigPath --no-must-find-files --root $SpellCheckRoot --relative"
   Write-Host $command
-  $cspellOutput = npm exec  `
-    --no `
-    -- `
+  $cspellOutput = npx  `
+    --no-install `
     cspell `
     $JobType `
     --config $CSpellConfigPath `

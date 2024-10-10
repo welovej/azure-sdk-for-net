@@ -20,22 +20,18 @@ public class BasicServiceBusTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
-                ProvisioningParameter queueName =
+                BicepParameter queueName =
                     new(nameof(queueName), typeof(string))
                     {
                         Value = "orders",
                         Description = "The name of the SB queue."
                     };
-                infra.Add(queueName);
 
                 ServiceBusNamespace sb =
                     new(nameof(sb), ServiceBusNamespace.ResourceVersions.V2021_11_01)
                     {
                         Sku = new ServiceBusSku { Name = ServiceBusSkuName.Standard },
                     };
-                infra.Add(sb);
 
                 ServiceBusQueue queue =
                     new(nameof(queue), ServiceBusNamespace.ResourceVersions.V2021_11_01)
@@ -57,9 +53,6 @@ public class BasicServiceBusTests(bool async)
                         EnablePartitioning = false,
                         EnableExpress = false
                     };
-                infra.Add(queue);
-
-                return infra;
             })
         .Compare(
             """

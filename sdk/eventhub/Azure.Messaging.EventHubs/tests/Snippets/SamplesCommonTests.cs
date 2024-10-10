@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 using Azure.Messaging.EventHubs.Consumer;
-using Azure.Identity;
 using NUnit.Framework;
 
 namespace Azure.Messaging.EventHubs.Tests
@@ -24,17 +23,14 @@ namespace Azure.Messaging.EventHubs.Tests
         {
             #region Snippet:EventHubs_SamplesCommon_ConsumerBasicConfig
 
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
-            var credential = new DefaultAzureCredential();
-
             #endregion
 
-            Assert.That(fullyQualifiedNamespace, Is.Not.Null);
+            Assert.That(connectionString, Is.Not.Null);
             Assert.That(eventHubName, Is.Not.Null);
-            Assert.That(credential, Is.Not.Null);
             Assert.That(consumerGroup, Is.Not.Null);
         }
     }

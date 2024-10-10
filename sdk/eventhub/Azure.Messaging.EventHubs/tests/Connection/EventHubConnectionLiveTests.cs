@@ -198,11 +198,9 @@ namespace Azure.Messaging.EventHubs.Tests
 
             await using (EventHubScope scope = await EventHubScope.CreateAsync(partitionCount))
             {
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    new EventHubConnectionOptions { TransportType = transportType }))
+                var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
+
+                await using (var connection = new TestConnectionWithRetryPolicy(connectionString, scope.EventHubName, new EventHubConnectionOptions { TransportType = transportType }))
                 {
                     EventHubProperties properties = await connection.GetPropertiesAsync();
 
@@ -230,11 +228,18 @@ namespace Azure.Messaging.EventHubs.Tests
             {
                 var options = new EventHubConnectionOptions();
 
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    new EventHubConnectionOptions { TransportType = transportType }))
+                var credential = new SharedAccessCredential
+                (
+                    new SharedAccessSignature
+                    (
+                        $"{ options.TransportType.GetUriScheme() }://{ EventHubsTestEnvironment.Instance.FullyQualifiedNamespace }/{ scope.EventHubName }".ToLowerInvariant(),
+                        EventHubsTestEnvironment.Instance.SharedAccessKeyName,
+                        EventHubsTestEnvironment.Instance.SharedAccessKey,
+                        TimeSpan.FromHours(4)
+                    )
+                );
+
+                await using (var connection = new TestConnectionWithRetryPolicy(EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential, new EventHubConnectionOptions { TransportType = transportType }))
                 {
                     var cancellation = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     var properties = await connection.GetPropertiesAsync();
@@ -261,10 +266,9 @@ namespace Azure.Messaging.EventHubs.Tests
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(4))
             {
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                await using (var connection = new TestConnectionWithRetryPolicy(connectionString))
                 {
                     EventHubProperties properties = await connection.GetPropertiesAsync();
                     var partitions = await connection.GetPartitionIdsAsync();
@@ -287,10 +291,9 @@ namespace Azure.Messaging.EventHubs.Tests
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(1))
             {
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                await using (var connection = new TestConnectionWithRetryPolicy(connectionString))
                 {
                     var partition = (await connection.GetPartitionIdsAsync()).First();
 
@@ -321,10 +324,9 @@ namespace Azure.Messaging.EventHubs.Tests
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(1))
             {
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                await using (var connection = new TestConnectionWithRetryPolicy(connectionString))
                 {
                     Assert.That(async () => await connection.GetPartitionPropertiesAsync(invalidPartition), Throws.TypeOf<ArgumentOutOfRangeException>());
                 }
@@ -341,6 +343,7 @@ namespace Azure.Messaging.EventHubs.Tests
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(1))
             {
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var retryOptions = new EventHubsRetryOptions { TryTimeout = TimeSpan.FromMinutes(2) };
 
                 var clientOptions = new EventHubConnectionOptions
@@ -349,16 +352,8 @@ namespace Azure.Messaging.EventHubs.Tests
                     TransportType = EventHubsTransportType.AmqpWebSockets
                 };
 
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
-
-                await using (var invalidProxyConnection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    clientOptions))
+                await using (var connection = new TestConnectionWithRetryPolicy(connectionString))
+                await using (var invalidProxyConnection = new TestConnectionWithRetryPolicy(connectionString, clientOptions))
                 {
                     connection.RetryPolicy = new BasicRetryPolicy(retryOptions);
                     invalidProxyConnection.RetryPolicy = new BasicRetryPolicy(retryOptions);
@@ -382,6 +377,7 @@ namespace Azure.Messaging.EventHubs.Tests
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(1))
             {
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var retryOptions = new EventHubsRetryOptions { TryTimeout = TimeSpan.FromMinutes(2) };
 
                 var clientOptions = new EventHubConnectionOptions
@@ -389,16 +385,8 @@ namespace Azure.Messaging.EventHubs.Tests
                     CertificateValidationCallback = (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors) => false
                 };
 
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
-
-                await using (var certificateRejectingConnection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    clientOptions))
+                await using (var connection = new TestConnectionWithRetryPolicy(connectionString))
+                await using (var certificateRejectingConnection = new TestConnectionWithRetryPolicy(connectionString, clientOptions))
                 {
                     connection.RetryPolicy = new BasicRetryPolicy(retryOptions);
                     certificateRejectingConnection.RetryPolicy = new BasicRetryPolicy(retryOptions);
@@ -422,6 +410,7 @@ namespace Azure.Messaging.EventHubs.Tests
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(1))
             {
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var retryOptions = new EventHubsRetryOptions { TryTimeout = TimeSpan.FromMinutes(2) };
 
                 var clientOptions = new EventHubConnectionOptions
@@ -429,11 +418,7 @@ namespace Azure.Messaging.EventHubs.Tests
                     CertificateValidationCallback = (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors) => true
                 };
 
-                await using (var connection = new TestConnectionWithRetryPolicy(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    clientOptions))
+                await using (var connection = new TestConnectionWithRetryPolicy(connectionString, clientOptions))
                 {
                     connection.RetryPolicy = new BasicRetryPolicy(retryOptions);
 

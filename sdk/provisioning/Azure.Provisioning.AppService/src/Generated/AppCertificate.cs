@@ -186,15 +186,11 @@ public partial class AppCertificate : Resource
     /// <summary>
     /// Creates a new AppCertificate.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the AppCertificate resource.  This can
-    /// be used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the AppCertificate.</param>
     /// <param name="resourceVersion">Version of the AppCertificate.</param>
-    public AppCertificate(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Web/certificates", resourceVersion ?? "2024-04-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public AppCertificate(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Web/certificates", resourceVersion ?? "2023-12-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -230,11 +226,6 @@ public partial class AppCertificate : Resource
     /// </summary>
     public static class ResourceVersions
     {
-        /// <summary>
-        /// 2024-04-01.
-        /// </summary>
-        public static readonly string V2024_04_01 = "2024-04-01";
-
         /// <summary>
         /// 2023-12-01.
         /// </summary>
@@ -364,16 +355,11 @@ public partial class AppCertificate : Resource
     /// <summary>
     /// Creates a reference to an existing AppCertificate.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the AppCertificate resource.  This can
-    /// be used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the AppCertificate.</param>
     /// <param name="resourceVersion">Version of the AppCertificate.</param>
     /// <returns>The existing AppCertificate resource.</returns>
-    public static AppCertificate FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static AppCertificate FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 
     /// <summary>
     /// Get the requirements for naming this AppCertificate resource.

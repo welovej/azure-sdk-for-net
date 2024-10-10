@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.NetworkCloud.Samples
 ["key1"] = "myvalue1",
 ["key2"] = "myvalue2",
 },
-                Count = 3L,
+                Count = 3,
                 UpgradeMaxSurge = "1",
             };
             ArmOperation<NetworkCloudAgentPoolResource> lro = await networkCloudAgentPool.UpdateAsync(WaitUntil.Completed, patch);

@@ -1,27 +1,23 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Azure.AI.OpenAI.Chat;
 
-[Experimental("AOAI001")]
 [CodeGenModel("AzureCosmosDBChatDataSourceParameters")]
 internal partial class InternalAzureCosmosDBChatDataSourceParameters
 {
     [CodeGenMember("IncludeContexts")]
     private IList<string> _internalIncludeContexts = new ChangeTrackingList<string>();
-    private DataSourceOutputContexts? _outputContexts;
+    private DataSourceOutputContextFlags? _outputContextFlags;
 
-    /// <inheritdoc cref="DataSourceOutputContexts"/>
-    public DataSourceOutputContexts? OutputContexts
+    /// <inheritdoc cref="DataSourceOutputContextFlags"/>
+    public DataSourceOutputContextFlags? OutputContextFlags
     {
-        get => DataSourceOutputContextsExtensions.FromStringList(_internalIncludeContexts);
+        get => DataSourceOutputContextFlagsExtensions.FromStringList(_internalIncludeContexts);
         internal set
         {
-            _outputContexts = value;
-            _internalIncludeContexts = _outputContexts?.ToStringList();
+            _outputContextFlags = value;
+            _internalIncludeContexts = _outputContextFlags?.ToStringList();
         }
     }
 
@@ -46,7 +42,7 @@ internal partial class InternalAzureCosmosDBChatDataSourceParameters
     /// <item><see cref="DataSourceFieldMappings.ContentFieldSeparator"/></item>
     /// <item><see cref="DataSourceFieldMappings.TitleFieldName"/></item>
     /// <item><see cref="DataSourceFieldMappings.UrlFieldName"/></item>
-    /// <item><see cref="DataSourceFieldMappings.FilePathFieldName"/></item>
+    /// <item><see cref="DataSourceFieldMappings.FilepathFieldName"/></item>
     /// </list>
     /// </remarks>
     [CodeGenMember("FieldsMapping")]

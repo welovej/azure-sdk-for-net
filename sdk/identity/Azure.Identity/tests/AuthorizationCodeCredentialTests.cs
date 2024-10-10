@@ -34,7 +34,6 @@ namespace Azure.Identity.Tests
                 AdditionallyAllowedTenants = config.AdditionallyAllowedTenants,
                 IsUnsafeSupportLoggingEnabled = config.IsUnsafeSupportLoggingEnabled,
                 RedirectUri = config.RedirectUri,
-                AuthorityHost = config.AuthorityHost,
             };
             if (config.Transport != null)
             {

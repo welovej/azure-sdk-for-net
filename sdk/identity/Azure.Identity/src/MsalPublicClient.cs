@@ -40,9 +40,11 @@ namespace Azure.Identity
             string[] clientCapabilities =
                 enableCae ? cp1Capabilities : Array.Empty<string>();
 
+            var authorityUri = new UriBuilder(AuthorityHost.Scheme, AuthorityHost.Host, AuthorityHost.Port, TenantId ?? Constants.OrganizationsTenantId).Uri;
+
             PublicClientApplicationBuilder pubAppBuilder = PublicClientApplicationBuilder
                 .Create(ClientId)
-                .WithAuthority(AuthorityHost.AbsoluteUri, TenantId ?? Constants.OrganizationsTenantId, false)
+                .WithAuthority(authorityUri)
                 .WithHttpClientFactory(new HttpPipelineClientFactory(Pipeline.HttpPipeline))
                 .WithLogging(AzureIdentityEventSource.Singleton, enablePiiLogging: IsSupportLoggingEnabled);
 
@@ -86,7 +88,9 @@ namespace Azure.Identity
             IAccount account,
             string tenantId,
             bool enableCae,
-            TokenRequestContext context,
+#if PREVIEW_FEATURE_FLAG
+            PopTokenRequestContext? popTokenRequestContext,
+#endif
             bool async,
             CancellationToken cancellationToken)
         {
@@ -96,7 +100,9 @@ namespace Azure.Identity
                 account,
                 tenantId,
                 enableCae,
-                context,
+#if PREVIEW_FEATURE_FLAG
+                popTokenRequestContext,
+#endif
                 async,
                 cancellationToken).ConfigureAwait(false);
             LogAccountDetails(result);
@@ -109,7 +115,9 @@ namespace Azure.Identity
             IAccount account,
             string tenantId,
             bool enableCae,
-            TokenRequestContext context,
+#if PREVIEW_FEATURE_FLAG
+            PopTokenRequestContext? popTokenRequestContext,
+#endif
             bool async,
             CancellationToken cancellationToken)
         {
@@ -122,14 +130,19 @@ namespace Azure.Identity
             }
             if (tenantId != null)
             {
-                UriBuilder uriBuilder = BuildTenantIdWithAuthorityHost(tenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = TenantId ?? tenantId
+                };
                 builder.WithTenantIdFromAuthority(uriBuilder.Uri);
             }
 
-            if (context.IsProofOfPossessionEnabled)
+#if PREVIEW_FEATURE_FLAG
+            if (popTokenRequestContext.HasValue && popTokenRequestContext.Value.IsProofOfPossessionEnabled)
             {
-                builder.WithProofOfPossession(context.ProofOfPossessionNonce, new(context.ResourceRequestMethod), context.ResourceRequestUri);
+                builder.WithProofOfPossession(popTokenRequestContext.Value.ProofOfPossessionNonce, popTokenRequestContext.Value.HttpMethod, popTokenRequestContext.Value.Uri);
             }
+#endif
 
             return await builder
                 .ExecuteAsync(async, cancellationToken)
@@ -142,7 +155,9 @@ namespace Azure.Identity
             AuthenticationRecord record,
             string tenantId,
             bool enableCae,
-            TokenRequestContext tokenRequestContext,
+#if PREVIEW_FEATURE_FLAG
+            PopTokenRequestContext? popTokenRequestContext,
+#endif
             bool async,
             CancellationToken cancellationToken)
         {
@@ -152,7 +167,9 @@ namespace Azure.Identity
                 record,
                 tenantId,
                 enableCae,
-                tokenRequestContext,
+#if PREVIEW_FEATURE_FLAG
+                popTokenRequestContext,
+#endif
                 async,
                 cancellationToken).ConfigureAwait(false);
             LogAccountDetails(result);
@@ -165,7 +182,9 @@ namespace Azure.Identity
             AuthenticationRecord record,
             string tenantId,
             bool enableCae,
-            TokenRequestContext context,
+#if PREVIEW_FEATURE_FLAG
+            PopTokenRequestContext? popTokenRequestContext,
+#endif
             bool async,
             CancellationToken cancellationToken)
         {
@@ -178,7 +197,10 @@ namespace Azure.Identity
 
             if (tenantId != null || record.TenantId != null)
             {
-                UriBuilder uriBuilder = BuildTenantIdWithAuthorityHost(tenantId ?? record.TenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenantId ?? record.TenantId
+                };
                 builder.WithTenantIdFromAuthority(uriBuilder.Uri);
             }
 
@@ -186,10 +208,12 @@ namespace Azure.Identity
             {
                 builder.WithClaims(claims);
             }
-            if (context.IsProofOfPossessionEnabled)
+#if PREVIEW_FEATURE_FLAG
+            if (popTokenRequestContext.HasValue && popTokenRequestContext.Value.IsProofOfPossessionEnabled)
             {
-                builder.WithProofOfPossession(context.ProofOfPossessionNonce, new(context.ResourceRequestMethod), context.ResourceRequestUri);
+                builder.WithProofOfPossession(popTokenRequestContext.Value.ProofOfPossessionNonce, popTokenRequestContext.Value.HttpMethod, popTokenRequestContext.Value.Uri);
             }
+#endif
 
             return await builder.ExecuteAsync(async, cancellationToken)
                            .ConfigureAwait(false);
@@ -203,7 +227,9 @@ namespace Azure.Identity
             string tenantId,
             bool enableCae,
             BrowserCustomizationOptions browserOptions,
-            TokenRequestContext tokenRequestContext,
+#if PREVIEW_FEATURE_FLAG
+            PopTokenRequestContext? popTokenRequestContext,
+#endif
             bool async,
             CancellationToken cancellationToken)
         {
@@ -227,7 +253,9 @@ namespace Azure.Identity
                         tenantId,
                         enableCae,
                         browserOptions,
-                        tokenRequestContext,
+#if PREVIEW_FEATURE_FLAG
+                        popTokenRequestContext,
+#endif
                         true,
                         cancellationToken).ConfigureAwait(false);
                     LogAccountDetails(result);
@@ -246,7 +274,9 @@ namespace Azure.Identity
                 tenantId,
                 enableCae,
                 browserOptions,
-                tokenRequestContext,
+#if PREVIEW_FEATURE_FLAG
+                        popTokenRequestContext,
+#endif
                 async,
                 cancellationToken).ConfigureAwait(false);
             LogAccountDetails(result);
@@ -261,7 +291,9 @@ namespace Azure.Identity
             string tenantId,
             bool enableCae,
             BrowserCustomizationOptions browserOptions,
-            TokenRequestContext tokenRequestContext,
+#if PREVIEW_FEATURE_FLAG
+            PopTokenRequestContext? popTokenRequestContext,
+#endif
             bool async,
             CancellationToken cancellationToken)
         {
@@ -280,7 +312,10 @@ namespace Azure.Identity
             }
             if (tenantId != null)
             {
-                UriBuilder uriBuilder = BuildTenantIdWithAuthorityHost(tenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenantId
+                };
                 builder.WithTenantIdFromAuthority(uriBuilder.Uri);
             }
             if (browserOptions != null)
@@ -294,10 +329,12 @@ namespace Azure.Identity
                     builder.WithSystemWebViewOptions(browserOptions.SystemBrowserOptions);
                 }
             }
-            if (tokenRequestContext.IsProofOfPossessionEnabled)
+#if PREVIEW_FEATURE_FLAG
+            if (popTokenRequestContext.HasValue && popTokenRequestContext.Value.IsProofOfPossessionEnabled)
             {
-                builder.WithProofOfPossession(tokenRequestContext.ProofOfPossessionNonce, new(tokenRequestContext.ResourceRequestMethod), tokenRequestContext.ResourceRequestUri);
+                builder.WithProofOfPossession(popTokenRequestContext.Value.ProofOfPossessionNonce, popTokenRequestContext.Value.HttpMethod, popTokenRequestContext.Value.Uri);
             }
+#endif
             return await builder
                 .ExecuteAsync(async, cancellationToken)
                 .ConfigureAwait(false);
@@ -322,7 +359,10 @@ namespace Azure.Identity
             }
             if (!string.IsNullOrEmpty(tenantId))
             {
-                UriBuilder uriBuilder = BuildTenantIdWithAuthorityHost(tenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenantId
+                };
                 builder.WithTenantIdFromAuthority(uriBuilder.Uri);
             }
             return await builder.ExecuteAsync(async, cancellationToken)
@@ -344,11 +384,6 @@ namespace Azure.Identity
             if (!string.IsNullOrEmpty(claims))
             {
                 builder.WithClaims(claims);
-            }
-            if (!string.IsNullOrEmpty(TenantId))
-            {
-                UriBuilder uriBuilder = BuildTenantIdWithAuthorityHost(TenantId);
-                builder.WithTenantIdFromAuthority(uriBuilder.Uri);
             }
 
             return await builder.ExecuteAsync(async, cancellationToken)
@@ -374,7 +409,10 @@ namespace Azure.Identity
 
             if (!string.IsNullOrEmpty(TenantId))
             {
-                UriBuilder uriBuilder = BuildTenantIdWithAuthorityHost(TenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenant
+                };
                 builder.WithTenantIdFromAuthority(uriBuilder.Uri);
             }
 

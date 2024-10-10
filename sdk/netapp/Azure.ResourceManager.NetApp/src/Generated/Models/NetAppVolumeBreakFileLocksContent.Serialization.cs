@@ -20,21 +20,13 @@ namespace Azure.ResourceManager.NetApp.Models
 
         void IJsonModel<NetAppVolumeBreakFileLocksContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<NetAppVolumeBreakFileLocksContent>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(NetAppVolumeBreakFileLocksContent)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(ClientIP))
             {
                 writer.WritePropertyName("clientIp"u8);
@@ -60,6 +52,7 @@ namespace Azure.ResourceManager.NetApp.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         NetAppVolumeBreakFileLocksContent IJsonModel<NetAppVolumeBreakFileLocksContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

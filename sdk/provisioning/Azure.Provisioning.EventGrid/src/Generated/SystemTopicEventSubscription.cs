@@ -150,15 +150,11 @@ public partial class SystemTopicEventSubscription : Resource
     /// <summary>
     /// Creates a new SystemTopicEventSubscription.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SystemTopicEventSubscription
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SystemTopicEventSubscription.</param>
     /// <param name="resourceVersion">Version of the SystemTopicEventSubscription.</param>
-    public SystemTopicEventSubscription(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.EventGrid/systemTopics/eventSubscriptions", resourceVersion ?? "2022-06-15")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public SystemTopicEventSubscription(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.EventGrid/systemTopics/eventSubscriptions", resourceVersion ?? "2022-06-15", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _deadLetterDestination = BicepValue<DeadLetterDestination>.DefineProperty(this, "DeadLetterDestination", ["properties", "deadLetterDestination"]);
@@ -201,14 +197,9 @@ public partial class SystemTopicEventSubscription : Resource
     /// <summary>
     /// Creates a reference to an existing SystemTopicEventSubscription.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SystemTopicEventSubscription
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SystemTopicEventSubscription.</param>
     /// <param name="resourceVersion">Version of the SystemTopicEventSubscription.</param>
     /// <returns>The existing SystemTopicEventSubscription resource.</returns>
-    public static SystemTopicEventSubscription FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static SystemTopicEventSubscription FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

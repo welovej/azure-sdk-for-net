@@ -6,8 +6,6 @@ extends:
     ServiceDirectory: documentintelligence
     CloudConfig:
       Public:
-        ServiceConnection: azure-sdk-tests
-        SubscriptionConfigurationFilePaths:
-          - eng/common/TestResources/sub-config/AzurePublicMsft.json
+        SubscriptionConfiguration: $(sub-config-azure-cloud-test-resources)
         Location: 'eastus'
     SupportedClouds: 'Public'

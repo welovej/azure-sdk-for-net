@@ -63,16 +63,8 @@ namespace Microsoft.Azure.WebPubSub.AspNetCore
                 case RequestType.Connect:
                     {
                         var content = await new StreamReader(request.Body).ReadToEndAsync().ConfigureAwait(false);
-                        if (context is MqttConnectionContext mqttContext)
-                        {
-                            var requestBody = JsonSerializer.Deserialize<MqttConnectEventRequestContent>(content);
-                            return new MqttConnectEventRequest(mqttContext, requestBody.Claims, requestBody.Query, requestBody.ClientCertificates, requestBody.Headers, requestBody.Mqtt);
-                        }
-                        else
-                        {
-                            var eventRequest = JsonSerializer.Deserialize<ConnectEventRequest>(content);
-                            return new ConnectEventRequest(context, eventRequest.Claims, eventRequest.Query, eventRequest.Subprotocols, eventRequest.ClientCertificates, eventRequest.Headers);
-                        }
+                        var eventRequest = JsonSerializer.Deserialize<ConnectEventRequest>(content);
+                        return new ConnectEventRequest(context, eventRequest.Claims, eventRequest.Query, eventRequest.Subprotocols, eventRequest.ClientCertificates, eventRequest.Headers);
                     }
                 case RequestType.User:
                     {
@@ -93,16 +85,8 @@ namespace Microsoft.Azure.WebPubSub.AspNetCore
                 case RequestType.Disconnected:
                     {
                         var content = await new StreamReader(request.Body).ReadToEndAsync().ConfigureAwait(false);
-                        if (context is MqttConnectionContext mqttContext)
-                        {
-                            var requestBody = JsonSerializer.Deserialize<MqttDisconnectedEventRequestContent>(content);
-                            return new MqttDisconnectedEventRequest(mqttContext, requestBody.Reason, requestBody.Mqtt);
-                        }
-                        else
-                        {
-                            var eventRequest = JsonSerializer.Deserialize<DisconnectedEventRequest>(content);
-                            return new DisconnectedEventRequest(context, eventRequest.Reason);
-                        }
+                        var eventRequest = JsonSerializer.Deserialize<DisconnectedEventRequest>(content);
+                        return new DisconnectedEventRequest(context, eventRequest.Reason);
                     }
                 default:
                     return null;
@@ -194,17 +178,6 @@ namespace Microsoft.Azure.WebPubSub.AspNetCore
                 if (request.Headers.ContainsKey(Constants.Headers.CloudEvents.State))
                 {
                     states = request.Headers.GetFirstHeaderValueOrDefault(Constants.Headers.CloudEvents.State).DecodeConnectionStates();
-                }
-
-                if (Constants.MqttWebSocketSubprotocolValue.Equals(request.Headers.GetFirstHeaderValueOrDefault(Constants.Headers.CloudEvents.Subprotocol)))
-                {
-                    var physicalConnectionId = request.Headers[Constants.Headers.CloudEvents.MqttPhysicalConnectionId];
-                    if (physicalConnectionId.Count != 0)
-                    {
-                        var sessionId = request.Headers.GetFirstHeaderValueOrDefault(Constants.Headers.CloudEvents.MqttSessionId);
-                        connectionContext = new MqttConnectionContext(eventType, eventName, hub, connectionId, physicalConnectionId.First(), sessionId, userId, signature, origin, states, headers);
-                        return true;
-                    }
                 }
 
                 connectionContext = new WebPubSubConnectionContext(eventType, eventName, hub, connectionId, userId, signature, origin, states, headers);

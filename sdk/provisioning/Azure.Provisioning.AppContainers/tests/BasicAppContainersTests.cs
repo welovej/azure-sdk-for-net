@@ -21,22 +21,18 @@ public class BasicAppContainersTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
-                ProvisioningParameter containerImage =
+                BicepParameter containerImage =
                     new(nameof(containerImage), typeof(string))
                     {
                         Value = "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest",
                         Description = "Specifies the docker container image to deploy."
                     };
-                infra.Add(containerImage);
 
                 OperationalInsightsWorkspace logAnalytics =
                     new(nameof(logAnalytics))
                     {
                         Sku = new OperationalInsightsWorkspaceSku { Name = OperationalInsightsWorkspaceSkuName.PerGB2018 }
                     };
-                infra.Add(logAnalytics);
 
                 ContainerAppManagedEnvironment env =
                     new(nameof(env))
@@ -52,7 +48,6 @@ public class BasicAppContainersTests(bool async)
                                 }
                             },
                     };
-                infra.Add(env);
 
                 ContainerApp app =
                     new(nameof(app))
@@ -98,9 +93,6 @@ public class BasicAppContainersTests(bool async)
                                 }
                             }
                     };
-                infra.Add(app);
-
-                return infra;
             })
         .Compare(
             """
@@ -110,7 +102,7 @@ public class BasicAppContainersTests(bool async)
             @description('The location for the resource(s) to be deployed.')
             param location string = resourceGroup().location
 
-            resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
+            resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
               name: take('logAnalytics-${uniqueString(resourceGroup().id)}', 63)
               location: location
               properties: {
@@ -120,7 +112,7 @@ public class BasicAppContainersTests(bool async)
               }
             }
 
-            resource env 'Microsoft.App/managedEnvironments@2024-03-01' = {
+            resource env 'Microsoft.App/managedEnvironments@2023-05-01' = {
               name: take('env${uniqueString(resourceGroup().id)}', 24)
               location: location
               properties: {
@@ -134,7 +126,7 @@ public class BasicAppContainersTests(bool async)
               }
             }
 
-            resource app 'Microsoft.App/containerApps@2024-03-01' = {
+            resource app 'Microsoft.App/containerApps@2023-05-01' = {
               name: take('app-${uniqueString(resourceGroup().id)}', 32)
               location: location
               properties: {

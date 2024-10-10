@@ -71,7 +71,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         }
 
         /// <summary> SAS URIs for the target blobs to import from. </summary>
-        [WirePath("sasUris")]
         public IList<Uri> SasUris { get; }
     }
 }

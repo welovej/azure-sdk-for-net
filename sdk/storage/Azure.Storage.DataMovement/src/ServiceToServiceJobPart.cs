@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Storage.Common;
 
 namespace Azure.Storage.DataMovement
 {
@@ -141,9 +140,6 @@ namespace Azure.Storage.DataMovement
             StorageResourceItem destinationResource,
             long? length = default)
         {
-            Argument.AssertNotNull(sourceResource, nameof(sourceResource));
-            Argument.AssertNotNull(destinationResource, nameof(destinationResource));
-
             // Create Job Part file as we're initializing the job part
             ServiceToServiceJobPart part = new ServiceToServiceJobPart(
                 job: job,
@@ -183,11 +179,10 @@ namespace Azure.Storage.DataMovement
         {
             await OnTransferStateChangedAsync(DataTransferState.InProgress).ConfigureAwait(false);
 
-            long? fileLength = default;
+            long? fileLength = _sourceResource.Length;
             StorageResourceItemProperties sourceProperties = default;
             try
             {
-                fileLength = _sourceResource.Length;
                 sourceProperties = await _sourceResource.GetPropertiesAsync(_cancellationToken).ConfigureAwait(false);
                 await _destinationResource.SetPermissionsAsync(
                     _sourceResource,

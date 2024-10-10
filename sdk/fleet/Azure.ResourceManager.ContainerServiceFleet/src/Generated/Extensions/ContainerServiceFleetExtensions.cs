@@ -52,25 +52,6 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="AutoUpgradeProfileResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutoUpgradeProfileResource.CreateResourceIdentifier" /> to create an <see cref="AutoUpgradeProfileResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableContainerServiceFleetArmClient.GetAutoUpgradeProfileResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="AutoUpgradeProfileResource"/> object. </returns>
-        public static AutoUpgradeProfileResource GetAutoUpgradeProfileResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableContainerServiceFleetArmClient(client).GetAutoUpgradeProfileResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="ContainerServiceFleetMemberResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ContainerServiceFleetMemberResource.CreateResourceIdentifier" /> to create a <see cref="ContainerServiceFleetMemberResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -157,7 +138,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-02-preview</description>
+        /// <description>2023-10-15</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -195,7 +176,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-02-preview</description>
+        /// <description>2023-10-15</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -233,7 +214,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-02-preview</description>
+        /// <description>2023-10-15</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -269,7 +250,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-02-preview</description>
+        /// <description>2023-10-15</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

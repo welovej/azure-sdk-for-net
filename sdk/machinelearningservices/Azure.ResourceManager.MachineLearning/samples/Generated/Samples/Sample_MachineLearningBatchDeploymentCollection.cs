@@ -206,7 +206,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
                     MaxRetries = 1,
                     Timeout = XmlConvert.ToTimeSpan("PT5M"),
                 },
-                MiniBatchSize = 1L,
+                MiniBatchSize = 1,
                 LoggingLevel = MachineLearningBatchLoggingLevel.Info,
                 Model = new MachineLearningIdAssetReference(new ResourceIdentifier("string")),
                 MaxConcurrencyPerInstance = 1,

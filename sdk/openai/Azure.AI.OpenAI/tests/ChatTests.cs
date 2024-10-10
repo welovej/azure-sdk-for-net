@@ -10,7 +10,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Azure.AI.OpenAI.Chat;
 using Azure.AI.OpenAI.Tests.Utils.Config;
@@ -77,9 +76,9 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
                 ContentFieldNames = { "hello" },
                 TitleFieldName = "hi",
             },
-            AllowPartialResults = true,
+            AllowPartialResult = true,
             QueryType = DataSourceQueryType.Simple,
-            OutputContexts = DataSourceOutputContexts.AllRetrievedDocuments | DataSourceOutputContexts.Citations,
+            OutputContextFlags = DataSourceOutputContextFlags.AllRetrievedDocuments | DataSourceOutputContextFlags.Citations,
             VectorizationSource = DataSourceVectorizer.FromEndpoint(
                 new Uri("https://my-embedding.com"),
                 DataSourceAuthentication.FromApiKey("embedding-api-key")),
@@ -98,7 +97,6 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         Assert.That(serialized?.parameters?.embedding_dependency?.type?.ToString(), Is.EqualTo("endpoint"));
 
         ChatCompletionOptions options = new();
-#if !AZURE_OPENAI_GA
         options.AddDataSource(new ElasticsearchChatDataSource()
         {
             Authentication = DataSourceAuthentication.FromAccessToken("foo-token"),
@@ -107,25 +105,12 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
             InScope = true,
         });
 
-        IReadOnlyList<ChatDataSource> sourcesFromOptions = options.GetDataSources();
+        IReadOnlyList<AzureChatDataSource> sourcesFromOptions = options.GetDataSources();
         Assert.That(sourcesFromOptions, Has.Count.EqualTo(1));
         Assert.That(sourcesFromOptions[0], Is.InstanceOf<ElasticsearchChatDataSource>());
         Assert.That(((ElasticsearchChatDataSource)sourcesFromOptions[0]).IndexName, Is.EqualTo("my-index-name"));
-#else
-        options.AddDataSource(new AzureSearchChatDataSource()
-        {
-            Endpoint = new("https://test-endpoint.test"),
-            Authentication = DataSourceAuthentication.FromApiKey("foo-api-key"),
-            IndexName = "my-index-name",
-        });
 
-        IReadOnlyList<ChatDataSource> sourcesFromOptions = options.GetDataSources();
-        Assert.That(sourcesFromOptions, Has.Count.EqualTo(1));
-        Assert.That(sourcesFromOptions[0], Is.InstanceOf<AzureSearchChatDataSource>());
-        Assert.That(((AzureSearchChatDataSource)sourcesFromOptions[0]).IndexName, Is.EqualTo("my-index-name"));
-#endif
-
-        options.AddDataSource(new CosmosChatDataSource()
+        options.AddDataSource(new AzureCosmosDBChatDataSource()
         {
             Authentication = DataSourceAuthentication.FromApiKey("api-key"),
             ContainerName = "my-container-name",
@@ -139,7 +124,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         });
         sourcesFromOptions = options.GetDataSources();
         Assert.That(sourcesFromOptions, Has.Count.EqualTo(2));
-        Assert.That(sourcesFromOptions[1], Is.InstanceOf<CosmosChatDataSource>());
+        Assert.That(sourcesFromOptions[1], Is.InstanceOf<AzureCosmosDBChatDataSource>());
     }
 
     [RecordedTest]
@@ -173,7 +158,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
     }
 
     [RecordedTest]
-    [Ignore("Delay behavior not emulated by recordings, and needs to be run manually with some time in between iterations due to service throttling behavior")]
+    [Ignore("Delay behavior not emulated by recordings, and needs to be run manually with some time in between iterations due to service throttling behaviour")]
     [TestCase("x-ms-retry-after-ms", "1000", 1000)]
     [TestCase("retry-after-ms", "1400", 1400)]
     [TestCase("Retry-After", "1", 1000)]
@@ -263,7 +248,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         Assert.That(observed429Delay!.Value.TotalMilliseconds, Is.LessThan(3 * expectedDelayMilliseconds + 2 * observed200Delay!.Value.TotalMilliseconds));
     }
 
-#endregion
+    #endregion
 
     #region Regular chat completions tests
 
@@ -303,9 +288,9 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         Assert.That(response.Content, Is.Not.Null.Or.Empty);
         Assert.That(response.Content.Count, Is.EqualTo(1));
         Assert.That(response.Usage, Is.Not.Null);
-        Assert.That(response.Usage.InputTokenCount, Is.GreaterThan(10));
-        Assert.That(response.Usage.OutputTokenCount, Is.GreaterThan(10));
-        Assert.That(response.Usage.TotalTokenCount, Is.GreaterThan(20));
+        Assert.That(response.Usage.InputTokens, Is.GreaterThan(10));
+        Assert.That(response.Usage.OutputTokens, Is.GreaterThan(10));
+        Assert.That(response.Usage.TotalTokens, Is.GreaterThan(20));
         Assert.That(response.ContentTokenLogProbabilities, Is.Not.Null.Or.Empty);
         foreach (var logProb in response.ContentTokenLogProbabilities)
         {
@@ -320,8 +305,8 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         Assert.That(content.Text, Does
             .Contain("Fahrenheit")
             .Or.Contain("Celsius")
-            .Or.Contain("ï¿½F")
-            .Or.Contain("ï¿½C")
+            .Or.Contain("°F")
+            .Or.Contain("°C")
             .Or.Contain("oven"));
     }
 
@@ -331,7 +316,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         ChatClient client = GetTestClient();
         ChatCompletionOptions options = new()
         {
-            ResponseFormat = ChatResponseFormat.CreateTextFormat(),
+            ResponseFormat = ChatResponseFormat.Text
         };
 
         ChatCompletion response = await client.CompleteChatAsync([new UserChatMessage("Give me a random number")], options);
@@ -345,24 +330,16 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
     {
         ChatClient client = GetTestClient();
         ClientResult<ChatCompletion> chatCompletionResult = await client.CompleteChatAsync([ChatMessage.CreateUserMessage("Hello, world!")]);
+        Console.WriteLine($"--- RESPONSE ---");
         ChatCompletion chatCompletion = chatCompletionResult;
-        RequestContentFilterResult promptFilterResult = chatCompletion.GetRequestContentFilterResult();
+        ContentFilterResultForPrompt promptFilterResult = chatCompletion.GetContentFilterResultForPrompt();
         Assert.That(promptFilterResult, Is.Not.Null);
         Assert.That(promptFilterResult.Sexual?.Filtered, Is.False);
         Assert.That(promptFilterResult.Sexual?.Severity, Is.EqualTo(ContentFilterSeverity.Safe));
-        ResponseContentFilterResult responseFilterResult = chatCompletion.GetResponseContentFilterResult();
+        ContentFilterResultForResponse responseFilterResult = chatCompletion.GetContentFilterResultForResponse();
         Assert.That(responseFilterResult, Is.Not.Null);
         Assert.That(responseFilterResult.Hate?.Severity, Is.EqualTo(ContentFilterSeverity.Safe));
-        if (responseFilterResult.ProtectedMaterialCode is not null)
-        {
-            Assert.That(responseFilterResult.ProtectedMaterialCode.Detected, Is.False);
-            Assert.That(responseFilterResult.ProtectedMaterialCode.Filtered, Is.False);
-        }
-        if (responseFilterResult.ProtectedMaterialText is not null)
-        {
-            Assert.That(responseFilterResult.ProtectedMaterialText.Detected, Is.False);
-            Assert.That(responseFilterResult.ProtectedMaterialText.Filtered, Is.False);
-        }
+        Assert.That(responseFilterResult.ProtectedMaterialCode, Is.Null);
     }
 
     [RecordedTest]
@@ -377,7 +354,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
             Endpoint = searchConfig.Endpoint,
             Authentication = DataSourceAuthentication.FromApiKey(searchConfig.Key),
             IndexName = searchIndex,
-            AllowPartialResults = true,
+            AllowPartialResult = true,
             QueryType = DataSourceQueryType.Simple,
         };
         ChatCompletionOptions options = new();
@@ -399,61 +376,14 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         Assert.That(content.Kind, Is.EqualTo(ChatMessageContentPartKind.Text));
         Assert.That(content.Text, Is.Not.Null.Or.Empty);
 
-        ChatMessageContext context = chatCompletion.GetMessageContext();
+        AzureChatMessageContext context = chatCompletion.GetAzureMessageContext();
         Assert.IsNotNull(context);
         Assert.That(context.Intent, Is.Not.Null.Or.Empty);
         Assert.That(context.Citations, Has.Count.GreaterThan(0));
-        Assert.That(context.Citations[0].FilePath, Is.Not.Null.Or.Empty);
+        Assert.That(context.Citations[0].Filepath, Is.Not.Null.Or.Empty);
         Assert.That(context.Citations[0].Content, Is.Not.Null.Or.Empty);
         Assert.That(context.Citations[0].ChunkId, Is.Not.Null.Or.Empty);
         Assert.That(context.Citations[0].Title, Is.Not.Null.Or.Empty);
-    }
-
-    [RecordedTest]
-    public async Task StructuredOutputsWork()
-    {
-        ChatClient client = GetTestClient();
-        IEnumerable<ChatMessage> messages = [
-            new UserChatMessage("What's heavier, a pound of feathers or sixteen ounces of steel?")
-        ];
-        ChatCompletionOptions options = new ChatCompletionOptions()
-        {
-            ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-                "test_schema",
-                BinaryData.FromString("""
-                    {
-                      "type": "object",
-                      "properties": {
-                        "answer": {
-                          "type": "string"
-                        },
-                        "steps": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "required": [
-                        "answer",
-                        "steps"
-                      ],
-                      "additionalProperties": false
-                    }
-                    """),
-                "a single final answer with a supporting collection of steps",
-                jsonSchemaIsStrict: true)
-        };
-        ChatCompletion completion = await client.CompleteChatAsync(messages, options)!;
-        Assert.That(completion, Is.Not.Null);
-        Assert.That(completion.Refusal, Is.Null.Or.Empty);
-        Assert.That(completion.Content?.Count, Is.EqualTo(1));
-        JsonDocument contentDocument = null!;
-        Assert.DoesNotThrow(() => contentDocument = JsonDocument.Parse(completion!.Content![0].Text));
-        Assert.IsTrue(contentDocument.RootElement.TryGetProperty("answer", out JsonElement answerProperty));
-        Assert.IsTrue(answerProperty.ValueKind == JsonValueKind.String);
-        Assert.IsTrue(contentDocument.RootElement.TryGetProperty("steps", out JsonElement stepsProperty));
-        Assert.IsTrue(stepsProperty.ValueKind == JsonValueKind.Array);
     }
 
     #endregion
@@ -498,11 +428,11 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         ChatMessage[] messages =
         [
             new SystemChatMessage("You are a curmudgeon"),
-            new UserChatMessage("Hello, assistant!")
+            new UserChatMessage("Hello, assitant!")
         ];
         ChatCompletionOptions options = new()
         {
-            MaxOutputTokenCount = 512,
+            MaxTokens = 512,
             IncludeLogProbabilities = true,
             TopLogProbabilityCount = 1,
         };
@@ -528,7 +458,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         StringBuilder builder = new();
         bool foundPromptFilter = false;
         bool foundResponseFilter = false;
-        List<ChatMessageContext> contexts = new();
+        List<AzureChatMessageContext> contexts = new();
 
         var searchConfig = TestConfig.GetConfig("search")!;
         Assert.That(searchConfig, Is.Not.Null);
@@ -539,7 +469,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
             Endpoint = searchConfig.Endpoint,
             Authentication = DataSourceAuthentication.FromApiKey(searchConfig.Key),
             IndexName = searchIndex,
-            AllowPartialResults = true,
+            AllowPartialResult = true,
             QueryType = DataSourceQueryType.Simple,
         };
 
@@ -557,7 +487,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         {
             ValidateUpdate(update, builder, ref foundPromptFilter, ref foundResponseFilter);
 
-            ChatMessageContext context = update.GetMessageContext();
+            AzureChatMessageContext context = update.GetAzureMessageContext();
             if (context != null)
             {
                 contexts.Add(context);
@@ -575,65 +505,13 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         Assert.That(contexts[0].Intent, Is.Not.Null.Or.Empty);
         Assert.That(contexts[0].Citations, Has.Count.GreaterThan(0));
         Assert.That(contexts[0].Citations[0].Content, Is.Not.Null.Or.Empty);
-        Assert.That(contexts[0].Citations[0].FilePath, Is.Not.Null.Or.Empty);
+        Assert.That(contexts[0].Citations[0].Filepath, Is.Not.Null.Or.Empty);
         Assert.That(contexts[0].Citations[0].ChunkId, Is.Not.Null.Or.Empty);
         Assert.That(contexts[0].Citations[0].Title, Is.Not.Null.Or.Empty);
     }
 
-    [RecordedTest]
-    public async Task AsyncContentFilterWorksStreaming()
-    {
-        // Precondition: the target deployment is configured with an async content filter that includes a
-        // custom blocklist that will filter variations of the word 'banana.'
-
-        ChatClient client = GetTestClient(TestConfig.GetConfig("chat_with_async_filter"));
-
-        StringBuilder contentBuilder = new();
-
-        List<RequestContentFilterResult> promptFilterResults = [];
-        List<ResponseContentFilterResult> responseFilterResults = [];
-
-        await foreach (StreamingChatCompletionUpdate chatUpdate
-            in client.CompleteChatStreamingAsync(
-            [
-                "Hello, assistant! What popular kinds of fruit are yellow and grow on trees?"
-            ]))
-        {
-            foreach (ChatMessageContentPart contentPart in chatUpdate.ContentUpdate)
-            {
-                contentBuilder.Append(contentPart.Text);
-            }
-
-            RequestContentFilterResult promptFilterResult = chatUpdate.GetRequestContentFilterResult();
-            ResponseContentFilterResult responseFilterResult = chatUpdate.GetResponseContentFilterResult();
-
-            if (promptFilterResult is not null)
-            {
-                promptFilterResults.Add(promptFilterResult);
-            }
-            if (responseFilterResult is not null)
-            {
-                responseFilterResults.Add(responseFilterResult);
-            }
-        }
-
-        string fullContent = contentBuilder.ToString();
-        Assert.That(fullContent.ToLowerInvariant(), Does.Contain("banana"));
-
-        Assert.That(promptFilterResults, Has.Count.GreaterThan(0));
-        Assert.That(responseFilterResults, Has.Count.GreaterThan(0));
-
-        Assert.That(responseFilterResults.Any(filterResult
-            => filterResult.CustomBlocklists?.BlocklistFilterStatuses?
-                .TryGetValue("TestBlocklistNoBanana", out bool filtered) == true
-                    && filtered));
-    }
-
     #endregion
 
-    #region Tests for interim o1 model support regarding new max_completion_tokens
-
-    #endregion
     #region Helper methods
 
     private void ValidateUpdate(StreamingChatCompletionUpdate update, StringBuilder builder, ref bool foundPromptFilter, ref bool foundResponseFilter)
@@ -641,7 +519,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         if (update.CreatedAt == UNIX_EPOCH)
         {
             // This is the first message that usually contains the service's request content filtering
-            RequestContentFilterResult promptFilter = update.GetRequestContentFilterResult();
+            ContentFilterResultForPrompt promptFilter = update.GetContentFilterResultForPrompt();
             if (promptFilter?.SelfHarm != null)
             {
                 Assert.That(promptFilter.SelfHarm.Filtered, Is.False);
@@ -651,14 +529,14 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
         }
         else
         {
-            Assert.That(update.CompletionId, Is.Not.Null.Or.Empty);
+            Assert.That(update.Id, Is.Not.Null.Or.Empty);
             Assert.That(update.CreatedAt, Is.GreaterThan(new DateTimeOffset(2024, 01, 01, 00, 00, 00, TimeSpan.Zero)));
             Assert.That(update.FinishReason, Is.Null.Or.EqualTo(ChatFinishReason.Stop));
             if (update.Usage != null)
             {
-                Assert.That(update.Usage.InputTokenCount, Is.GreaterThanOrEqualTo(0));
-                Assert.That(update.Usage.OutputTokenCount, Is.GreaterThanOrEqualTo(0));
-                Assert.That(update.Usage.TotalTokenCount, Is.GreaterThanOrEqualTo(0));
+                Assert.That(update.Usage.InputTokens, Is.GreaterThanOrEqualTo(0));
+                Assert.That(update.Usage.OutputTokens, Is.GreaterThanOrEqualTo(0));
+                Assert.That(update.Usage.TotalTokens, Is.GreaterThanOrEqualTo(0));
             }
 
             Assert.That(update.Model, Is.Not.Null);
@@ -682,7 +560,7 @@ public partial class ChatTests : AoaiTestBase<ChatClient>
 
             if (!foundResponseFilter)
             {
-                ResponseContentFilterResult responseFilter = update.GetResponseContentFilterResult();
+                ContentFilterResultForResponse responseFilter = update.GetContentFilterResultForResponse();
                 if (responseFilter?.Violence != null)
                 {
                     Assert.That(responseFilter.Violence.Filtered, Is.False);

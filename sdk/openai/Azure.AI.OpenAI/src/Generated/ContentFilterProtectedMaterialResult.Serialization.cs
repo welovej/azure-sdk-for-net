@@ -80,7 +80,7 @@ namespace Azure.AI.OpenAI
             }
             bool filtered = default;
             bool detected = default;
-            ContentFilterProtectedMaterialCitationResult citation = default;
+            ContentFilterProtectedMaterialCitedResult citation = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -101,7 +101,7 @@ namespace Azure.AI.OpenAI
                     {
                         continue;
                     }
-                    citation = ContentFilterProtectedMaterialCitationResult.DeserializeContentFilterProtectedMaterialCitationResult(property.Value, options);
+                    citation = ContentFilterProtectedMaterialCitedResult.DeserializeContentFilterProtectedMaterialCitedResult(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

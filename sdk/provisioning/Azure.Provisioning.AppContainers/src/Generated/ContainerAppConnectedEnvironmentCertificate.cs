@@ -63,16 +63,11 @@ public partial class ContainerAppConnectedEnvironmentCertificate : Resource
     /// <summary>
     /// Creates a new ContainerAppConnectedEnvironmentCertificate.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the
-    /// ContainerAppConnectedEnvironmentCertificate resource.  This can be
-    /// used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ContainerAppConnectedEnvironmentCertificate.</param>
     /// <param name="resourceVersion">Version of the ContainerAppConnectedEnvironmentCertificate.</param>
-    public ContainerAppConnectedEnvironmentCertificate(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.App/connectedEnvironments/certificates", resourceVersion ?? "2024-03-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public ContainerAppConnectedEnvironmentCertificate(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.App/connectedEnvironments/certificates", resourceVersion ?? "2023-05-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -113,15 +108,9 @@ public partial class ContainerAppConnectedEnvironmentCertificate : Resource
     /// Creates a reference to an existing
     /// ContainerAppConnectedEnvironmentCertificate.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the
-    /// ContainerAppConnectedEnvironmentCertificate resource.  This can be
-    /// used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ContainerAppConnectedEnvironmentCertificate.</param>
     /// <param name="resourceVersion">Version of the ContainerAppConnectedEnvironmentCertificate.</param>
     /// <returns>The existing ContainerAppConnectedEnvironmentCertificate resource.</returns>
-    public static ContainerAppConnectedEnvironmentCertificate FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static ContainerAppConnectedEnvironmentCertificate FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

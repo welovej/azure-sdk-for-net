@@ -48,8 +48,7 @@ namespace Azure.Identity.Tests
                     DisableInstanceDiscovery = config.DisableInstanceDiscovery,
                     IsUnsafeSupportLoggingEnabled = config.IsUnsafeSupportLoggingEnabled,
                     MsalConfidentialClient = config.MockConfidentialMsalClient,
-                    MsalPublicClient = config.MockPublicMsalClient,
-                    AuthorityHost = config.AuthorityHost,
+                    MsalPublicClient = config.MockPublicMsalClient
                 };
                 if (config.Transport != null)
                 {

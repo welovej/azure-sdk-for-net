@@ -157,10 +157,10 @@ foreach (EventGridEvent egEvent in egEvents)
     switch (egEvent.EventType)
     {
         case "Microsoft.Communication.WorkerOfferIssued":
-            AcsRouterWorkerOfferIssuedEventData? deserializedEventData =
+            AcsRouterWorkerOfferIssuedEventData deserializedEventData =
                 egEvent.Data.ToObjectFromJson<AcsRouterWorkerOfferIssuedEventData>();
-            Console.Write(deserializedEventData?.OfferId); // Offer Id
-            offerId = deserializedEventData?.OfferId ?? string.Empty;
+            Console.Write(deserializedEventData.OfferId); // Offer Id
+            offerId = deserializedEventData.OfferId;
             break;
         // Handle any other custom event type
         default:

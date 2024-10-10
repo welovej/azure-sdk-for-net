@@ -67,7 +67,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         }
 
         /// <summary> Which access key to regenerate. </summary>
-        [WirePath("keyType")]
         public RedisEnterpriseAccessKeyType KeyType { get; }
     }
 }

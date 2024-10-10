@@ -18,7 +18,7 @@ namespace Microsoft.Azure.WebPubSub.Common
     {
         private Dictionary<string, BinaryData> _states;
 
-        [JsonIgnore]
+        [DataMember(Name = "code")]
         internal override WebPubSubStatusCode StatusCode
         {
             get
@@ -39,14 +39,12 @@ namespace Microsoft.Azure.WebPubSub.Common
         /// </summary>
         [IgnoreDataMember]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [JsonIgnore]
         public IReadOnlyDictionary<string, object> States { get; private set; }
 
         /// <summary>
         /// The connection states.
         /// </summary>
         [IgnoreDataMember]
-        [JsonIgnore]
         public IReadOnlyDictionary<string, BinaryData> ConnectionStates => _states;
 
         /// <summary>

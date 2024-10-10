@@ -19,21 +19,13 @@ namespace Azure.ResourceManager.IotFirmwareDefense.Models
 
         void IJsonModel<BinaryHardeningListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<BinaryHardeningListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(BinaryHardeningListResult)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (options.Format != "W" && Optional.IsCollectionDefined(Value))
             {
                 writer.WritePropertyName("value"u8);
@@ -64,6 +56,7 @@ namespace Azure.ResourceManager.IotFirmwareDefense.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         BinaryHardeningListResult IJsonModel<BinaryHardeningListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

@@ -22,10 +22,24 @@ namespace Azure.Storage.DataMovement.Tests
             long fileSize = 4L * Constants.GB;
             Uri localUri = new(@"C:\Sample\test.txt");
             Uri remoteUri = new("https://example.com");
-            (StorageResourceItem srcResource, StorageResourceItem dstResource) = MockStorageResourceItem.GetMockTransferResources(
-                transferDirection,
-                transferOrder,
-                fileSize);
+
+            StorageResourceItem srcResource;
+            StorageResourceItem dstResource;
+            if (transferDirection == TransferDirection.Copy)
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: remoteUri);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: remoteUri, transferOrder: transferOrder);
+            }
+            else if (transferDirection == TransferDirection.Upload)
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: localUri);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: remoteUri, transferOrder: transferOrder);
+            }
+            else // transferType == TransferDirection.Download
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: remoteUri);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: localUri, transferOrder: transferOrder);
+            }
 
             TransferManager transferManager = new();
             DataTransferOptions options = new();
@@ -46,11 +60,21 @@ namespace Azure.Storage.DataMovement.Tests
             [Values(DataTransferOrder.Sequential, DataTransferOrder.Unordered)] DataTransferOrder transferOrder)
         {
             long fileSize = 4L * Constants.GB;
-            (StorageResourceItem srcResource, StorageResourceItem dstResource) = MockStorageResourceItem.GetMockTransferResources(
-                transferDirection,
-                transferOrder,
-                fileSize,
-                sourceFailAfter: 10);
+            Uri localUri = new(@"C:\Sample\test.txt");
+            Uri remoteUri = new("https://example.com");
+
+            StorageResourceItem srcResource;
+            StorageResourceItem dstResource;
+            if (transferDirection == TransferDirection.Upload)
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: localUri, failAfter: 10);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: remoteUri, transferOrder: transferOrder);
+            }
+            else // transferType == TransferDirection.Download
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: remoteUri, failAfter: 10);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: localUri, transferOrder: transferOrder);
+            }
 
             TransferManager transferManager = new();
             DataTransferOptions options = new();
@@ -71,11 +95,26 @@ namespace Azure.Storage.DataMovement.Tests
             [Values(DataTransferOrder.Sequential, DataTransferOrder.Unordered)] DataTransferOrder transferOrder)
         {
             long fileSize = 4L * Constants.GB;
-            (StorageResourceItem srcResource, StorageResourceItem dstResource) = MockStorageResourceItem.GetMockTransferResources(
-                transferDirection,
-                transferOrder,
-                fileSize,
-                destinationFailAfter: 10);
+            Uri localUri = new(@"C:\Sample\test.txt");
+            Uri remoteUri = new("https://example.com");
+
+            StorageResourceItem srcResource;
+            StorageResourceItem dstResource;
+            if (transferDirection == TransferDirection.Copy)
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: remoteUri);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: remoteUri, transferOrder: transferOrder, failAfter: 10);
+            }
+            else if (transferDirection == TransferDirection.Upload)
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: localUri);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: remoteUri, transferOrder: transferOrder, failAfter: 10);
+            }
+            else // transferType == TransferDirection.Download
+            {
+                srcResource = MockStorageResource.MakeSourceResource(fileSize, uri: remoteUri);
+                dstResource = MockStorageResource.MakeDestinationResource(uri: localUri, transferOrder: transferOrder, failAfter: 10);
+            }
 
             TransferManager transferManager = new();
             DataTransferOptions options = new();

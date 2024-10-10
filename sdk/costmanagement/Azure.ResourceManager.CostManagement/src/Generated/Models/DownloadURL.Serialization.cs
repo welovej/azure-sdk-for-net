@@ -19,21 +19,13 @@ namespace Azure.ResourceManager.CostManagement.Models
 
         void IJsonModel<DownloadURL>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<DownloadURL>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DownloadURL)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (options.Format != "W" && Optional.IsDefined(ExpiryOn))
             {
                 writer.WritePropertyName("expiryTime"u8);
@@ -64,6 +56,7 @@ namespace Azure.ResourceManager.CostManagement.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         DownloadURL IJsonModel<DownloadURL>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

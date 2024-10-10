@@ -78,7 +78,12 @@ namespace Azure.Maps.Search.Tests
          [Test]
         public void GetGeocoding()
         {
-            var client = TestEnvironment.CreateClient();
+            var clientOptions = new MapsSearchClientOptions()
+            {
+                Endpoint = TestEnvironment.Endpoint
+            };
+            var clientId = TestEnvironment.MapAccountClientId;
+            var client = new MapsSearchClient(TestEnvironment.Credential, clientId, clientOptions);
             #region Snippet:GetGeocoding
             Response<GeocodingResponse> searchResult = client.GetGeocoding("1 Microsoft Way, Redmond, WA 98052");
             for (int i = 0; i < searchResult.Value.Features.Count; i++)
@@ -91,7 +96,12 @@ namespace Azure.Maps.Search.Tests
         [Test]
         public void GetGeocodingBatch()
         {
-            var client = TestEnvironment.CreateClient();
+            var clientOptions = new MapsSearchClientOptions()
+            {
+                Endpoint = TestEnvironment.Endpoint
+            };
+            var clientId = TestEnvironment.MapAccountClientId;
+            var client = new MapsSearchClient(TestEnvironment.Credential, clientId, clientOptions);
             #region Snippet:GetGeocodingBatch
             List<GeocodingQuery> queries = new List<GeocodingQuery>
                     {
@@ -106,7 +116,7 @@ namespace Azure.Maps.Search.Tests
                     };
             Response<GeocodingBatchResponse> results = client.GetGeocodingBatch(queries);
 
-            // Print coordinates
+            //Print coordinates
             for (var i = 0; i < results.Value.BatchItems.Count; i++)
             {
                 for (var j = 0; j < results.Value.BatchItems[i].Features.Count; j++)
@@ -120,7 +130,12 @@ namespace Azure.Maps.Search.Tests
         [Test]
         public void GetPolygon()
         {
-            var client = TestEnvironment.CreateClient();
+            var clientOptions = new MapsSearchClientOptions()
+            {
+                Endpoint = TestEnvironment.Endpoint
+            };
+            var clientId = TestEnvironment.MapAccountClientId;
+            var client = new MapsSearchClient(TestEnvironment.Credential, clientId, clientOptions);
             #region Snippet:GetPolygon
             GetPolygonOptions options = new GetPolygonOptions()
             {
@@ -129,18 +144,14 @@ namespace Azure.Maps.Search.Tests
                 Resolution = ResolutionEnum.Small,
             };
             Response<Boundary> result = client.GetPolygon(options);
-
-            // Print polygon information
-            Console.WriteLine($"Boundary copyright URL: {result.Value.Properties?.CopyrightUrl}");
-            Console.WriteLine($"Boundary copyright: {result.Value.Properties?.Copyright}");
-
-            Console.WriteLine($"{result.Value.Geometry.Count} polygons in the result.");
-            Console.WriteLine($"First polygon coordinates (latitude, longitude):");
-
-            // Print polygon coordinates
-            foreach (var coordinate in ((GeoPolygon)result.Value.Geometry[0]).Coordinates[0])
+            var count = ((GeoJsonPolygon)((GeoJsonGeometryCollection)result.Value.Geometry).Geometries[0]).Coordinates.Count;
+            for (var i = 0; i < count; i++)
             {
-                Console.WriteLine($"{coordinate.Latitude:N5}, {coordinate.Longitude:N5}");
+                var coorCount = ((GeoJsonPolygon)((GeoJsonGeometryCollection)result.Value.Geometry).Geometries[0]).Coordinates[i].Count;
+                for (var j = 0; j < coorCount; j++)
+                {
+                    Console.WriteLine(string.Join(",", ((GeoJsonPolygon)((GeoJsonGeometryCollection)result.Value.Geometry).Geometries[0]).Coordinates[i][j]));
+                }
             }
             #endregion
         }
@@ -148,12 +159,17 @@ namespace Azure.Maps.Search.Tests
         [Test]
         public void GetReverseGeocoding()
         {
-            var client = TestEnvironment.CreateClient();
+            var clientOptions = new MapsSearchClientOptions()
+            {
+                Endpoint = TestEnvironment.Endpoint
+            };
+            var clientId = TestEnvironment.MapAccountClientId;
+            var client = new MapsSearchClient(TestEnvironment.Credential, clientId, clientOptions);
             #region Snippet:GetReverseGeocoding
             GeoPosition coordinates = new GeoPosition(-122.138685, 47.6305637);
             Response<GeocodingResponse> result = client.GetReverseGeocoding(coordinates);
 
-            // Print addresses
+            //Print addresses
             for (int i = 0; i < result.Value.Features.Count; i++)
             {
                 Console.WriteLine(result.Value.Features[i].Properties.Address.FormattedAddress);
@@ -164,7 +180,12 @@ namespace Azure.Maps.Search.Tests
         [Test]
         public void GetReverseGeocodingBatch()
         {
-            var client = TestEnvironment.CreateClient();
+            var clientOptions = new MapsSearchClientOptions()
+            {
+                Endpoint = TestEnvironment.Endpoint
+            };
+            var clientId = TestEnvironment.MapAccountClientId;
+            var client = new MapsSearchClient(TestEnvironment.Credential, clientId, clientOptions);
             #region Snippet:GetReverseGeocodingBatch
             List<ReverseGeocodingQuery> items = new List<ReverseGeocodingQuery>
                     {
@@ -180,7 +201,7 @@ namespace Azure.Maps.Search.Tests
                     };
             Response<GeocodingBatchResponse> result = client.GetReverseGeocodingBatch(items);
 
-            // Print addresses
+            //Print addresses
             for (var i = 0; i < result.Value.BatchItems.Count; i++)
             {
                 Console.WriteLine(result.Value.BatchItems[i].Features[0].Properties.Address.AddressLine);

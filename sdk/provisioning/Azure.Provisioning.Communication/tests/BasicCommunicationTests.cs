@@ -20,14 +20,11 @@ public class BasicCommunicationTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
-                ProvisioningParameter location =
+                BicepParameter location =
                     new(nameof(location), typeof(string))
                     {
                         Value = "global"
                     };
-                infra.Add(location);
 
                 CommunicationService comm =
                     new(nameof(comm), "2023-03-31")
@@ -35,9 +32,6 @@ public class BasicCommunicationTests(bool async)
                         Location = location,
                         DataLocation = "unitedstates"
                     };
-                infra.Add(comm);
-
-                return infra;
             })
         .Compare(
             """

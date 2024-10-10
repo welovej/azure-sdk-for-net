@@ -20,27 +20,20 @@ namespace Azure.ResourceManager.DataFactory.Models
 
         void IJsonModel<TarGzipReadSettings>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<TarGzipReadSettings>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(TarGzipReadSettings)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
+            writer.WriteStartObject();
             if (Optional.IsDefined(PreserveCompressionFileNameAsFolder))
             {
                 writer.WritePropertyName("preserveCompressionFileNameAsFolder"u8);
                 JsonSerializer.Serialize(writer, PreserveCompressionFileNameAsFolder);
             }
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(CompressionReadSettingsType);
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -53,6 +46,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 }
 #endif
             }
+            writer.WriteEndObject();
         }
 
         TarGzipReadSettings IJsonModel<TarGzipReadSettings>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

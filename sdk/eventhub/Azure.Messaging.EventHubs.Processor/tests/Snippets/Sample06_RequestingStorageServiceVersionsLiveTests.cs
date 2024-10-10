@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
-using Azure.Identity;
 using Azure.Messaging.EventHubs.Processor;
 using Azure.Storage.Blobs;
 using NUnit.Framework;
@@ -37,23 +36,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Processor_Sample06_ChooseStorageVersion
 
 #if SNIPPET
-            var credential = new DefaultAzureCredential();
-
-            var storageAccountEndpoint = "<< Account Uri (likely similar to https://{your-account}.blob.core.windows.net) >>";
+            var storageConnectionString = "<< CONNECTION STRING FOR THE STORAGE ACCOUNT >>";
             var blobContainerName = "<< NAME OF THE BLOB CONTAINER >>";
 
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var eventHubsConnectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
             var consumerGroup = "<< NAME OF THE EVENT HUB CONSUMER GROUP >>";
 #else
-            var credential = EventHubsTestEnvironment.Instance.Credential;
-
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var storageConnectionString = StorageTestEnvironment.Instance.StorageConnectionString;
+            var blobContainerName = storageScope.ContainerName;
+            var eventHubsConnectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = eventHubScope.EventHubName;
             var consumerGroup = eventHubScope.ConsumerGroups.First();
-
-            var storageAccountEndpoint = $"https://{ StorageTestEnvironment.Instance.StorageAccountName }.blob.{ StorageTestEnvironment.Instance.StorageEndpointSuffix}";
-            var blobContainerName = storageScope.ContainerName;
 #endif
 
             var storageClientOptions = new BlobClientOptions();
@@ -62,22 +56,16 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
                 new StorageApiVersionPolicy(),
                 HttpPipelinePosition.PerCall);
 
-            var blobUriBuilder = new BlobUriBuilder(new Uri(storageAccountEndpoint))
-            {
-                BlobContainerName = blobContainerName
-            };
-
             var storageClient = new BlobContainerClient(
-                blobUriBuilder.ToUri(),
-                credential,
+                storageConnectionString,
+                blobContainerName,
                 storageClientOptions);
 
             var processor = new EventProcessorClient(
                 storageClient,
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                eventHubsConnectionString,
+                eventHubName);
 
             try
             {

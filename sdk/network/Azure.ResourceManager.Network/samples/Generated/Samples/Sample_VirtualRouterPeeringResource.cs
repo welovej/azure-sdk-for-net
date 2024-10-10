@@ -99,7 +99,7 @@ namespace Azure.ResourceManager.Network.Samples
             // invoke the operation
             VirtualRouterPeeringData data = new VirtualRouterPeeringData()
             {
-                PeerAsn = 20000L,
+                PeerAsn = 20000,
                 PeerIP = "192.168.1.5",
             };
             ArmOperation<VirtualRouterPeeringResource> lro = await virtualRouterPeering.UpdateAsync(WaitUntil.Completed, data);

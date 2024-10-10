@@ -71,15 +71,11 @@ public partial class OperationalInsightsLinkedService : Resource
     /// <summary>
     /// Creates a new OperationalInsightsLinkedService.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the OperationalInsightsLinkedService
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the OperationalInsightsLinkedService.</param>
     /// <param name="resourceVersion">Version of the OperationalInsightsLinkedService.</param>
-    public OperationalInsightsLinkedService(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.OperationalInsights/workspaces/linkedServices", resourceVersion ?? "2023-09-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public OperationalInsightsLinkedService(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.OperationalInsights/workspaces/linkedServices", resourceVersion ?? "2020-08-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _provisioningState = BicepValue<OperationalInsightsLinkedServiceEntityStatus>.DefineProperty(this, "ProvisioningState", ["properties", "provisioningState"]);
@@ -97,11 +93,6 @@ public partial class OperationalInsightsLinkedService : Resource
     public static class ResourceVersions
     {
         /// <summary>
-        /// 2023-09-01.
-        /// </summary>
-        public static readonly string V2023_09_01 = "2023-09-01";
-
-        /// <summary>
         /// 2020-08-01.
         /// </summary>
         public static readonly string V2020_08_01 = "2020-08-01";
@@ -110,14 +101,9 @@ public partial class OperationalInsightsLinkedService : Resource
     /// <summary>
     /// Creates a reference to an existing OperationalInsightsLinkedService.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the OperationalInsightsLinkedService
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the OperationalInsightsLinkedService.</param>
     /// <param name="resourceVersion">Version of the OperationalInsightsLinkedService.</param>
     /// <returns>The existing OperationalInsightsLinkedService resource.</returns>
-    public static OperationalInsightsLinkedService FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static OperationalInsightsLinkedService FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

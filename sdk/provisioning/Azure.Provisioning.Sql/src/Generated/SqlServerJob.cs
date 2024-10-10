@@ -62,15 +62,11 @@ public partial class SqlServerJob : Resource
     /// <summary>
     /// Creates a new SqlServerJob.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SqlServerJob resource.  This can
-    /// be used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SqlServerJob.</param>
     /// <param name="resourceVersion">Version of the SqlServerJob.</param>
-    public SqlServerJob(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Sql/servers/jobAgents/jobs", resourceVersion ?? "2021-11-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public SqlServerJob(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Sql/servers/jobAgents/jobs", resourceVersion ?? "2021-11-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _description = BicepValue<string>.DefineProperty(this, "Description", ["properties", "description"]);
@@ -100,14 +96,9 @@ public partial class SqlServerJob : Resource
     /// <summary>
     /// Creates a reference to an existing SqlServerJob.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SqlServerJob resource.  This can
-    /// be used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SqlServerJob.</param>
     /// <param name="resourceVersion">Version of the SqlServerJob.</param>
     /// <returns>The existing SqlServerJob resource.</returns>
-    public static SqlServerJob FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static SqlServerJob FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

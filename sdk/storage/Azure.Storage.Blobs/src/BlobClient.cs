@@ -1042,18 +1042,13 @@ namespace Azure.Storage.Blobs
         public virtual Response<BlobContentInfo> Upload(
             BinaryData content,
             BlobUploadOptions options,
-            CancellationToken cancellationToken = default)
-        {
-            using (var stream = content.ToStream())
-            {
-                return StagedUploadInternal(
-                    stream,
-                    options,
-                    async: false,
-                    cancellationToken: cancellationToken)
-                    .EnsureCompleted();
-            }
-        }
+            CancellationToken cancellationToken = default) =>
+            StagedUploadInternal(
+                content.ToStream(),
+                options,
+                async: false,
+                cancellationToken: cancellationToken)
+                .EnsureCompleted();
 
         /// <summary>
         /// The <see cref="Upload(Stream, BlobHttpHeaders, Metadata, BlobRequestConditions, IProgress{long}, AccessTier?, StorageTransferOptions, CancellationToken)"/>
@@ -1365,18 +1360,13 @@ namespace Azure.Storage.Blobs
         public virtual async Task<Response<BlobContentInfo>> UploadAsync(
             BinaryData content,
             BlobUploadOptions options,
-            CancellationToken cancellationToken = default)
-        {
-            using (var stream = content.ToStream())
-            {
-                return await StagedUploadInternal(
-                    stream,
-                    options,
-                    async: true,
-                    cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
-            }
-        }
+            CancellationToken cancellationToken = default) =>
+            await StagedUploadInternal(
+                content.ToStream(),
+                options,
+                async: true,
+                cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
 
         /// <summary>
         /// The <see cref="UploadAsync(Stream, BlobHttpHeaders, Metadata, BlobRequestConditions, IProgress{long}, AccessTier?, StorageTransferOptions, CancellationToken)"/>

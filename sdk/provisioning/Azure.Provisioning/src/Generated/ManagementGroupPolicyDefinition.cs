@@ -113,15 +113,11 @@ public partial class ManagementGroupPolicyDefinition : Resource
     /// <summary>
     /// Creates a new ManagementGroupPolicyDefinition.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the ManagementGroupPolicyDefinition
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ManagementGroupPolicyDefinition.</param>
     /// <param name="resourceVersion">Version of the ManagementGroupPolicyDefinition.</param>
-    public ManagementGroupPolicyDefinition(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Authorization/policyDefinitions", resourceVersion ?? "2023-04-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public ManagementGroupPolicyDefinition(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Authorization/policyDefinitions", resourceVersion ?? "2023-04-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _description = BicepValue<string>.DefineProperty(this, "Description", ["properties", "description"]);
@@ -204,16 +200,11 @@ public partial class ManagementGroupPolicyDefinition : Resource
     /// <summary>
     /// Creates a reference to an existing ManagementGroupPolicyDefinition.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the ManagementGroupPolicyDefinition
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ManagementGroupPolicyDefinition.</param>
     /// <param name="resourceVersion">Version of the ManagementGroupPolicyDefinition.</param>
     /// <returns>The existing ManagementGroupPolicyDefinition resource.</returns>
-    public static ManagementGroupPolicyDefinition FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static ManagementGroupPolicyDefinition FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 
     /// <summary>
     /// Get the requirements for naming this ManagementGroupPolicyDefinition

@@ -1,8 +1,8 @@
 parameters:
 - name: LanguageVersion
-  displayName: LanguageVersion (6, 8)
+  displayName: LanguageVersion (6, 7)
   type: string
-  default: '8'
+  default: '7'
 - name: packageVersions
   displayName: PackageVersions (regex of package versions to run)
   type: string

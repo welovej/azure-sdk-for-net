@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.Compute.Samples
                 {
                     Name = "Standard_DS1_v2",
                     Tier = "aaa",
-                    Capacity = 7L,
+                    Capacity = 7,
                 },
                 Tags =
 {

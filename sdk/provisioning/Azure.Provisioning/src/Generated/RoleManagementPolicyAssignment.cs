@@ -82,15 +82,11 @@ public partial class RoleManagementPolicyAssignment : Resource
     /// <summary>
     /// Creates a new RoleManagementPolicyAssignment.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the RoleManagementPolicyAssignment
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the RoleManagementPolicyAssignment.</param>
     /// <param name="resourceVersion">Version of the RoleManagementPolicyAssignment.</param>
-    public RoleManagementPolicyAssignment(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Authorization/roleManagementPolicyAssignments", resourceVersion ?? "2020-10-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public RoleManagementPolicyAssignment(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Authorization/roleManagementPolicyAssignments", resourceVersion ?? "2020-10-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _policyId = BicepValue<ResourceIdentifier>.DefineProperty(this, "PolicyId", ["properties", "policyId"]);
@@ -121,14 +117,9 @@ public partial class RoleManagementPolicyAssignment : Resource
     /// <summary>
     /// Creates a reference to an existing RoleManagementPolicyAssignment.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the RoleManagementPolicyAssignment
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the RoleManagementPolicyAssignment.</param>
     /// <param name="resourceVersion">Version of the RoleManagementPolicyAssignment.</param>
     /// <returns>The existing RoleManagementPolicyAssignment resource.</returns>
-    public static RoleManagementPolicyAssignment FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static RoleManagementPolicyAssignment FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

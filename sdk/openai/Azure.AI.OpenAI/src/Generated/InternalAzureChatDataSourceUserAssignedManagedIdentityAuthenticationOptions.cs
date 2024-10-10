@@ -13,7 +13,7 @@ namespace Azure.AI.OpenAI.Chat
         /// <summary> Initializes a new instance of <see cref="InternalAzureChatDataSourceUserAssignedManagedIdentityAuthenticationOptions"/>. </summary>
         /// <param name="managedIdentityResourceId"></param>
         /// <exception cref="ArgumentNullException"> <paramref name="managedIdentityResourceId"/> is null. </exception>
-        public InternalAzureChatDataSourceUserAssignedManagedIdentityAuthenticationOptions(string managedIdentityResourceId)
+        internal InternalAzureChatDataSourceUserAssignedManagedIdentityAuthenticationOptions(string managedIdentityResourceId)
         {
             Argument.AssertNotNull(managedIdentityResourceId, nameof(managedIdentityResourceId));
 

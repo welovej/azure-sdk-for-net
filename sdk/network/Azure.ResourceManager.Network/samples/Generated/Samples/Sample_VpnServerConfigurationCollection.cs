@@ -193,7 +193,7 @@ new IPsecPolicy(86472,429497,IPsecEncryption.Aes256,IPsecIntegrity.Sha256,IkeEnc
 {
 new RadiusServer("10.0.0.0")
 {
-RadiusServerScore = 25L,
+RadiusServerScore = 25,
 RadiusServerSecret = "radiusServerSecret",
 }
 },

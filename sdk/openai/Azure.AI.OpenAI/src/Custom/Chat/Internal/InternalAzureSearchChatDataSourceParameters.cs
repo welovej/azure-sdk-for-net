@@ -1,32 +1,26 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Azure.Core;
-
 namespace Azure.AI.OpenAI.Chat;
 
-[Experimental("AOAI001")]
 [CodeGenModel("AzureSearchChatDataSourceParameters")]
 internal partial class InternalAzureSearchChatDataSourceParameters
 {
     [CodeGenMember("IncludeContexts")]
     private IList<string> _internalIncludeContexts = new ChangeTrackingList<string>();
-    private DataSourceOutputContexts? _outputContexts;
+    private DataSourceOutputContextFlags? _outputContextFlags;
 
-    /// <inheritdoc cref="DataSourceOutputContexts"/>
-    public DataSourceOutputContexts? OutputContexts
+    /// <inheritdoc cref="DataSourceOutputContextFlags"/>
+    public DataSourceOutputContextFlags? OutputContextFlags
     {
-        get => DataSourceOutputContextsExtensions.FromStringList(_internalIncludeContexts);
+        get => DataSourceOutputContextFlagsExtensions.FromStringList(_internalIncludeContexts);
         internal set
         {
-            _outputContexts = value;
-            _internalIncludeContexts = _outputContexts?.ToStringList();
+            _outputContextFlags = value;
+            _internalIncludeContexts = _outputContextFlags?.ToStringList();
         }
     }
 
-#if !AZURE_OPENAI_GA
     /// <summary>
     /// The authentication options to use with the Azure Search data source.
     /// </summary>
@@ -36,22 +30,9 @@ internal partial class InternalAzureSearchChatDataSourceParameters
     /// <item><see cref="DataSourceAuthentication.FromApiKey(string)"/></item>
     /// <item><see cref="DataSourceAuthentication.FromAccessToken(string)"/></item>
     /// <item><see cref="DataSourceAuthentication.FromSystemManagedIdentity()"/></item>
-    /// <item><see cref="DataSourceAuthentication.FromUserManagedIdentity(ResourceIdentifier)"/></item>
+    /// <item><see cref="DataSourceAuthentication.FromUserManagedIdentity(string)"/></item>
     /// </list>
     /// </remarks>
-#else
-    /// <summary>
-    /// The authentication options to use with the Azure Search data source.
-    /// </summary>
-    /// <remarks>
-    /// Azure Search data sources support any of the following options:
-    /// <list type="bullet">
-    /// <item><see cref="DataSourceAuthentication.FromApiKey(string)"/></item>
-    /// <item><see cref="DataSourceAuthentication.FromSystemManagedIdentity()"/></item>
-    /// <item><see cref="DataSourceAuthentication.FromUserManagedIdentity(ResourceIdentifier)"/></item>
-    /// </list>
-    /// </remarks>
-#endif
     [CodeGenMember("Authentication")]
     public DataSourceAuthentication Authentication { get; set; }
 
@@ -63,7 +44,7 @@ internal partial class InternalAzureSearchChatDataSourceParameters
     /// <item><see cref="DataSourceFieldMappings.ContentFieldSeparator"/></item>
     /// <item><see cref="DataSourceFieldMappings.TitleFieldName"/></item>
     /// <item><see cref="DataSourceFieldMappings.UrlFieldName"/></item>
-    /// <item><see cref="DataSourceFieldMappings.FilePathFieldName"/></item>
+    /// <item><see cref="DataSourceFieldMappings.FilepathFieldName"/></item>
     /// <item><see cref="DataSourceFieldMappings.VectorFieldNames"/></item>
     /// <item><see cref="DataSourceFieldMappings.ImageVectorFieldNames"/></item>
     /// </list>

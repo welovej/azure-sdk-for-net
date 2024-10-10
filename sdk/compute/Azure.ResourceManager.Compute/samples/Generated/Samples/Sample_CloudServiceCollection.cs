@@ -55,7 +55,7 @@ Sku = new CloudServiceRoleSku()
 {
 Name = "Standard_D1_v2",
 Tier = "Standard",
-Capacity = 1L,
+Capacity = 1,
 },
 },new CloudServiceRoleProfileProperties()
 {
@@ -64,7 +64,7 @@ Sku = new CloudServiceRoleSku()
 {
 Name = "Standard_D1_v2",
 Tier = "Standard",
-Capacity = 1L,
+Capacity = 1,
 },
 }
 },
@@ -135,7 +135,7 @@ Sku = new CloudServiceRoleSku()
 {
 Name = "Standard_D1_v2",
 Tier = "Standard",
-Capacity = 1L,
+Capacity = 1,
 },
 },new CloudServiceRoleProfileProperties()
 {
@@ -144,7 +144,7 @@ Sku = new CloudServiceRoleSku()
 {
 Name = "Standard_D1_v2",
 Tier = "Standard",
-Capacity = 1L,
+Capacity = 1,
 },
 }
 },
@@ -211,7 +211,7 @@ Sku = new CloudServiceRoleSku()
 {
 Name = "Standard_D1_v2",
 Tier = "Standard",
-Capacity = 1L,
+Capacity = 1,
 },
 }
 },
@@ -278,7 +278,7 @@ Sku = new CloudServiceRoleSku()
 {
 Name = "Standard_D1_v2",
 Tier = "Standard",
-Capacity = 1L,
+Capacity = 1,
 },
 }
 },
@@ -359,7 +359,7 @@ Sku = new CloudServiceRoleSku()
 {
 Name = "Standard_D1_v2",
 Tier = "Standard",
-Capacity = 1L,
+Capacity = 1,
 },
 }
 },

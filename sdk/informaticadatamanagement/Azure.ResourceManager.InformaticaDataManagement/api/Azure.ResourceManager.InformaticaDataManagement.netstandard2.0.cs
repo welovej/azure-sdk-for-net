@@ -31,7 +31,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement
     {
         public InformaticaOrganizationData(Azure.Core.AzureLocation location) { }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationProperties Properties { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.InformaticaOrganizationData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.InformaticaOrganizationData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.InformaticaOrganizationData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.InformaticaOrganizationData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.InformaticaOrganizationData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -91,7 +90,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement
     {
         public InformaticaServerlessRuntimeData() { }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeProperties Properties { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.InformaticaServerlessRuntimeData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.InformaticaServerlessRuntimeData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.InformaticaServerlessRuntimeData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.InformaticaServerlessRuntimeData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.InformaticaServerlessRuntimeData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -153,7 +151,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public AdvancedCustomProperties() { }
         public string Key { get { throw null; } set { } }
         public string Value { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.AdvancedCustomProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.AdvancedCustomProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.AdvancedCustomProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.AdvancedCustomProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.AdvancedCustomProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -183,7 +180,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationConfigs> ApplicationConfigs { get { throw null; } }
         public string EngineName { get { throw null; } set { } }
         public string EngineVersion { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -196,7 +192,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public int Count { get { throw null; } }
         public string Id { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeDependency> References { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.CheckDependenciesResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.CheckDependenciesResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.CheckDependenciesResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.CheckDependenciesResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.CheckDependenciesResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -208,7 +203,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         internal ComputeUnitsMetadata() { }
         public string Name { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> Value { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ComputeUnitsMetadata System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ComputeUnitsMetadata>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ComputeUnitsMetadata>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ComputeUnitsMetadata System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ComputeUnitsMetadata>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -224,7 +218,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string Name { get { throw null; } set { } }
         public string Platform { get { throw null; } set { } }
         public string Value { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationConfigs System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationConfigs>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationConfigs>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationConfigs System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationConfigs>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -254,7 +247,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         internal InformaticaApplicationTypeMetadata() { }
         public string Name { get { throw null; } }
         public string Value { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationTypeMetadata System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationTypeMetadata>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationTypeMetadata>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationTypeMetadata System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaApplicationTypeMetadata>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -270,7 +262,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string Domain { get { throw null; } set { } }
         public int? NumberOfEmployees { get { throw null; } set { } }
         public string OfficeAddress { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -286,7 +277,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string Domain { get { throw null; } set { } }
         public int? NumberOfEmployees { get { throw null; } set { } }
         public string OfficeAddress { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetailsUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetailsUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetailsUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetailsUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaCompanyDetailsUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -298,7 +288,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public InformaticaMarketplaceDetails(Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetails offerDetails) { }
         public string MarketplaceSubscriptionId { get { throw null; } set { } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetails OfferDetails { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -310,7 +299,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public InformaticaMarketplaceDetailsUpdate() { }
         public string MarketplaceSubscriptionId { get { throw null; } set { } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetailsUpdate OfferDetails { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetailsUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetailsUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetailsUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetailsUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetailsUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -323,7 +311,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public Azure.Core.ResourceIdentifier SubnetId { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier VnetId { get { throw null; } set { } }
         public string VnetResourceGuid { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfiguration>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfiguration System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfiguration>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -336,7 +323,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public Azure.Core.ResourceIdentifier SubnetId { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier VnetId { get { throw null; } set { } }
         public string VnetResourceGuid { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfigurationUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfigurationUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfigurationUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfigurationUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaNetworkInterfaceConfigurationUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -352,7 +338,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string PublisherId { get { throw null; } set { } }
         public string TermId { get { throw null; } set { } }
         public string TermUnit { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -368,7 +353,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string PublisherId { get { throw null; } set { } }
         public string TermId { get { throw null; } set { } }
         public string TermUnit { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetailsUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetailsUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetailsUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetailsUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOfferDetailsUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -380,7 +364,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public InformaticaOrganizationPatch() { }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPropertiesUpdate Properties { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPatch System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPatch>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPatch>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -396,7 +379,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetails MarketplaceDetails { get { throw null; } set { } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetails UserDetails { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -411,7 +393,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPatch InformaticaOrganizationProperties { get { throw null; } set { } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaMarketplaceDetailsUpdate MarketplaceDetails { get { throw null; } set { } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetailsUpdate UserDetails { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPropertiesUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPropertiesUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPropertiesUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPropertiesUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaOrganizationPropertiesUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -442,7 +423,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string OrganizationId { get { throw null; } set { } }
         public string OrganizationName { get { throw null; } set { } }
         public System.Uri SingleSignOnUri { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -479,7 +459,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         internal InformaticaRegionsMetadata() { }
         public string Id { get { throw null; } }
         public string Name { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRegionsMetadata System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRegionsMetadata>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRegionsMetadata>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRegionsMetadata System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRegionsMetadata>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -501,7 +480,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string StatusMessage { get { throw null; } }
         public string UpdatedBy { get { throw null; } }
         public string UpdatedTime { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRuntimeResourceFetchMetadata System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRuntimeResourceFetchMetadata>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRuntimeResourceFetchMetadata>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRuntimeResourceFetchMetadata System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRuntimeResourceFetchMetadata>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -542,7 +520,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string Tags { get { throw null; } }
         public System.Guid? TenantId { get { throw null; } }
         public string Vnet { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessFetchConfigProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessFetchConfigProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessFetchConfigProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessFetchConfigProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessFetchConfigProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -553,7 +530,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
     {
         public InformaticaServerlessRuntimePatch() { }
         public Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimePropertiesUpdate Properties { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimePatch System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimePatch>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimePatch>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimePatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimePatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -576,7 +552,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeTag> ServerlessRuntimeTags { get { throw null; } }
         public string SupplementaryFileLocation { get { throw null; } set { } }
         public string UserContextToken { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -587,7 +562,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
     {
         internal InformaticaServerlessRuntimeResourceList() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRuntimeResourceFetchMetadata> InformaticaRuntimeResources { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeResourceList System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeResourceList>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeResourceList>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeResourceList System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaServerlessRuntimeResourceList>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -602,7 +576,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string LastName { get { throw null; } set { } }
         public string PhoneNumber { get { throw null; } set { } }
         public string Upn { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -617,7 +590,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string LastName { get { throw null; } set { } }
         public string PhoneNumber { get { throw null; } set { } }
         public string Upn { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetailsUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetailsUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetailsUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetailsUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaUserDetailsUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -632,7 +604,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string ExecutionTimeout { get { throw null; } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaPlatformType? Platform { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRegionsMetadata> Regions { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessConfigProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessConfigProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessConfigProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessConfigProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessConfigProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -645,7 +616,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public Azure.ResourceManager.InformaticaDataManagement.Models.InformaticaRuntimeType? RuntimeType { get { throw null; } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessConfigProperties ServerlessConfigProperties { get { throw null; } }
         public Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigProperties ServerlessRuntimeConfigProperties { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessMetadataResponse System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessMetadataResponse>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessMetadataResponse>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessMetadataResponse System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessMetadataResponse>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -657,7 +627,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public ServerlessRuntimeConfigProperties() { }
         public System.Collections.Generic.IList<Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties> CdiConfigProps { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties> CdieConfigProps { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -669,7 +638,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public ServerlessRuntimeConfigPropertiesUpdate() { }
         public System.Collections.Generic.IList<Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties> CdiConfigProps { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.InformaticaDataManagement.Models.CdiConfigProperties> CdieConfigProps { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigPropertiesUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigPropertiesUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigPropertiesUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigPropertiesUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeConfigPropertiesUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -685,7 +653,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public string Id { get { throw null; } }
         public string LastUpdatedTime { get { throw null; } }
         public string Path { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeDependency System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeDependency>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeDependency>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeDependency System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeDependency>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -707,7 +674,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeTag> ServerlessRuntimeTags { get { throw null; } }
         public string SupplementaryFileLocation { get { throw null; } set { } }
         public string UserContextToken { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimePropertiesUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimePropertiesUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimePropertiesUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimePropertiesUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimePropertiesUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -719,7 +685,6 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
         public ServerlessRuntimeTag() { }
         public string Name { get { throw null; } set { } }
         public string Value { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeTag System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeTag>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeTag>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeTag System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.InformaticaDataManagement.Models.ServerlessRuntimeTag>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }

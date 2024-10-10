@@ -10,8 +10,6 @@
 
 * RPC attributes are now correctly exported to Application Insights as custom properties.
   ([#45316](https://github.com/Azure/azure-sdk-for-net/pull/45316))
-* Fixed an issue where unmapped attributes were dropped from telemetry.
-  ([#45909](https://github.com/Azure/azure-sdk-for-net/pull/45909))
 
 ### Other Changes
 

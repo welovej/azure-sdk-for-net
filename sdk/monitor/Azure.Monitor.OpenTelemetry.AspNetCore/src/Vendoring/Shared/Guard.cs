@@ -3,19 +3,25 @@
 
 #nullable enable
 
+// Note: When implicit usings are enabled in a project this file will generate
+// warnings/errors without this suppression.
+#pragma warning disable IDE0005 // Using directive is unnecessary.
+
 // Note: For some targets this file will contain more than one type/namespace.
 #pragma warning disable IDE0161 // Convert to file-scoped namespace
 
+using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 #pragma warning disable SA1402 // File may only contain a single type
 #pragma warning disable SA1403 // File may only contain a single namespace
 #pragma warning disable SA1649 // File name should match first type name
 
-#if !NET
+#if !NET6_0_OR_GREATER
 namespace System.Runtime.CompilerServices
 {
     /// <summary>Allows capturing of the expressions passed to a method.</summary>
@@ -32,7 +38,7 @@ namespace System.Runtime.CompilerServices
 }
 #endif
 
-#if !NET && !NETSTANDARD2_1_OR_GREATER
+#if !NET6_0_OR_GREATER && !NETSTANDARD2_1_OR_GREATER
 namespace System.Diagnostics.CodeAnalysis
 {
     /// <summary>Specifies that an output is not <see langword="null"/> even if

@@ -6,8 +6,6 @@ using System.ClientModel.Primitives;
 
 namespace Azure.AI.OpenAI;
 
-#pragma warning disable AOAI001
-
 internal static partial class ClientPipelineExtensions
 {
     public static async ValueTask<PipelineResponse> ProcessMessageAsync(

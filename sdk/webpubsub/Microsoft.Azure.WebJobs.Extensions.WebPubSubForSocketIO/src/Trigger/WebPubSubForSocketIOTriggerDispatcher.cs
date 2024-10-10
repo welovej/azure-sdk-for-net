@@ -151,7 +151,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.WebPubSubForSocketIO
                                 {
                                     return Utilities.BuildValidResponse(connectResponse);
                                 }
-                                if (response is SocketIOMessageResponse messageResponse)
+                                else if (response is SocketIOMessageResponse messageResponse)
                                 {
                                     return Utilities.BuildValidResponse(messageResponse, context.Namespace, ackId.Value);
                                 }
@@ -159,14 +159,8 @@ namespace Microsoft.Azure.WebJobs.Extensions.WebPubSubForSocketIO
                                 {
                                     return Utilities.BuildValidResponse(jResponse, requestType, context, ackId);
                                 }
-                                if (response is string responseAsString)
-                                {
-                                    // Python passes string here. Try to convert to JSON
-                                    var jObj = Newtonsoft.Json.Linq.JObject.Parse(responseAsString);
-                                    return Utilities.BuildValidResponse(jObj, requestType, context, ackId);
-                                }
 
-                                _logger.LogWarning($"Invalid response type {response.GetType()} regarding current request: RequestType.{requestType}");
+                                _logger.LogWarning($"Invalid response type {response.GetType()} regarding current request: {requestType}");
                             }
                         }
                     }

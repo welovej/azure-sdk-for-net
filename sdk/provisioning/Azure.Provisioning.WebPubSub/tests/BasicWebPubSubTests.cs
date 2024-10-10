@@ -21,9 +21,7 @@ public class BasicWebPubSubTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
-                WebPubSubService webpubsub =
+               WebPubSubService webpubsub =
                     new(nameof(webpubsub), "2021-10-01")
                     {
                         Sku =
@@ -70,10 +68,6 @@ public class BasicWebPubSubTests(bool async)
                         },
                         IsClientCertEnabled = false
                     };
-
-                infra.Add(webpubsub);
-
-                return infra;
             })
         .Compare(
             """

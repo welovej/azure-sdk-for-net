@@ -102,11 +102,11 @@ namespace Azure.ResourceManager.Media.Samples
             {
                 PresentationTimeRange = new PresentationTimeRange()
                 {
-                    StartTimestamp = 10L,
-                    EndTimestamp = 170000000L,
-                    PresentationWindowDuration = 9223372036854775000L,
-                    LiveBackoffDuration = 0L,
-                    Timescale = 10000000L,
+                    StartTimestamp = 10,
+                    EndTimestamp = 170000000,
+                    PresentationWindowDuration = 9223372036854775000,
+                    LiveBackoffDuration = 0,
+                    Timescale = 10000000,
                     ForceEndTimestamp = false,
                 },
                 FirstQualityBitrate = 128000,

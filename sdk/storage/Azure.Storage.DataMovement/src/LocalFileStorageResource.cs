@@ -84,7 +84,6 @@ namespace Azure.Storage.DataMovement
             long? length = default,
             CancellationToken cancellationToken = default)
         {
-            CancellationHelper.ThrowIfCancellationRequested(cancellationToken);
             FileStream stream = new FileStream(_uri.LocalPath, FileMode.Open, FileAccess.Read);
             stream.Position = position;
             return Task.FromResult(new StorageResourceReadStreamResult(stream));

@@ -20,22 +20,13 @@ namespace Azure.ResourceManager.DataFactory.Models
 
         void IJsonModel<CopyActivity>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<CopyActivity>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(CopyActivity)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
+            writer.WriteStartObject();
             if (Optional.IsCollectionDefined(Inputs))
             {
                 writer.WritePropertyName("inputs"u8);
@@ -51,6 +42,55 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("outputs"u8);
                 writer.WriteStartArray();
                 foreach (var item in Outputs)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(LinkedServiceName))
+            {
+                writer.WritePropertyName("linkedServiceName"u8);
+                JsonSerializer.Serialize(writer, LinkedServiceName);
+            }
+            if (Optional.IsDefined(Policy))
+            {
+                writer.WritePropertyName("policy"u8);
+                writer.WriteObjectValue(Policy, options);
+            }
+            writer.WritePropertyName("name"u8);
+            writer.WriteStringValue(Name);
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(ActivityType);
+            if (Optional.IsDefined(Description))
+            {
+                writer.WritePropertyName("description"u8);
+                writer.WriteStringValue(Description);
+            }
+            if (Optional.IsDefined(State))
+            {
+                writer.WritePropertyName("state"u8);
+                writer.WriteStringValue(State.Value.ToString());
+            }
+            if (Optional.IsDefined(OnInactiveMarkAs))
+            {
+                writer.WritePropertyName("onInactiveMarkAs"u8);
+                writer.WriteStringValue(OnInactiveMarkAs.Value.ToString());
+            }
+            if (Optional.IsCollectionDefined(DependsOn))
+            {
+                writer.WritePropertyName("dependsOn"u8);
+                writer.WriteStartArray();
+                foreach (var item in DependsOn)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(UserProperties))
+            {
+                writer.WritePropertyName("userProperties"u8);
+                writer.WriteStartArray();
+                foreach (var item in UserProperties)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -181,6 +221,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 }
 #endif
             }
+            writer.WriteEndObject();
         }
 
         CopyActivity IJsonModel<CopyActivity>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

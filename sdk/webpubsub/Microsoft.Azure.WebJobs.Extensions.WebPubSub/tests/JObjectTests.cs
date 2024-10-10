@@ -228,11 +228,16 @@ namespace Microsoft.Azure.WebJobs.Extensions.WebPubSub.Tests
             Assert.AreEqual(HttpStatusCode.InternalServerError, result.StatusCode);
         }
 
-        [TestCase]
-        public async Task ParseConnectResponse_ContentMatches()
+        [TestCase(@"""Success""")]
+        [TestCase("0")]
+        public async Task ParseConnectResponse_ContentMatches(string code)
         {
-            var test = @"{""test"":""test"",""errorMessage"":""not valid user.""}";
+            var test = @"{""code"":{0},""test"":""test"",""errorMessage"":""not valid user.""}";
+            test = test.Replace("{0}", code);
             var expected = JObject.FromObject(JsonConvert.DeserializeObject<ConnectEventResponse>(test));
+
+            // Safe to be serialize to enum 0 which is not read by customer.
+            Assert.AreEqual(0, expected["code"].Value<int>());
 
             var result = BuildResponse(test, RequestType.Connect);
             var content = await result.Content.ReadAsStringAsync();

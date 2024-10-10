@@ -37,10 +37,6 @@ namespace Azure.Storage.Files.Shares.Models
             bool? paidBurstingEnabled = default;
             long? paidBurstingMaxIops = default;
             long? paidBurstingMaxBandwidthMibps = default;
-            long? includedBurstIops = default;
-            long? maxBurstCreditsForIops = default;
-            DateTimeOffset? nextAllowedProvisionedIopsDowngradeTime = default;
-            DateTimeOffset? nextAllowedProvisionedBandwidthDowngradeTime = default;
             if (element.Element("Last-Modified") is XElement lastModifiedElement)
             {
                 lastModified = lastModifiedElement.GetDateTimeOffsetValue("R");
@@ -129,22 +125,6 @@ namespace Azure.Storage.Files.Shares.Models
             {
                 paidBurstingMaxBandwidthMibps = (long?)paidBurstingMaxBandwidthMibpsElement;
             }
-            if (element.Element("IncludedBurstIops") is XElement includedBurstIopsElement)
-            {
-                includedBurstIops = (long?)includedBurstIopsElement;
-            }
-            if (element.Element("MaxBurstCreditsForIops") is XElement maxBurstCreditsForIopsElement)
-            {
-                maxBurstCreditsForIops = (long?)maxBurstCreditsForIopsElement;
-            }
-            if (element.Element("NextAllowedProvisionedIopsDowngradeTime") is XElement nextAllowedProvisionedIopsDowngradeTimeElement)
-            {
-                nextAllowedProvisionedIopsDowngradeTime = nextAllowedProvisionedIopsDowngradeTimeElement.GetDateTimeOffsetValue("R");
-            }
-            if (element.Element("NextAllowedProvisionedBandwidthDowngradeTime") is XElement nextAllowedProvisionedBandwidthDowngradeTimeElement)
-            {
-                nextAllowedProvisionedBandwidthDowngradeTime = nextAllowedProvisionedBandwidthDowngradeTimeElement.GetDateTimeOffsetValue("R");
-            }
             return new SharePropertiesInternal(
                 lastModified,
                 etag,
@@ -167,11 +147,7 @@ namespace Azure.Storage.Files.Shares.Models
                 enableSnapshotVirtualDirectoryAccess,
                 paidBurstingEnabled,
                 paidBurstingMaxIops,
-                paidBurstingMaxBandwidthMibps,
-                includedBurstIops,
-                maxBurstCreditsForIops,
-                nextAllowedProvisionedIopsDowngradeTime,
-                nextAllowedProvisionedBandwidthDowngradeTime);
+                paidBurstingMaxBandwidthMibps);
         }
     }
 }

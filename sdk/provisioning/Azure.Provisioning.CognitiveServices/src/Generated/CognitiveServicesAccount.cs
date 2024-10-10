@@ -86,15 +86,11 @@ public partial class CognitiveServicesAccount : Resource
     /// <summary>
     /// Creates a new CognitiveServicesAccount.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the CognitiveServicesAccount resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the CognitiveServicesAccount.</param>
     /// <param name="resourceVersion">Version of the CognitiveServicesAccount.</param>
-    public CognitiveServicesAccount(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.CognitiveServices/accounts", resourceVersion ?? "2024-10-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public CognitiveServicesAccount(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.CognitiveServices/accounts", resourceVersion ?? "2022-12-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -114,9 +110,9 @@ public partial class CognitiveServicesAccount : Resource
     public static class ResourceVersions
     {
         /// <summary>
-        /// 2024-10-01.
+        /// 2024-06-01-preview.
         /// </summary>
-        public static readonly string V2024_10_01 = "2024-10-01";
+        public static readonly string V2024_06_01_preview = "2024-06-01-preview";
 
         /// <summary>
         /// 2023-05-01.
@@ -157,16 +153,11 @@ public partial class CognitiveServicesAccount : Resource
     /// <summary>
     /// Creates a reference to an existing CognitiveServicesAccount.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the CognitiveServicesAccount resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the CognitiveServicesAccount.</param>
     /// <param name="resourceVersion">Version of the CognitiveServicesAccount.</param>
     /// <returns>The existing CognitiveServicesAccount resource.</returns>
-    public static CognitiveServicesAccount FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static CognitiveServicesAccount FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 
     /// <summary>
     /// Get the requirements for naming this CognitiveServicesAccount resource.
@@ -182,39 +173,38 @@ public partial class CognitiveServicesAccount : Resource
     /// <returns>The keys for this CognitiveServicesAccount resource.</returns>
     public ServiceAccountApiKeys GetKeys() =>
         ServiceAccountApiKeys.FromExpression(
-            new FunctionCallExpression(new MemberExpression(new IdentifierExpression(IdentifierName), "listKeys")));
+            new FunctionCallExpression(new MemberExpression(new IdentifierExpression(ResourceName), "listKeys")));
 
     /// <summary>
-    /// Creates a role assignment for a user-assigned identity that grants
-    /// access to this CognitiveServicesAccount.
+    /// Assign a role to a user-assigned identity that grants access to this
+    /// CognitiveServicesAccount.
     /// </summary>
     /// <param name="role">The role to grant.</param>
     /// <param name="identity">The <see cref="UserAssignedIdentity"/>.</param>
     /// <returns>The <see cref="RoleAssignment"/>.</returns>
-    public RoleAssignment CreateRoleAssignment(CognitiveServicesBuiltInRole role, UserAssignedIdentity identity) =>
-        new($"{IdentifierName}_{identity.IdentifierName}_{CognitiveServicesBuiltInRole.GetBuiltInRoleName(role)}")
+    public RoleAssignment AssignRole(CognitiveServicesBuiltInRole role, UserAssignedIdentity identity) =>
+        new($"{ResourceName}_{identity.ResourceName}_{CognitiveServicesBuiltInRole.GetBuiltInRoleName(role)}")
         {
             Name = BicepFunction.CreateGuid(Id, identity.PrincipalId, BicepFunction.GetSubscriptionResourceId("Microsoft.Authorization/roleDefinitions", role.ToString())),
-            Scope = new IdentifierExpression(IdentifierName),
+            Scope = new IdentifierExpression(ResourceName),
             PrincipalType = RoleManagementPrincipalType.ServicePrincipal,
             RoleDefinitionId = BicepFunction.GetSubscriptionResourceId("Microsoft.Authorization/roleDefinitions", role.ToString()),
             PrincipalId = identity.PrincipalId
         };
 
     /// <summary>
-    /// Creates a role assignment for a principal that grants access to this
+    /// Assign a role to a principal that grants access to this
     /// CognitiveServicesAccount.
     /// </summary>
     /// <param name="role">The role to grant.</param>
     /// <param name="principalType">The type of the principal to assign to.</param>
     /// <param name="principalId">The principal to assign to.</param>
-    /// <param name="identifierNameSuffix">Optional role assignment identifier name suffix.</param>
     /// <returns>The <see cref="RoleAssignment"/>.</returns>
-    public RoleAssignment CreateRoleAssignment(CognitiveServicesBuiltInRole role, BicepValue<RoleManagementPrincipalType> principalType, BicepValue<Guid> principalId, string? identifierNameSuffix = default) =>
-        new($"{IdentifierName}_{CognitiveServicesBuiltInRole.GetBuiltInRoleName(role)}{(identifierNameSuffix is null ? "" : "_")}{identifierNameSuffix}")
+    public RoleAssignment AssignRole(CognitiveServicesBuiltInRole role, BicepValue<RoleManagementPrincipalType> principalType, BicepValue<Guid> principalId) =>
+        new($"{ResourceName}_{CognitiveServicesBuiltInRole.GetBuiltInRoleName(role)}")
         {
             Name = BicepFunction.CreateGuid(Id, principalId, BicepFunction.GetSubscriptionResourceId("Microsoft.Authorization/roleDefinitions", role.ToString())),
-            Scope = new IdentifierExpression(IdentifierName),
+            Scope = new IdentifierExpression(ResourceName),
             PrincipalType = principalType,
             RoleDefinitionId = BicepFunction.GetSubscriptionResourceId("Microsoft.Authorization/roleDefinitions", role.ToString()),
             PrincipalId = principalId

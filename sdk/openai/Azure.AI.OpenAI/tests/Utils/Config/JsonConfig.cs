@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OpenAI.TestFramework.Utils;
 
 namespace Azure.AI.OpenAI.Tests.Utils.Config;
 
@@ -28,7 +29,11 @@ public class JsonConfig : IConfiguration
         DictionaryKeyPolicy = JsonOptions.SnakeCaseLower,
         WriteIndented = true,
         AllowTrailingCommas = true,
+#if NETFRAMEWORK
+        IgnoreNullValues = true,
+#else
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+#endif
     };
 
     /// <inheritdoc />

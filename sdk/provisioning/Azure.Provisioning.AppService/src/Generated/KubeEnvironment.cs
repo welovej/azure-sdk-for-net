@@ -129,15 +129,11 @@ public partial class KubeEnvironment : Resource
     /// <summary>
     /// Creates a new KubeEnvironment.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the KubeEnvironment resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the KubeEnvironment.</param>
     /// <param name="resourceVersion">Version of the KubeEnvironment.</param>
-    public KubeEnvironment(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Web/kubeEnvironments", resourceVersion ?? "2021-03-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public KubeEnvironment(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Web/kubeEnvironments", resourceVersion ?? "2021-03-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -172,14 +168,9 @@ public partial class KubeEnvironment : Resource
     /// <summary>
     /// Creates a reference to an existing KubeEnvironment.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the KubeEnvironment resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the KubeEnvironment.</param>
     /// <param name="resourceVersion">Version of the KubeEnvironment.</param>
     /// <returns>The existing KubeEnvironment resource.</returns>
-    public static KubeEnvironment FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static KubeEnvironment FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

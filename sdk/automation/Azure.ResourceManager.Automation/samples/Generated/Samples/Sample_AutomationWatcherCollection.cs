@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.Automation.Samples
             AutomationWatcherData data = new AutomationWatcherData(null)
             {
                 ETag = null,
-                ExecutionFrequencyInSeconds = 60L,
+                ExecutionFrequencyInSeconds = 60,
                 ScriptName = "MyTestWatcherRunbook",
                 ScriptParameters =
 {

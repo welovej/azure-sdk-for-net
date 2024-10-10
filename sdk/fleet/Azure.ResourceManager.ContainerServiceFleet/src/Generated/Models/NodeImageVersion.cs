@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="NodeImageVersion"/>. </summary>
-        public NodeImageVersion()
+        internal NodeImageVersion()
         {
         }
 

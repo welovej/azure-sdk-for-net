@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.Compute.Samples
                 {
                     Name = "DSv3-Type1",
                     Tier = "aaa",
-                    Capacity = 7L,
+                    Capacity = 7,
                 },
                 Plan = new ComputePlan()
                 {
@@ -244,8 +244,8 @@ ManagedDisk = new VirtualMachineScaleSetManagedDisk()
 StorageAccountType = StorageAccountType.StandardLrs,
 DiskEncryptionSetId = new ResourceIdentifier("aaaaaaaaaaaa"),
 },
-DiskIopsReadWrite = 28L,
-DiskMBpsReadWrite = 15L,
+DiskIopsReadWrite = 28,
+DiskMBpsReadWrite = 15,
 }
 },
                     },

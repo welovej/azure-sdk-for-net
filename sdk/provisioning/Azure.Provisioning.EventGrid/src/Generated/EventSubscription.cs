@@ -145,15 +145,11 @@ public partial class EventSubscription : Resource
     /// <summary>
     /// Creates a new EventSubscription.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the EventSubscription resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the EventSubscription.</param>
     /// <param name="resourceVersion">Version of the EventSubscription.</param>
-    public EventSubscription(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.EventGrid/eventSubscriptions", resourceVersion ?? "2022-06-15")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public EventSubscription(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.EventGrid/eventSubscriptions", resourceVersion ?? "2022-06-15", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _deadLetterDestination = BicepValue<DeadLetterDestination>.DefineProperty(this, "DeadLetterDestination", ["properties", "deadLetterDestination"]);
@@ -215,16 +211,11 @@ public partial class EventSubscription : Resource
     /// <summary>
     /// Creates a reference to an existing EventSubscription.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the EventSubscription resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the EventSubscription.</param>
     /// <param name="resourceVersion">Version of the EventSubscription.</param>
     /// <returns>The existing EventSubscription resource.</returns>
-    public static EventSubscription FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static EventSubscription FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 
     /// <summary>
     /// Get the requirements for naming this EventSubscription resource.

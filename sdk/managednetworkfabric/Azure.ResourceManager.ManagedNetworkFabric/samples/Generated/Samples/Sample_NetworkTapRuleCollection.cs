@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Samples
 new NetworkTapRuleMatchConfiguration()
 {
 MatchConfigurationName = "config1",
-SequenceNumber = 10L,
+SequenceNumber = 10,
 IPAddressType = NetworkFabricIPAddressType.IPv4,
 MatchConditions =
 {

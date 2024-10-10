@@ -4,7 +4,6 @@
 #nullable disable
 
 using System;
-using System.ClientModel;
 using Azure.Identity;
 using OpenAI.Chat;
 
@@ -19,7 +18,7 @@ public partial class AzureOpenAISamples
 
         AzureOpenAIClient azureClient = new(
             new Uri("https://your-azure-openai-resource.com"),
-            new ApiKeyCredential(keyFromEnvironment));
+            new AzureKeyCredential(keyFromEnvironment));
         ChatClient chatClient = azureClient.GetChatClient("my-gpt-35-turbo-deployment");
         #endregion
     }

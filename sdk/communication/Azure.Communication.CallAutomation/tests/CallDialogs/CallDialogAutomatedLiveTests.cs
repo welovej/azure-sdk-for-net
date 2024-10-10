@@ -362,7 +362,6 @@ namespace Azure.Communication.CallAutomation.Tests.CallDialogs
         }
 
         [RecordedTest]
-        [Ignore("Currently does not work - need service fix?")]
         public async Task IdenticalDialogsTest()
         {
             // ignores test if botAppId or PMA Endpoint is not set in environment variables

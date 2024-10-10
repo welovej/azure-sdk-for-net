@@ -19,28 +19,21 @@ namespace Azure.ResourceManager.Monitor.Models
 
         void IJsonModel<WebtestLocationAvailabilityCriteria>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<WebtestLocationAvailabilityCriteria>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(WebtestLocationAvailabilityCriteria)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
+            writer.WriteStartObject();
             writer.WritePropertyName("webTestId"u8);
             writer.WriteStringValue(WebTestId);
             writer.WritePropertyName("componentId"u8);
             writer.WriteStringValue(ComponentId);
             writer.WritePropertyName("failedLocationCount"u8);
             writer.WriteNumberValue(FailedLocationCount);
+            writer.WritePropertyName("odata.type"u8);
+            writer.WriteStringValue(OdataType.ToString());
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -53,6 +46,7 @@ namespace Azure.ResourceManager.Monitor.Models
                 }
 #endif
             }
+            writer.WriteEndObject();
         }
 
         WebtestLocationAvailabilityCriteria IJsonModel<WebtestLocationAvailabilityCriteria>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

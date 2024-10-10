@@ -41,13 +41,8 @@ if (!(Test-Path $ArtifactPath))
 $ArtifactPath = Resolve-Path $ArtifactPath
 $ArtifactName = Join-Path $ArtifactPath "diff.json"
 
-$changedFiles = @()
-$changedServices = @()
-
 $changedFiles = Get-ChangedFiles -DiffPath $TargetPath
-if ($changedFiles) {
-  $changedServices = Get-ChangedServices -ChangedFiles $changedFiles
-}
+$changedServices = Get-ChangedServices -ChangedFiles $changedFiles
 
 $result = [PSCustomObject]@{
   "ChangedFiles"    = $changedFiles

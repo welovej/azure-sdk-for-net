@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.Automation.Samples
             AutomationWatcherPatch patch = new AutomationWatcherPatch()
             {
                 Name = "MyTestWatcher",
-                ExecutionFrequencyInSeconds = 600L,
+                ExecutionFrequencyInSeconds = 600,
             };
             AutomationWatcherResource result = await automationWatcher.UpdateAsync(patch);
 

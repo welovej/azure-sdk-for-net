@@ -19,21 +19,13 @@ namespace Azure.ResourceManager.ProviderHub.Models
 
         void IJsonModel<ThirdPartyProviderAuthorization>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<ThirdPartyProviderAuthorization>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(ThirdPartyProviderAuthorization)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsCollectionDefined(Authorizations))
             {
                 writer.WritePropertyName("authorizations"u8);
@@ -64,6 +56,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         ThirdPartyProviderAuthorization IJsonModel<ThirdPartyProviderAuthorization>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

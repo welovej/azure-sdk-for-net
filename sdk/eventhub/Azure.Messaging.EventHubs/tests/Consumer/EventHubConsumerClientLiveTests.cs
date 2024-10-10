@@ -56,11 +56,9 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                await using (var connection = new EventHubConnection(
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    new EventHubConnectionOptions { TransportType = transportType }))
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                await using (var connection = new EventHubConnection(connectionString, new EventHubConnectionOptions { TransportType = transportType }))
                 {
                     var partition = (await connection.GetPartitionIdsAsync(new EventHubsRetryOptions().ToRetryPolicy(), cancellationSource.Token)).First();
 
@@ -93,12 +91,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 options.RetryOptions.MaximumRetries = 7;
                 options.ConnectionOptions.TransportType = transportType;
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    options))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName, options))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
                     Assert.That(async () => await ReadNothingAsync(consumer, partition, cancellationSource.Token, EventPosition.Latest), Throws.Nothing);
@@ -132,12 +125,7 @@ namespace Azure.Messaging.EventHubs.Tests
                     }
                 };
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    options))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName, options))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
                     Assert.That(async () => await ReadNothingAsync(consumer, partition, cancellationSource.Token, EventPosition.Latest), Throws.Nothing);
@@ -160,16 +148,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var singleEvent = EventGenerator.CreateEventFromBody(Array.Empty<byte>());
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, new EventData[] { singleEvent }, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, new EventData[] { singleEvent }, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -197,16 +182,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var singleEvent = EventGenerator.CreateEvents(1).Single();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, new EventData[] { singleEvent }, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, new EventData[] { singleEvent }, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -238,15 +220,12 @@ namespace Azure.Messaging.EventHubs.Tests
                 new Random().NextBytes(buffer);
 
                 var singleEvent = EventGenerator.CreateEventFromBody(buffer);
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, new EventData[] { singleEvent }, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, new EventData[] { singleEvent }, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -274,19 +253,17 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
                 var sourceEvents = Enumerable
                     .Range(0, 25)
                     .Select(index => EventGenerator.CreateEventFromBody(Array.Empty<byte>()))
                     .ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -318,16 +295,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -359,16 +333,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    new EventHubConsumerClientOptions { Identifier = "BobTheConsumer" }))
+
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString, new EventHubConsumerClientOptions { Identifier = "BobTheConsumer" }))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -400,16 +371,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -442,16 +410,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -484,16 +449,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -525,6 +487,8 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
                 var sourceEvents = EventGenerator.CreateEvents(50)
                     .Select(current =>
                     {
@@ -535,14 +499,10 @@ namespace Azure.Messaging.EventHubs.Tests
                     })
                     .ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -573,6 +533,8 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+            var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
                 var sourceEvents = EventGenerator.CreateEvents(5)
                     .Select(current =>
                     {
@@ -583,14 +545,10 @@ namespace Azure.Messaging.EventHubs.Tests
                     })
                     .ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -615,19 +573,22 @@ namespace Azure.Messaging.EventHubs.Tests
         /// </summary>
         ///
         [Test]
-        public async Task ConsumerCanReadEventsUsingTheConnectionString()
+        public async Task ConsumerCanReadEventsUsingAnIdentityCredential()
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(1))
             {
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var credential = EventHubsTestEnvironment.Instance.Credential;
                 var sourceEvents = EventGenerator.CreateEvents(50).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -665,7 +626,9 @@ namespace Azure.Messaging.EventHubs.Tests
                 await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -706,7 +669,9 @@ namespace Azure.Messaging.EventHubs.Tests
                 await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential, options))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -738,16 +703,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -779,18 +741,15 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     // Send a set of seed events to the partition, which should not be read.
 
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, EventGenerator.CreateEvents(50), new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, EventGenerator.CreateEvents(50), new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Begin reading though no events have been published.  This is necessary to open the connection and
                     // ensure that the consumer is watching the partition.
@@ -800,7 +759,7 @@ namespace Azure.Messaging.EventHubs.Tests
                     // Give the consumer a moment to ensure that it is established and then send events for it to read.
 
                     await Task.Delay(250);
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Await reading of the events and validate the resulting state.
 
@@ -835,14 +794,11 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var seedEvents = EventGenerator.CreateEvents(50).ToList();
                 var sourceEvents = EventGenerator.CreateEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     // Seed the partition with a set of events prior to reading.  When the send call returns, all events were
                     // accepted by the Event Hubs service and should be available in the partition.  Provide a minor delay to
@@ -850,7 +806,7 @@ namespace Azure.Messaging.EventHubs.Tests
 
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
 
-                    await SendEventsAsync(scope.EventHubName, seedEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, seedEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
                     await Task.Delay(250);
 
                     // Query the partition and determine the offset of the last enqueued event, then send the new set
@@ -859,7 +815,7 @@ namespace Azure.Messaging.EventHubs.Tests
                     var lastOffset = (await consumer.GetPartitionPropertiesAsync(partition, cancellationSource.Token)).LastEnqueuedOffset;
                     var startingPosition = EventPosition.FromOffset(lastOffset, isInclusive);
 
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -905,14 +861,11 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var seedEvents = EventGenerator.CreateEvents(50).ToList();
                 var sourceEvents = EventGenerator.CreateEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     // Seed the partition with a set of events prior to reading.  When the send call returns, all events were
                     // accepted by the Event Hubs service and should be available in the partition.  Provide a minor delay to
@@ -920,7 +873,7 @@ namespace Azure.Messaging.EventHubs.Tests
 
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
 
-                    await SendEventsAsync(scope.EventHubName, seedEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, seedEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
                     await Task.Delay(250);
 
                     // Query the partition and determine the offset of the last enqueued event, then send the new set
@@ -929,7 +882,7 @@ namespace Azure.Messaging.EventHubs.Tests
                     var lastSequence = (await consumer.GetPartitionPropertiesAsync(partition, cancellationSource.Token)).LastEnqueuedSequenceNumber;
                     var startingPosition = EventPosition.FromSequenceNumber(lastSequence, isInclusive);
 
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -973,14 +926,11 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var seedEvents = EventGenerator.CreateEvents(50).ToList();
                 var sourceEvents = EventGenerator.CreateEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     // Seed the partition with a set of events prior to reading.  When the send call returns, all events were
                     // accepted by the Event Hubs service and should be available in the partition.  Provide a minor delay to
@@ -988,7 +938,7 @@ namespace Azure.Messaging.EventHubs.Tests
 
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
 
-                    await SendEventsAsync(scope.EventHubName, seedEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, seedEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
                     await Task.Delay(TimeSpan.FromSeconds(2));
 
                     // Query the partition and determine the offset of the last enqueued event, then send the new set
@@ -997,7 +947,7 @@ namespace Azure.Messaging.EventHubs.Tests
                     var lastEnqueuedTime = (await consumer.GetPartitionPropertiesAsync(partition, cancellationSource.Token)).LastEnqueuedTime;
                     var startingPosition = EventPosition.FromEnqueuedTime(lastEnqueuedTime);
 
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -1034,22 +984,18 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(200).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    new EventHubConsumerClientOptions { Identifier = "BobTheConsumer" }))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString, new EventHubConsumerClientOptions { Identifier = "BobTheConsumer" }))
                 {
                     var partitions = await consumer.GetPartitionIdsAsync(cancellationSource.Token);
 
                     await Task.WhenAll
                     (
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
                     );
 
                     // Read the events and validate the resulting state.
@@ -1095,23 +1041,15 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(100).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var customConsumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
-
-                await using (var defaultConsumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var customConsumer = new EventHubConsumerClient(customConsumerGroup, connectionString))
+                await using (var defaultConsumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await defaultConsumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -1151,16 +1089,15 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var credential = EventHubsTestEnvironment.Instance.Credential;
                 var sourceEvents = EventGenerator.CreateEvents(50).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential))
                 {
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).ToArray();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token);
+                    var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token);
 
                     // Attempt to read from the empty partition and verify that no events are observed.  Because no events are expected, the
                     // read operation will not naturally complete; limit the read to only a couple of seconds and trigger cancellation.
@@ -1192,16 +1129,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Create a local function that will close the consumer after five events have
                     // been read.  Because the close happens in the middle of iteration, allow for a short
@@ -1241,13 +1175,14 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(100).ToList();
 
-                await using (var connection = new EventHubConnection(EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, EventHubsTestEnvironment.Instance.Credential))
+                await using (var connection = new EventHubConnection(connectionString))
                 await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connection))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Create a local function that will close the connection after five events have
                     // been read.  Because the close happens in the middle of iteration, allow for a short
@@ -1287,11 +1222,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
                 {
                     var invalidPartition = "-1";
                     var readTask = ReadNothingAsync(consumer, invalidPartition, cancellationSource.Token);
@@ -1319,8 +1250,8 @@ namespace Azure.Messaging.EventHubs.Tests
 
                 var invalidConsumerGroup = "ThisIsFake";
 
-                await using (var producer = new EventHubProducerClient(EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, EventHubsTestEnvironment.Instance.Credential))
-                await using (var consumer = new EventHubConsumerClient(invalidConsumerGroup, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, EventHubsTestEnvironment.Instance.Credential))
+                await using (var producer = new EventHubProducerClient(EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
+                await using (var consumer = new EventHubConsumerClient(invalidConsumerGroup, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
                 {
                     var partition = (await producer.GetPartitionIdsAsync(cancellationSource.Token)).First();
                     var readTask = ReadNothingAsync(consumer, partition, cancellationSource.Token);
@@ -1353,8 +1284,8 @@ namespace Azure.Messaging.EventHubs.Tests
                 clientOptions.ConnectionOptions.Proxy = new WebProxy("http://1.2.3.4:9999");
                 clientOptions.ConnectionOptions.TransportType = EventHubsTransportType.AmqpWebSockets;
 
-                await using (var producer = new EventHubProducerClient(EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, EventHubsTestEnvironment.Instance.Credential))
-                await using (var invalidProxyConsumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, EventHubsTestEnvironment.Instance.Credential, clientOptions))
+                await using (var producer = new EventHubProducerClient(EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
+                await using (var invalidProxyConsumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName, clientOptions))
                 {
                     var partition = (await producer.GetPartitionIdsAsync(cancellationSource.Token)).First();
 
@@ -1385,16 +1316,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 exclusiveOptions.PrefetchCount = LowPrefetchCount;
                 exclusiveOptions.OwnerLevel = 20;
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     var exclusiveMonitor = MonitorReadingEventsFromPartition(consumer, partition, null, cancellationSource.Token, readOptions: exclusiveOptions);
                     await Task.WhenAny(exclusiveMonitor.StartCompletion.Task, Task.Delay(Timeout.Infinite, cancellationSource.Token));
@@ -1431,16 +1359,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 lowerOptions.PrefetchCount = LowPrefetchCount;
                 lowerOptions.OwnerLevel = 20;
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(200).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     var higherMonitor = MonitorReadingEventsFromPartition(consumer, partition, null, cancellationSource.Token, readOptions: higherOptions);
                     await Task.WhenAny(higherMonitor.StartCompletion.Task, Task.Delay(Timeout.Infinite, cancellationSource.Token));
@@ -1477,14 +1402,11 @@ namespace Azure.Messaging.EventHubs.Tests
                 lowerOptions.PrefetchCount = LowPrefetchCount;
                 lowerOptions.OwnerLevel = 20;
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(100).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).Take(2).ToArray();
 
@@ -1492,8 +1414,8 @@ namespace Azure.Messaging.EventHubs.Tests
 
                     await Task.WhenAll
                     (
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
                     );
 
                     // Read from each partition, allowing the higher level operation to begin first.  Both read operations should be
@@ -1540,23 +1462,15 @@ namespace Azure.Messaging.EventHubs.Tests
                 lowerOptions.PrefetchCount = LowPrefetchCount;
                 lowerOptions.OwnerLevel = 20;
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(100).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var firstGroupConsumer = new EventHubConsumerClient(
-                    consumerGroups[0],
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
-
-                await using (var secondGroupConsumer = new EventHubConsumerClient(
-                    consumerGroups[1],
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var firstGroupConsumer = new EventHubConsumerClient(scope.ConsumerGroups[0], connectionString))
+                await using (var secondGroupConsumer = new EventHubConsumerClient(scope.ConsumerGroups[1], connectionString))
                 {
                     var partition = (await firstGroupConsumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Read from each partition, allowing the higher level operation to begin first.  Both read operations should be
                     // successful and read all events from their respective partition.
@@ -1601,17 +1515,14 @@ namespace Azure.Messaging.EventHubs.Tests
                 nonExclusiveOptions.CacheEventCount = 10;
                 nonExclusiveOptions.MaximumWaitTime = TimeSpan.FromMilliseconds(150);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(2500).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Start the non-exclusive read, waiting until at least some events were read before starting the exclusive reader.
 
@@ -1670,17 +1581,14 @@ namespace Azure.Messaging.EventHubs.Tests
                 lowerOptions.OwnerLevel = 20;
                 lowerOptions.MaximumWaitTime = TimeSpan.FromMilliseconds(150);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(2500).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Start the lower level read, waiting until at least some events were read before starting the higher reader.
 
@@ -1732,14 +1640,11 @@ namespace Azure.Messaging.EventHubs.Tests
                 exclusiveOptions.PrefetchCount = LowPrefetchCount;
                 exclusiveOptions.OwnerLevel = 20;
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(100).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).Take(2).ToArray();
 
@@ -1747,8 +1652,8 @@ namespace Azure.Messaging.EventHubs.Tests
 
                     await Task.WhenAll
                     (
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
                     );
 
                     // Start the non-exclusive read, waiting until at least some events were read before starting the exclusive reader.
@@ -1802,23 +1707,15 @@ namespace Azure.Messaging.EventHubs.Tests
                 exclusiveOptions.PrefetchCount = LowPrefetchCount;
                 exclusiveOptions.OwnerLevel = 20;
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(200).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var nonExclusiveConsumer = new EventHubConsumerClient(
-                    consumerGroups[0],
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
-
-                await using (var exclusiveConsumer = new EventHubConsumerClient(
-                    consumerGroups[1],
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var nonExclusiveConsumer = new EventHubConsumerClient(scope.ConsumerGroups[0], connectionString))
+                await using (var exclusiveConsumer = new EventHubConsumerClient(scope.ConsumerGroups[1], connectionString))
                 {
                     var partition = (await exclusiveConsumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Start the non-exclusive read, waiting until at least some events were read before starting the exclusive reader.
 
@@ -1865,16 +1762,13 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(50).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
-                    await SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
+                    await SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partition }, cancellationSource.Token);
 
                     // Attempt to read from an invalid partition and confirm failure.
 
@@ -1922,14 +1816,11 @@ namespace Azure.Messaging.EventHubs.Tests
                 lowerOptions.CacheEventCount = 10;
                 lowerOptions.MaximumWaitTime = TimeSpan.FromMilliseconds(150);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateSmallEvents(2500).ToList();
                 var expectedEvents = sourceEvents.Select(evt => evt.MessageId);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).Take(2).ToArray();
 
@@ -1937,8 +1828,8 @@ namespace Azure.Messaging.EventHubs.Tests
 
                     await Task.WhenAll
                     (
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
-                        SendEventsAsync(scope.EventHubName, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[0] }, cancellationSource.Token),
+                        SendEventsAsync(connectionString, sourceEvents, new CreateBatchOptions { PartitionId = partitions[1] }, cancellationSource.Token)
                     );
 
                     // Start the lower level read, waiting until at least some events were read before starting the higher reader.
@@ -1994,11 +1885,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
                     var options = new ReadEventOptions { MaximumWaitTime = TimeSpan.FromMilliseconds(100) };
@@ -2044,12 +1931,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    clientOptions))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName, clientOptions))
                 {
                     var properties = await consumer.GetEventHubPropertiesAsync(cancellationSource.Token);
                     Assert.That(cancellationSource.IsCancellationRequested, Is.False, "The cancellation token should not have been signaled.");
@@ -2079,14 +1961,10 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var clientOptions = new EventHubConsumerClientOptions { ConnectionOptions = new EventHubConnectionOptions { TransportType = transportType } };
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    clientOptions))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString, scope.EventHubName, clientOptions))
                 {
                     var properties = await consumer.GetEventHubPropertiesAsync();
                     var partition = properties.PartitionIds.First();
@@ -2117,11 +1995,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
                 {
                     var properties = await consumer.GetEventHubPropertiesAsync(cancellationSource.Token);
                     var partitions = await consumer.GetPartitionIdsAsync(cancellationSource.Token);
@@ -2148,11 +2022,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
 
@@ -2188,11 +2058,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.EventHubsConnectionString, scope.EventHubName))
                 {
                     Assert.That(async () => await consumer.GetPartitionPropertiesAsync(invalidPartition, cancellationSource.Token), Throws.TypeOf<ArgumentOutOfRangeException>());
                     Assert.That(cancellationSource.IsCancellationRequested, Is.False, "The cancellation token should not have been signaled.");
@@ -2213,6 +2079,8 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+
                 var invalidProxyOptions = new EventHubConsumerClientOptions();
                 invalidProxyOptions.RetryOptions.MaximumRetries = 0;
                 invalidProxyOptions.RetryOptions.MaximumDelay = TimeSpan.FromMilliseconds(5);
@@ -2220,18 +2088,8 @@ namespace Azure.Messaging.EventHubs.Tests
                 invalidProxyOptions.ConnectionOptions.Proxy = new WebProxy("http://1.2.3.4:9999");
                 invalidProxyOptions.ConnectionOptions.TransportType = EventHubsTransportType.AmqpWebSockets;
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
-
-                await using (var invalidProxyConsumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential,
-                    invalidProxyOptions))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
+                await using (var invalidProxyConsumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString, invalidProxyOptions))
                 {
                     var partition = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).First();
 
@@ -2260,17 +2118,14 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).ToArray();
 
-                    var sendCount = await SendEventsToAllPartitionsAsync(scope.EventHubName, sourceEvents, partitions, cancellationSource.Token);
+                    var sendCount = await SendEventsToAllPartitionsAsync(connectionString, sourceEvents, partitions, cancellationSource.Token);
                     Assert.That(sendCount, Is.EqualTo(sourceEvents.Count), "All of the events should have been sent.");
 
                     // Read the events and validate the resulting state.
@@ -2303,23 +2158,20 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                 var sourceEvents = EventGenerator.CreateEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).ToArray();
 
-                    var sendCount = await SendEventsToAllPartitionsAsync(scope.EventHubName, sourceEvents, partitions, cancellationSource.Token);
+                    var sendCount = await SendEventsToAllPartitionsAsync(connectionString, sourceEvents, partitions, cancellationSource.Token);
                     Assert.That(sendCount, Is.EqualTo(sourceEvents.Count), "All of the events should have been sent.");
 
                     // Read the events and validate the resulting state.
 
                     var readOptions = new ReadEventOptions { PrefetchCount = 50, CacheEventCount = 50 };
-                    var readState = await ReadEventsFromAllPartitionsAsync(consumer, sourceEvents.Select(evt => evt.MessageId), cancellationSource.Token, readOptions: readOptions);
+                    var readState = await ReadEventsFromAllPartitionsAsync(consumer,sourceEvents.Select(evt => evt.MessageId), cancellationSource.Token, readOptions: readOptions);
                     Assert.That(cancellationSource.IsCancellationRequested, Is.False, "The cancellation token should not have been signaled.");
 
                     foreach (var sourceEvent in sourceEvents)
@@ -2340,21 +2192,22 @@ namespace Azure.Messaging.EventHubs.Tests
         /// </summary>
         ///
         [Test]
-        public async Task ConsumerCanReadFromAllPartitionsUsingTheConnectionString()
+        public async Task ConsumerCanReadFromAllPartitionsUsingAnIdentityCredential()
         {
             await using (EventHubScope scope = await EventHubScope.CreateAsync(4))
             {
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
+                var credential = EventHubsTestEnvironment.Instance.Credential;
                 var sourceEvents = EventGenerator.CreateEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString, scope.EventHubName))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential))
                 {
+                    var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).ToArray();
-                    var sendCount = await SendEventsToAllPartitionsAsync(scope.EventHubName, sourceEvents, partitions, cancellationSource.Token);
 
+                    var sendCount = await SendEventsToAllPartitionsAsync(connectionString, sourceEvents, partitions, cancellationSource.Token);
                     Assert.That(sendCount, Is.EqualTo(sourceEvents.Count), "All of the events should have been sent.");
 
                     // Read the events and validate the resulting state.
@@ -2392,9 +2245,10 @@ namespace Azure.Messaging.EventHubs.Tests
 
                 await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential))
                 {
+                    var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).ToArray();
-                    var sendCount = await SendEventsToAllPartitionsAsync(scope.EventHubName, sourceEvents, partitions, cancellationSource.Token);
 
+                    var sendCount = await SendEventsToAllPartitionsAsync(connectionString, sourceEvents, partitions, cancellationSource.Token);
                     Assert.That(sendCount, Is.EqualTo(sourceEvents.Count), "All of the events should have been sent.");
 
                     // Read the events and validate the resulting state.
@@ -2435,9 +2289,10 @@ namespace Azure.Messaging.EventHubs.Tests
 
                 await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, EventHubsTestEnvironment.Instance.FullyQualifiedNamespace, scope.EventHubName, credential, options))
                 {
+                    var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).ToArray();
-                    var sendCount = await SendEventsToAllPartitionsAsync(scope.EventHubName, sourceEvents, partitions, cancellationSource.Token);
 
+                    var sendCount = await SendEventsToAllPartitionsAsync(connectionString, sourceEvents, partitions, cancellationSource.Token);
                     Assert.That(sendCount, Is.EqualTo(sourceEvents.Count), "All of the events should have been sent.");
 
                     // Read the events and validate the resulting state.
@@ -2470,28 +2325,25 @@ namespace Azure.Messaging.EventHubs.Tests
                 using var cancellationSource = new CancellationTokenSource();
                 cancellationSource.CancelAfter(EventHubsTestEnvironment.Instance.TestExecutionTimeLimit);
 
-                var sourceEvents = EventGenerator.CreateEvents(50).ToList();
+                var connectionString = EventHubsTestEnvironment.Instance.BuildConnectionStringForEventHub(scope.EventHubName);
+                var sourceEvents = EventGenerator.CreateEvents(100).ToList();
 
-                await using (var consumer = new EventHubConsumerClient(
-                    EventHubConsumerClient.DefaultConsumerGroupName,
-                    EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                    scope.EventHubName,
-                    EventHubsTestEnvironment.Instance.Credential))
+                await using (var consumer = new EventHubConsumerClient(EventHubConsumerClient.DefaultConsumerGroupName, connectionString))
                 {
                     // Send a set of seed events, which should not be read.
 
                     var partitions = (await consumer.GetPartitionIdsAsync(cancellationSource.Token)).ToArray();
-                    await SendEventsToAllPartitionsAsync(scope.EventHubName, EventGenerator.CreateEvents(50), partitions, cancellationSource.Token);
+                    await SendEventsToAllPartitionsAsync(connectionString, EventGenerator.CreateEvents(50), partitions, cancellationSource.Token);
 
                     // Begin reading though no events have been published.  This is necessary to open the connection and
                     // ensure that the consumer is watching the partition.
 
-                    var readTask = ReadEventsFromAllPartitionsAsync(consumer, sourceEvents.Select(evt => evt.MessageId), cancellationSource.Token, startFromEarliest: false);
+                    var readTask = ReadEventsFromAllPartitionsAsync(consumer,sourceEvents.Select(evt => evt.MessageId), cancellationSource.Token, startFromEarliest: false);
 
                     // Give the consumer a moment to ensure that it is established and then send events for it to read.
 
-                    await Task.Delay(1500);
-                    await SendEventsToAllPartitionsAsync(scope.EventHubName, sourceEvents, partitions, cancellationSource.Token);
+                    await Task.Delay(250);
+                    await SendEventsToAllPartitionsAsync(connectionString, sourceEvents, partitions, cancellationSource.Token);
 
                     // Read the events and validate the resulting state.
 
@@ -2685,24 +2537,21 @@ namespace Azure.Messaging.EventHubs.Tests
         ///   Sends a set of events using a new producer to do so.
         /// </summary>
         ///
-        /// <param name="eventHubName">The name of the Event Hub to use when creating the producer.</param>
+        /// <param name="connectionString">The connection string to use when creating the producer.</param>
         /// <param name="sourceEvents">The set of events to send.</param>
         /// <param name="batchOptions">The set of options to apply when creating batches.</param>
         /// <param name="cancellationToken">The token used to signal a cancellation request.</param>
         ///
         /// <returns>The count of events that were sent.</returns>
         ///
-        private async Task<int> SendEventsAsync(string eventHubName,
+        private async Task<int> SendEventsAsync(string connectionString,
                                                 IEnumerable<EventData> sourceEvents,
                                                 CreateBatchOptions batchOptions = default,
                                                 CancellationToken cancellationToken = default)
         {
             var sentCount = 0;
 
-            await using (var producer = new EventHubProducerClient(
-                EventHubsTestEnvironment.Instance.FullyQualifiedNamespace,
-                eventHubName,
-                EventHubsTestEnvironment.Instance.Credential))
+            await using (var producer = new EventHubProducerClient(connectionString))
             {
                 foreach (var batch in (await EventGenerator.BuildBatchesAsync(sourceEvents, producer, batchOptions, cancellationToken)))
                 {
@@ -2721,14 +2570,14 @@ namespace Azure.Messaging.EventHubs.Tests
         ///   distribution with no guaranteed ordering.
         /// </summary>
         ///
-        /// <param name="eventHubName">The Event Hub name to use when creating the producer.</param>
+        /// <param name="connectionString">The connection string to use when creating the producer.</param>
         /// <param name="sourceEvents">The set of events to send.</param>
         /// <param name="partitionIds">The set of partitions to send events to.</param>
         /// <param name="cancellationToken">The token used to signal a cancellation request.</param>
         ///
         /// <returns>The count of events that were sent.</returns>
         ///
-        private async Task<int> SendEventsToAllPartitionsAsync(string eventHubName,
+        private async Task<int> SendEventsToAllPartitionsAsync(string connectionString,
                                                                IEnumerable<EventData> sourceEvents,
                                                                string[] partitionIds,
                                                                CancellationToken cancellationToken = default)
@@ -2738,7 +2587,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 .Select(eventGroup =>
                 {
                     var options = new CreateBatchOptions { PartitionId = partitionIds[eventGroup.Key] };
-                    return SendEventsAsync(eventHubName, eventGroup, options, cancellationToken);
+                    return SendEventsAsync(connectionString, eventGroup, options, cancellationToken);
                 });
 
             var sendCounts = await Task.WhenAll(sendTasks).ConfigureAwait(false);

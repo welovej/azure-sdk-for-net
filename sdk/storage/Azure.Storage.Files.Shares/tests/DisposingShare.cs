@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Azure.Storage.Files.Shares.Models;
 using Azure.Storage.Test.Shared;
 
 namespace Azure.Storage.Files.Shares.Tests
@@ -17,11 +16,7 @@ namespace Azure.Storage.Files.Shares.Tests
 
         public static async Task<DisposingShare> CreateAsync(ShareClient share, IDictionary<string, string> metadata)
         {
-            ShareCreateOptions options = new ShareCreateOptions
-            {
-                Metadata = metadata
-            };
-            await share.CreateIfNotExistsAsync(options);
+            await share.CreateIfNotExistsAsync(metadata: metadata);
             return new DisposingShare(share);
         }
 

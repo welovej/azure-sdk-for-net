@@ -18,5 +18,6 @@ public class BicepLiteral(string resourceName, params Statement[] statements)
 {
     public IList<Statement> Statements { get; } = statements;
 
-    protected internal override IEnumerable<Statement> Compile() => Statements;
+    protected internal override IEnumerable<Statement> Compile(ProvisioningContext? context = default) =>
+        Statements;
 }

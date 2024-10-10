@@ -301,7 +301,7 @@ namespace Azure.ResourceManager.NetworkCloud.Samples
             NetworkCloudBareMetalMachineResource networkCloudBareMetalMachine = client.GetNetworkCloudBareMetalMachineResource(networkCloudBareMetalMachineResourceId);
 
             // invoke the operation
-            BareMetalMachineRunCommandContent content = new BareMetalMachineRunCommandContent(60L, "cHdkCg==")
+            BareMetalMachineRunCommandContent content = new BareMetalMachineRunCommandContent(60, "cHdkCg==")
             {
                 Arguments =
 {
@@ -345,7 +345,7 @@ Arguments =
 "SysInfo","TTYLog"
 },
 }
-            }, 60L);
+            }, 60);
             ArmOperation<NetworkCloudOperationStatusResult> lro = await networkCloudBareMetalMachine.RunDataExtractsAsync(WaitUntil.Completed, content);
             NetworkCloudOperationStatusResult result = lro.Value;
 
@@ -389,7 +389,7 @@ Arguments =
 "192.168.0.99","-c","3"
 },
 }
-            }, 60L);
+            }, 60);
             ArmOperation<NetworkCloudOperationStatusResult> lro = await networkCloudBareMetalMachine.RunReadCommandsAsync(WaitUntil.Completed, content);
             NetworkCloudOperationStatusResult result = lro.Value;
 

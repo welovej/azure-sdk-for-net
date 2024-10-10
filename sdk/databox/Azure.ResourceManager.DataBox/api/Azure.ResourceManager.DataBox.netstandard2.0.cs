@@ -58,7 +58,6 @@ namespace Azure.ResourceManager.DataBox
         public System.DateTimeOffset? StartOn { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxStageName? Status { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxJobTransferType TransferType { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.DataBoxJobData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.DataBoxJobData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.DataBoxJobData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.DataBoxJobData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.DataBoxJobData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -142,7 +141,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress> AlternateAddresses { get { throw null; } }
         public Azure.ResponseError Error { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.AddressValidationStatus? ValidationStatus { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AddressValidationOutput System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AddressValidationOutput>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AddressValidationOutput>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AddressValidationOutput System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.AddressValidationOutput>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -154,7 +152,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal AddressValidationResult() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress> AlternateAddresses { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.AddressValidationStatus? ValidationStatus { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AddressValidationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AddressValidationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AddressValidationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AddressValidationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.AddressValidationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -172,7 +169,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal ApplianceNetworkConfiguration() { }
         public string MacAddress { get { throw null; } }
         public string Name { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ApplianceNetworkConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ApplianceNetworkConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ApplianceNetworkConfiguration>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ApplianceNetworkConfiguration System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ApplianceNetworkConfiguration>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -255,7 +251,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.Core.AzureLocation Location { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DataBox.Models.DataBoxSkuName> SkuNames { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxJobTransferType TransferType { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AvailableSkusContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AvailableSkusContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AvailableSkusContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AvailableSkusContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.AvailableSkusContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -268,7 +263,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IList<string> FilePathList { get { throw null; } }
         public System.Collections.Generic.IList<string> FilePrefixList { get { throw null; } }
         public System.Collections.Generic.IList<string> FileShareList { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AzureFileFilterDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AzureFileFilterDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.AzureFileFilterDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.AzureFileFilterDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.AzureFileFilterDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -281,7 +275,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IList<string> BlobPathList { get { throw null; } }
         public System.Collections.Generic.IList<string> BlobPrefixList { get { throw null; } }
         public System.Collections.Generic.IList<string> ContainerList { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.BlobFilterDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.BlobFilterDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.BlobFilterDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.BlobFilterDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.BlobFilterDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -295,7 +288,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string Mobile { get { throw null; } set { } }
         public string Phone { get { throw null; } set { } }
         public string PhoneExtension { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ContactInfo System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ContactInfo>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ContactInfo>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ContactInfo System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ContactInfo>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -305,7 +297,6 @@ namespace Azure.ResourceManager.DataBox.Models
     public abstract partial class CopyLogDetails : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CopyLogDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.CopyLogDetails>
     {
         protected CopyLogDetails() { }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CopyLogDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CopyLogDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CopyLogDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CopyLogDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.CopyLogDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -315,7 +306,6 @@ namespace Azure.ResourceManager.DataBox.Models
     public partial class CreateJobValidationContent : Azure.ResourceManager.DataBox.Models.DataBoxValidationContent, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CreateJobValidationContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.CreateJobValidationContent>
     {
         public CreateJobValidationContent(System.Collections.Generic.IEnumerable<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent> individualRequestDetails) : base (default(System.Collections.Generic.IEnumerable<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent>)) { }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CreateJobValidationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CreateJobValidationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CreateJobValidationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CreateJobValidationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.CreateJobValidationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -326,7 +316,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         public CreateOrderLimitForSubscriptionValidationContent(Azure.ResourceManager.DataBox.Models.DataBoxSkuName deviceType) { }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName DeviceType { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -337,7 +326,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal CreateOrderLimitForSubscriptionValidationResult() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxValidationStatus? Status { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.CreateOrderLimitForSubscriptionValidationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -349,7 +337,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal CustomerDiskJobSecrets() { }
         public string CarrierAccountNumber { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxDiskSecret> DiskSecrets { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CustomerDiskJobSecrets System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CustomerDiskJobSecrets>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.CustomerDiskJobSecrets>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.CustomerDiskJobSecrets System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.CustomerDiskJobSecrets>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -368,7 +355,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         protected DataAccountDetails() { }
         public string SharePassword { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataAccountDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataAccountDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataAccountDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataAccountDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataAccountDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -391,7 +377,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string AccountName { get { throw null; } }
         public string CopyLogLink { get { throw null; } }
         public string CopyVerboseLogLink { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxAccountCopyLogDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxAccountCopyLogDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxAccountCopyLogDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxAccountCopyLogDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxAccountCopyLogDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -405,7 +390,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string AccountName { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataAccountType? DataAccountType { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.ShareCredentialDetails> ShareCredentialDetails { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxAccountCredentialDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxAccountCredentialDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxAccountCredentialDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxAccountCredentialDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxAccountCredentialDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -434,7 +418,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string ReverseShipmentLabelSasKey { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.ReverseShippingDetails ReverseShippingDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress ShippingAddress { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxBasicJobDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxBasicJobDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxBasicJobDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxBasicJobDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxBasicJobDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -450,7 +433,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.DataBox.Models.NotificationPreference> NotificationPreference { get { throw null; } }
         public string Phone { get { throw null; } set { } }
         public string PhoneExtension { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxContactDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxContactDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxContactDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxContactDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxContactDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -477,7 +459,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public long? TotalBytesToProcess { get { throw null; } }
         public long? TotalFilesToProcess { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxJobTransferType? TransferType { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCopyProgress System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCopyProgress>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCopyProgress>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCopyProgress System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxCopyProgress>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -524,7 +505,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string ErrorLogLink { get { throw null; } }
         public string SerialNumber { get { throw null; } }
         public string VerboseLogLink { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyLogDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyLogDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyLogDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyLogDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyLogDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -536,7 +516,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataBoxCustomerDiskCopyProgress() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxCopyStatus? CopyStatus { get { throw null; } }
         public string SerialNumber { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyProgress System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyProgress>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyProgress>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyProgress System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskCopyProgress>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -552,7 +531,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.DataBox.Models.ExportDiskDetails> ExportDiskDetails { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.DataBox.Models.ImportDiskDetails> ImportDiskDetails { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.PackageCarrierDetails ReturnToCustomerPackageDetails { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskJobDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskJobDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskJobDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskJobDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxCustomerDiskJobDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -565,7 +543,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string DiskSerialNumber { get { throw null; } }
         public string ErrorLogLink { get { throw null; } }
         public string VerboseLogLink { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyLogDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyLogDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyLogDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyLogDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyLogDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -581,7 +558,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public int? PercentComplete { get { throw null; } }
         public string SerialNumber { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxCopyStatus? Status { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyProgress System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyProgress>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyProgress>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyProgress System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyProgress>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -595,7 +571,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string ErrorLogLink { get { throw null; } }
         public string SerialNumber { get { throw null; } }
         public string VerboseLogLink { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyLogDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyLogDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyLogDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyLogDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyLogDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -607,7 +582,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataBoxDiskGranularCopyProgress() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxCopyStatus? CopyStatus { get { throw null; } }
         public string SerialNumber { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyProgress System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyProgress>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyProgress>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyProgress System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyProgress>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -623,7 +597,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyProgress> GranularCopyProgress { get { throw null; } }
         public string Passkey { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, int> PreferredDisks { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskJobDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskJobDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskJobDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskJobDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskJobDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -636,7 +609,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxDiskSecret> DiskSecrets { get { throw null; } }
         public bool? IsPasskeyUserDefined { get { throw null; } }
         public string Passkey { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskJobSecrets System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskJobSecrets>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskJobSecrets>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskJobSecrets System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskJobSecrets>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -648,7 +620,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataBoxDiskSecret() { }
         public string BitLockerKey { get { throw null; } }
         public string DiskSerialNumber { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskSecret System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskSecret>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskSecret>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxDiskSecret System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxDiskSecret>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -665,7 +636,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxEncryptionPreferences() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxDoubleEncryption? DoubleEncryption { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.HardwareEncryption? HardwareEncryption { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxEncryptionPreferences System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxEncryptionPreferences>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxEncryptionPreferences>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxEncryptionPreferences System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxEncryptionPreferences>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -678,7 +648,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string AccountName { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> CopyLogLink { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> CopyVerboseLogLink { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavyAccountCopyLogDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyAccountCopyLogDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyAccountCopyLogDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavyAccountCopyLogDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyAccountCopyLogDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -690,7 +659,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxHeavyJobDetails(Azure.ResourceManager.DataBox.Models.DataBoxContactDetails contactDetails) : base (default(Azure.ResourceManager.DataBox.Models.DataBoxContactDetails)) { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxCopyProgress> CopyProgress { get { throw null; } }
         public string DevicePassword { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -701,7 +669,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal DataBoxHeavyJobSecrets() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxHeavySecret> CabinetPodSecrets { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobSecrets System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobSecrets>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobSecrets>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobSecrets System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavyJobSecrets>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -716,7 +683,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string DeviceSerialNumber { get { throw null; } }
         public string EncodedValidationCertPubKey { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.ApplianceNetworkConfiguration> NetworkConfigurations { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavySecret System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavySecret>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavySecret>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxHeavySecret System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxHeavySecret>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -727,7 +693,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         public DataBoxJobCancellationReason(string reason) { }
         public string Reason { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobCancellationReason System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobCancellationReason>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobCancellationReason>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobCancellationReason System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxJobCancellationReason>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -739,7 +704,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxJobDetails(Azure.ResourceManager.DataBox.Models.DataBoxContactDetails contactDetails) : base (default(Azure.ResourceManager.DataBox.Models.DataBoxContactDetails)) { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxCopyProgress> CopyProgress { get { throw null; } }
         public string DevicePassword { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxJobDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -752,7 +716,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.UpdateJobDetails Details { get { throw null; } set { } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobPatch System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobPatch>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobPatch>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobPatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxJobPatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -763,7 +726,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal DataboxJobSecrets() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxSecret> PodSecrets { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataboxJobSecrets System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataboxJobSecrets>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataboxJobSecrets>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataboxJobSecrets System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataboxJobSecrets>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -778,7 +740,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataBoxStageName? StageName { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxStageStatus? StageStatus { get { throw null; } }
         public System.DateTimeOffset? StageTime { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobStage System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobStage>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxJobStage>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxJobStage System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxJobStage>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -797,7 +758,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Uri KekUri { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier KekVaultResourceId { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxManagedIdentity ManagedIdentity { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxKeyEncryptionKey System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxKeyEncryptionKey>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxKeyEncryptionKey>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxKeyEncryptionKey System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxKeyEncryptionKey>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -814,7 +774,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxManagedIdentity() { }
         public string IdentityType { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier UserAssignedIdentityId { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxManagedIdentity System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxManagedIdentity>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxManagedIdentity>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxManagedIdentity System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxManagedIdentity>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -833,7 +792,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.TransportPreferences TransportPreferences { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Azure.ResourceManager.DataBox.Models.TransportShipmentType? TransportPreferencesPreferredShipmentType { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -843,7 +801,6 @@ namespace Azure.ResourceManager.DataBox.Models
     public partial class DataBoxScheduleAvailabilityContent : Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxScheduleAvailabilityContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxScheduleAvailabilityContent>
     {
         public DataBoxScheduleAvailabilityContent(Azure.Core.AzureLocation storageLocation) : base (default(Azure.Core.AzureLocation)) { }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxScheduleAvailabilityContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxScheduleAvailabilityContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxScheduleAvailabilityContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxScheduleAvailabilityContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxScheduleAvailabilityContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -858,7 +815,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string DeviceSerialNumber { get { throw null; } }
         public string EncodedValidationCertPubKey { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.ApplianceNetworkConfiguration> NetworkConfigurations { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSecret System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSecret>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSecret>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSecret System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxSecret>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -870,7 +826,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataBoxShipmentPickUpResult() { }
         public string ConfirmationNumber { get { throw null; } }
         public System.DateTimeOffset? ReadyBy { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxShipmentPickUpResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxShipmentPickUpResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxShipmentPickUpResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxShipmentPickUpResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxShipmentPickUpResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -892,7 +847,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string StreetAddress3 { get { throw null; } set { } }
         public string TaxIdentificationNumber { get { throw null; } set { } }
         public string ZipExtendedCode { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -911,7 +865,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string DisplayName { get { throw null; } set { } }
         public string Family { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName Name { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSku System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSku>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSku>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSku System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxSku>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -923,7 +876,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataBoxSkuCapacity() { }
         public string Maximum { get { throw null; } }
         public string Usable { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSkuCapacity System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuCapacity>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuCapacity>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSkuCapacity System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuCapacity>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -936,7 +888,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Guid? MeterId { get { throw null; } }
         public string MeterType { get { throw null; } }
         public double? Multiplier { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSkuCost System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuCost>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuCost>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSkuCost System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuCost>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -956,7 +907,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public bool? IsEnabled { get { throw null; } }
         public string RequiredFeature { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxSku Sku { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSkuInformation System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuInformation>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuInformation>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxSkuInformation System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxSkuInformation>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1027,7 +977,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         public DataBoxStorageAccountDetails(Azure.Core.ResourceIdentifier storageAccountId) { }
         public Azure.Core.ResourceIdentifier StorageAccountId { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxStorageAccountDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxStorageAccountDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxStorageAccountDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxStorageAccountDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxStorageAccountDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1042,7 +991,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.TransportPreferences TransportPreferences { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Azure.ResourceManager.DataBox.Models.TransportShipmentType? TransportPreferencesPreferredShipmentType { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidateAddressContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidateAddressContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidateAddressContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidateAddressContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxValidateAddressContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1053,7 +1001,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         protected DataBoxValidationContent(System.Collections.Generic.IEnumerable<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent> individualRequestDetails) { }
         public System.Collections.Generic.IList<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent> IndividualRequestDetails { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1063,7 +1010,6 @@ namespace Azure.ResourceManager.DataBox.Models
     public abstract partial class DataBoxValidationInputContent : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent>
     {
         protected DataBoxValidationInputContent() { }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1074,7 +1020,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         protected DataBoxValidationInputResult() { }
         public Azure.ResponseError Error { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationInputResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationInputResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1086,7 +1031,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataBoxValidationResult() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxValidationInputResult> IndividualResponseDetails { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.OverallValidationStatus? Status { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataBoxValidationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataBoxValidationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1104,7 +1048,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataCenterAccessSecurityCode() { }
         public string ForwardDataCenterAccessCode { get { throw null; } }
         public string ReverseDataCenterAccessCode { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAccessSecurityCode System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAccessSecurityCode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAccessSecurityCode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAccessSecurityCode System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataCenterAccessSecurityCode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1116,7 +1059,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataCenterAddressContent(Azure.Core.AzureLocation storageLocation, Azure.ResourceManager.DataBox.Models.DataBoxSkuName skuName) { }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName SkuName { get { throw null; } }
         public Azure.Core.AzureLocation StorageLocation { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1127,7 +1069,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal DataCenterAddressInstructionResult() { }
         public string CommunicationInstruction { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressInstructionResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressInstructionResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressInstructionResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressInstructionResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressInstructionResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1150,7 +1091,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string Street2 { get { throw null; } }
         public string Street3 { get { throw null; } }
         public string Zip { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressLocationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressLocationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressLocationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressLocationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressLocationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1162,7 +1102,6 @@ namespace Azure.ResourceManager.DataBox.Models
         protected DataCenterAddressResult() { }
         public Azure.Core.AzureLocation? DataCenterAzureLocation { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> SupportedCarriersForReturnShipment { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataCenterAddressResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataCenterAddressResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1250,7 +1189,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataAccountDetails AccountDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.LogCollectionLevel? LogCollectionLevel { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.TransferConfiguration TransferConfiguration { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataExportDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataExportDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataExportDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataExportDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataExportDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1262,7 +1200,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataImportDetails(Azure.ResourceManager.DataBox.Models.DataAccountDetails accountDetails) { }
         public Azure.ResourceManager.DataBox.Models.DataAccountDetails AccountDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.LogCollectionLevel? LogCollectionLevel { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataImportDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataImportDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataImportDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataImportDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataImportDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1274,7 +1211,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataLocationToServiceLocationMap() { }
         public Azure.Core.AzureLocation? DataLocation { get { throw null; } }
         public Azure.Core.AzureLocation? ServiceLocation { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataLocationToServiceLocationMap System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataLocationToServiceLocationMap>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataLocationToServiceLocationMap>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataLocationToServiceLocationMap System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataLocationToServiceLocationMap>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1288,7 +1224,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.DataBox.Models.DataImportDetails> DataImportDetails { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName DeviceType { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxJobTransferType TransferType { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1299,7 +1234,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal DataTransferDetailsValidationResult() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxValidationStatus? Status { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DataTransferDetailsValidationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1311,7 +1245,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DeviceErasureDetails() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxStageStatus? DeviceErasureStatus { get { throw null; } }
         public string ErasureOrDestructionCertificateSasKey { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DeviceErasureDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DeviceErasureDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DeviceErasureDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DeviceErasureDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DeviceErasureDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1322,7 +1255,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         public DiskScheduleAvailabilityContent(Azure.Core.AzureLocation storageLocation, int expectedDataSizeInTerabytes) : base (default(Azure.Core.AzureLocation)) { }
         public int ExpectedDataSizeInTerabytes { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DiskScheduleAvailabilityContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DiskScheduleAvailabilityContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.DiskScheduleAvailabilityContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.DiskScheduleAvailabilityContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.DiskScheduleAvailabilityContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1335,7 +1267,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string BackupManifestCloudPath { get { throw null; } }
         public string ManifestFile { get { throw null; } }
         public string ManifestHash { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ExportDiskDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ExportDiskDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ExportDiskDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ExportDiskDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ExportDiskDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1347,7 +1278,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public FilterFileDetails(Azure.ResourceManager.DataBox.Models.FilterFileType filterFileType, string filterFilePath) { }
         public string FilterFilePath { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.FilterFileType FilterFileType { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.FilterFileDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.FilterFileDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.FilterFileDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.FilterFileDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.FilterFileDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1362,7 +1292,6 @@ namespace Azure.ResourceManager.DataBox.Models
     public abstract partial class GranularCopyLogDetails : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails>
     {
         protected GranularCopyLogDetails() { }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1389,7 +1318,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public long? TotalBytesToProcess { get { throw null; } }
         public long? TotalFilesToProcess { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxJobTransferType? TransferType { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.GranularCopyProgress System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.GranularCopyProgress>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.GranularCopyProgress>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.GranularCopyProgress System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.GranularCopyProgress>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1404,7 +1332,6 @@ namespace Azure.ResourceManager.DataBox.Models
     public partial class HeavyScheduleAvailabilityContent : Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.HeavyScheduleAvailabilityContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.HeavyScheduleAvailabilityContent>
     {
         public HeavyScheduleAvailabilityContent(Azure.Core.AzureLocation storageLocation) : base (default(Azure.Core.AzureLocation)) { }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.HeavyScheduleAvailabilityContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.HeavyScheduleAvailabilityContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.HeavyScheduleAvailabilityContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.HeavyScheduleAvailabilityContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.HeavyScheduleAvailabilityContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1418,7 +1345,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string BitLockerKey { get { throw null; } set { } }
         public string ManifestFile { get { throw null; } set { } }
         public string ManifestHash { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ImportDiskDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ImportDiskDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ImportDiskDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ImportDiskDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ImportDiskDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1435,7 +1361,6 @@ namespace Azure.ResourceManager.DataBox.Models
         protected JobSecrets() { }
         public Azure.ResourceManager.DataBox.Models.DataCenterAccessSecurityCode DataCenterAccessSecurityCode { get { throw null; } }
         public Azure.ResponseError Error { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.JobSecrets System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.JobSecrets>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.JobSecrets>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.JobSecrets System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.JobSecrets>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1448,7 +1373,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.DateTimeOffset? ActionPerformedOn { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.CustomerResolutionCode? CustomerResolution { get { throw null; } }
         public bool? IsPerformedByCustomer { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.LastMitigationActionOnJob System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.LastMitigationActionOnJob>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.LastMitigationActionOnJob>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.LastMitigationActionOnJob System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.LastMitigationActionOnJob>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1465,7 +1389,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public ManagedDiskDetails(Azure.Core.ResourceIdentifier resourceGroupId, Azure.Core.ResourceIdentifier stagingStorageAccountId) { }
         public Azure.Core.ResourceIdentifier ResourceGroupId { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier StagingStorageAccountId { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ManagedDiskDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ManagedDiskDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ManagedDiskDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ManagedDiskDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ManagedDiskDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1476,7 +1399,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         public MarkDevicesShippedContent(Azure.ResourceManager.DataBox.Models.PackageCarrierInfo deliverToDataCenterPackageDetails) { }
         public Azure.ResourceManager.DataBox.Models.PackageCarrierInfo DeliverToDataCenterPackageDetails { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.MarkDevicesShippedContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.MarkDevicesShippedContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.MarkDevicesShippedContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.MarkDevicesShippedContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.MarkDevicesShippedContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1489,7 +1411,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public MitigateJobContent(Azure.ResourceManager.DataBox.Models.CustomerResolutionCode customerResolutionCode) { }
         public Azure.ResourceManager.DataBox.Models.CustomerResolutionCode CustomerResolutionCode { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.DataBox.Models.CustomerResolutionCode> SerialNumberCustomerResolutionMap { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.MitigateJobContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.MitigateJobContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.MitigateJobContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.MitigateJobContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.MitigateJobContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1501,7 +1422,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public NotificationPreference(Azure.ResourceManager.DataBox.Models.NotificationStageName stageName, bool sendNotification) { }
         public bool SendNotification { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.NotificationStageName StageName { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.NotificationPreference System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.NotificationPreference>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.NotificationPreference>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.NotificationPreference System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.NotificationPreference>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1544,7 +1464,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string CarrierAccountNumber { get { throw null; } set { } }
         public string CarrierName { get { throw null; } set { } }
         public string TrackingId { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PackageCarrierDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PackageCarrierDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PackageCarrierDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PackageCarrierDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.PackageCarrierDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1556,7 +1475,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public PackageCarrierInfo() { }
         public string CarrierName { get { throw null; } set { } }
         public string TrackingId { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PackageCarrierInfo System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PackageCarrierInfo>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PackageCarrierInfo>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PackageCarrierInfo System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.PackageCarrierInfo>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1569,7 +1487,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public string CarrierName { get { throw null; } }
         public string TrackingId { get { throw null; } }
         public System.Uri TrackingUri { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PackageShippingDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PackageShippingDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PackageShippingDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PackageShippingDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.PackageShippingDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1581,7 +1498,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public PreferencesValidationContent(Azure.ResourceManager.DataBox.Models.DataBoxSkuName deviceType) { }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName DeviceType { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences Preference { get { throw null; } set { } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PreferencesValidationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PreferencesValidationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PreferencesValidationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PreferencesValidationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.PreferencesValidationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1592,7 +1508,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal PreferencesValidationResult() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxValidationStatus? Status { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PreferencesValidationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PreferencesValidationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.PreferencesValidationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.PreferencesValidationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.PreferencesValidationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1605,7 +1520,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataCenterAddressContent DataCenterAddressRequest { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent ScheduleAvailabilityRequest { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName? TransportAvailabilityRequestSkuName { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.RegionConfigurationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.RegionConfigurationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.RegionConfigurationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.RegionConfigurationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.RegionConfigurationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1618,7 +1532,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataCenterAddressResult DataCenterAddressResponse { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<System.DateTimeOffset> ScheduleAvailabilityResponseAvailableDates { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.TransportAvailabilityDetails> TransportAvailabilityDetails { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.RegionConfigurationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.RegionConfigurationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.RegionConfigurationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.RegionConfigurationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.RegionConfigurationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1631,7 +1544,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.ContactInfo ContactDetails { get { throw null; } set { } }
         public bool? IsUpdated { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress ShippingAddress { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ReverseShippingDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ReverseShippingDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ReverseShippingDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ReverseShippingDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ReverseShippingDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1655,7 +1567,6 @@ namespace Azure.ResourceManager.DataBox.Models
         protected ScheduleAvailabilityContent(Azure.Core.AzureLocation storageLocation) { }
         public string Country { get { throw null; } set { } }
         public Azure.Core.AzureLocation StorageLocation { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1670,7 +1581,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.ShareDestinationFormatType? ShareType { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxAccessProtocol> SupportedAccessProtocols { get { throw null; } }
         public string UserName { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ShareCredentialDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ShareCredentialDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ShareCredentialDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ShareCredentialDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ShareCredentialDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1692,7 +1602,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.DateTimeOffset EndOn { get { throw null; } }
         public string ShipmentLocation { get { throw null; } }
         public System.DateTimeOffset StartOn { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ShipmentPickUpContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ShipmentPickUpContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.ShipmentPickUpContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.ShipmentPickUpContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.ShipmentPickUpContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1706,7 +1615,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName DeviceType { get { throw null; } }
         public Azure.Core.AzureLocation Location { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxJobTransferType TransferType { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1717,7 +1625,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal SkuAvailabilityValidationResult() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxValidationStatus? Status { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.SkuAvailabilityValidationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1736,7 +1643,6 @@ namespace Azure.ResourceManager.DataBox.Models
     public partial class SubscriptionIsAllowedToCreateJobValidationContent : Azure.ResourceManager.DataBox.Models.DataBoxValidationInputContent, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationContent>
     {
         public SubscriptionIsAllowedToCreateJobValidationContent() { }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1747,7 +1653,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal SubscriptionIsAllowedToCreateJobValidationResult() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxValidationStatus? Status { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.SubscriptionIsAllowedToCreateJobValidationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1760,7 +1665,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataAccountType DataAccountType { get { throw null; } set { } }
         public bool? TransferAllBlobs { get { throw null; } set { } }
         public bool? TransferAllFiles { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransferAllDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransferAllDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransferAllDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransferAllDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.TransferAllDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1773,7 +1677,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.TransferAllDetails TransferAllDetailsInclude { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.TransferConfigurationType TransferConfigurationType { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.TransferFilterDetails TransferFilterDetailsInclude { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransferConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransferConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransferConfiguration>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransferConfiguration System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.TransferConfiguration>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1792,7 +1695,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.BlobFilterDetails BlobFilterDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataAccountType DataAccountType { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DataBox.Models.FilterFileDetails> FilterFileDetails { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransferFilterDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransferFilterDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransferFilterDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransferFilterDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.TransferFilterDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1803,7 +1705,6 @@ namespace Azure.ResourceManager.DataBox.Models
     {
         internal TransportAvailabilityDetails() { }
         public Azure.ResourceManager.DataBox.Models.TransportShipmentType? ShipmentType { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransportAvailabilityDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransportAvailabilityDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransportAvailabilityDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransportAvailabilityDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.TransportAvailabilityDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1815,7 +1716,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public TransportPreferences(Azure.ResourceManager.DataBox.Models.TransportShipmentType preferredShipmentType) { }
         public bool? IsUpdated { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.TransportShipmentType PreferredShipmentType { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransportPreferences System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransportPreferences>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.TransportPreferences>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.TransportPreferences System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.TransportPreferences>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1832,7 +1732,6 @@ namespace Azure.ResourceManager.DataBox.Models
         internal UnencryptedCredentials() { }
         public string JobName { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.JobSecrets JobSecrets { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.UnencryptedCredentials System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.UnencryptedCredentials>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.UnencryptedCredentials>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.UnencryptedCredentials System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.UnencryptedCredentials>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1848,7 +1747,6 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.PackageCarrierDetails ReturnToCustomerPackageDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.ReverseShippingDetails ReverseShippingDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress ShippingAddress { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.UpdateJobDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.UpdateJobDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataBox.Models.UpdateJobDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataBox.Models.UpdateJobDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataBox.Models.UpdateJobDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }

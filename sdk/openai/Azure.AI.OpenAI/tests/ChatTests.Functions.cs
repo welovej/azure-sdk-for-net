@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Azure.AI.OpenAI.Chat;
 using OpenAI.Chat;
 using OpenAI.TestFramework;
 
@@ -17,9 +16,10 @@ namespace Azure.AI.OpenAI.Tests;
 public partial class ChatTests
 {
     [Obsolete]
-    private static readonly ChatFunction FUNCTION_TEMPERATURE = new("get_future_temperature") {
-        FunctionDescription = "requests the anticipated future temperature at a provided location to help inform advice about topics like choice of attire",
-        FunctionParameters = BinaryData.FromString(
+    private static readonly ChatFunction FUNCTION_TEMPERATURE = new(
+        "get_future_temperature",
+        "requests the anticipated future temperature at a provided location to help inform advice about topics like choice of attire",
+        BinaryData.FromString(
             """
             {
                 "type": "object",
@@ -34,7 +34,7 @@ public partial class ChatTests
                     }
                 }
             }
-            """)};
+            """));
 
     public enum FunctionCallTestType
     {
@@ -61,13 +61,13 @@ public partial class ChatTests
         {
             FunctionChoice = functionCallType switch
             {
-                FunctionCallTestType.Auto => ChatFunctionChoice.CreateAutoChoice(),
-                FunctionCallTestType.None => ChatFunctionChoice.CreateNoneChoice(),
-                FunctionCallTestType.Function => ChatFunctionChoice.CreateNamedChoice(FUNCTION_TEMPERATURE.FunctionName),
+                FunctionCallTestType.Auto => ChatFunctionChoice.Auto,
+                FunctionCallTestType.None => ChatFunctionChoice.None,
+                FunctionCallTestType.Function => new ChatFunctionChoice(FUNCTION_TEMPERATURE),
                 _ => throw new NotImplementedException(),
             },
             Functions = { FUNCTION_TEMPERATURE },
-            MaxOutputTokenCount = 512,
+            MaxTokens = 512,
         };
 
         ClientResult<ChatCompletion> response = await client.CompleteChatAsync(messages, requestOptions);
@@ -77,7 +77,7 @@ public partial class ChatTests
         Assert.IsNotNull(completion);
         Assert.That(completion.Id, Is.Not.Null.Or.Empty);
 
-        RequestContentFilterResult filter = completion.GetRequestContentFilterResult();
+        ContentFilterResultForPrompt filter = completion.GetContentFilterResultForPrompt();
         Assert.IsNotNull(filter);
         Assert.That(filter.SelfHarm, Is.Not.Null);
         Assert.That(filter.SelfHarm.Filtered, Is.False);
@@ -131,14 +131,14 @@ public partial class ChatTests
         requestOptions = new()
         {
             Functions = { FUNCTION_TEMPERATURE },
-            MaxOutputTokenCount = 512,
+            MaxTokens = requestOptions.MaxTokens,
         };
 
         completion = await client.CompleteChatAsync(messages, requestOptions);
         Assert.That(completion, Is.Not.Null);
         Assert.That(completion.FinishReason, Is.EqualTo(ChatFinishReason.Stop));
 
-        ResponseContentFilterResult responseFilter = completion.GetResponseContentFilterResult();
+        ContentFilterResultForResponse responseFilter = completion.GetContentFilterResultForResponse();
         Assert.That(responseFilter, Is.Not.Null);
         Assert.That(responseFilter.Hate, Is.Not.Null);
         Assert.That(responseFilter.Hate.Severity, Is.EqualTo(ContentFilterSeverity.Safe));
@@ -174,13 +174,13 @@ public partial class ChatTests
         {
             FunctionChoice = functionCallType switch
             {
-                FunctionCallTestType.Auto => ChatFunctionChoice.CreateAutoChoice(),
-                FunctionCallTestType.None => ChatFunctionChoice.CreateNoneChoice(),
-                FunctionCallTestType.Function => ChatFunctionChoice.CreateNamedChoice(FUNCTION_TEMPERATURE.FunctionName),
+                FunctionCallTestType.Auto => ChatFunctionChoice.Auto,
+                FunctionCallTestType.None => ChatFunctionChoice.None,
+                FunctionCallTestType.Function => new ChatFunctionChoice(FUNCTION_TEMPERATURE),
                 _ => throw new NotImplementedException(),
             },
             Functions = { FUNCTION_TEMPERATURE },
-            MaxOutputTokenCount = 512,
+            MaxTokens = 512,
         };
 
         Action<StreamingChatCompletionUpdate> validateUpdate = (update) =>
@@ -194,10 +194,7 @@ public partial class ChatTests
                 functionName ??= update.FunctionCallUpdate.FunctionName; 
 
                 Assert.That(update.FunctionCallUpdate.FunctionArgumentsUpdate, Is.Not.Null);
-                if (!update.FunctionCallUpdate.FunctionArgumentsUpdate.ToMemory().IsEmpty)
-                {
-                    functionArgs.Append(update.FunctionCallUpdate.FunctionArgumentsUpdate.ToString());
-                }
+                functionArgs.Append(update.FunctionCallUpdate.FunctionArgumentsUpdate);
             }
 
             foreach (var part in update.ContentUpdate)
@@ -208,7 +205,7 @@ public partial class ChatTests
                 content.Append(part.Text);
             }
 
-            var promptFilter = update.GetRequestContentFilterResult();
+            var promptFilter = update.GetContentFilterResultForPrompt();
             if (!foundPromptFilter && promptFilter?.Hate != null)
             {
                 Assert.That(promptFilter.Hate.Filtered, Is.False);
@@ -216,7 +213,7 @@ public partial class ChatTests
                 foundPromptFilter = true;
             }
 
-            var responseFilter = update.GetResponseContentFilterResult();
+            var responseFilter = update.GetContentFilterResultForResponse();
             if (!foundResponseFilter && responseFilter?.Hate != null)
             {
                 Assert.That(responseFilter.Hate.Filtered, Is.False);
@@ -243,7 +240,7 @@ public partial class ChatTests
             Assert.That(parsedArgs.LocationName, Is.Not.Null.Or.Empty);
             Assert.That(parsedArgs.Date, Is.Not.Null.Or.Empty);
 
-            // TODO FIXME: There isn't a clear or obvious way to pass the assistant function message back to the service, and the constructors that allow
+            // TODO FIXME: There isn't a clear or obvious way to pass the assitant function message back to the service, and the constructors that allow
             //             us manual control are internal. So let's use JSON.
             var converted = ModelReaderWriter.Read<ChatFunctionCall>(BinaryData.FromString(JsonSerializer.Serialize(new { name = functionName, arguments = functionArgs.ToString() })));
             messages.Add(new AssistantChatMessage(converted));
@@ -256,7 +253,7 @@ public partial class ChatTests
             requestOptions = new()
             {
                 Functions = { FUNCTION_TEMPERATURE },
-                MaxOutputTokenCount = requestOptions.MaxOutputTokenCount,
+                MaxTokens = requestOptions.MaxTokens,
             };
 
             content.Clear();

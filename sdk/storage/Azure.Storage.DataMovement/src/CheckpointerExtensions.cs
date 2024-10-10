@@ -11,15 +11,16 @@ namespace Azure.Storage.DataMovement
 {
     internal static partial class CheckpointerExtensions
     {
-        internal static TransferCheckpointer BuildCheckpointer(TransferCheckpointStoreOptions options)
+        internal static TransferCheckpointer GetCheckpointer(this TransferCheckpointStoreOptions options)
         {
-            if (options?.Enabled == false)
+            if (!string.IsNullOrEmpty(options?.CheckpointerPath))
             {
-                return new DisabledTransferCheckpointer();
+                return new LocalTransferCheckpointer(options.CheckpointerPath);
             }
             else
             {
-                return new LocalTransferCheckpointer(options?.CheckpointerPath);
+                // Default TransferCheckpointer
+                return new LocalTransferCheckpointer(default);
             }
         }
 

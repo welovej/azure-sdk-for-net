@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Azure.Core.TestFramework;
 using Azure.Storage.Files.Shares.Models;
@@ -12,6 +13,8 @@ using Azure.Storage.Files.Shares.Specialized;
 using Azure.Storage.Sas;
 using Azure.Storage.Test;
 using NUnit.Framework;
+using System.Threading;
+using Azure.Identity;
 using Moq;
 
 namespace Azure.Storage.Files.Shares.Tests
@@ -356,57 +359,6 @@ namespace Azure.Storage.Files.Shares.Tests
             Response<ShareProperties> propertiesResponse = await share.GetPropertiesAsync();
             Assert.AreEqual(ShareAccessTier.Hot.ToString(), propertiesResponse.Value.AccessTier);
             Assert.IsNotNull(propertiesResponse.Value.AccessTierChangeTime);
-
-            // Cleanup
-            await share.DeleteAsync();
-        }
-
-        [RecordedTest]
-        [PlaybackOnly("https://github.com/Azure/azure-sdk-for-net/issues/45675")]
-        [ServiceVersion(Min = ShareClientOptions.ServiceVersion.V2025_01_05)]
-        public async Task CreateAsync_ProvisionedMaxIopsAndBandwidth()
-        {
-            // Arrange
-            var shareName = GetNewShareName();
-            ShareServiceClient service = SharesClientBuilder.GetServiceClient_SharedKey();
-            ShareClient share = InstrumentClient(service.GetShareClient(shareName));
-            ShareCreateOptions options = new ShareCreateOptions
-            {
-                ProvisionedMaxIops = 500,
-                ProvisionedMaxBandwidthMibps = 125
-            };
-
-            // Act
-            Response<ShareInfo> response = await share.CreateAsync(options);
-
-            // Assert
-            Response<ShareProperties> propertiesResponse = await share.GetPropertiesAsync();
-            Assert.AreEqual(500, propertiesResponse.Value.ProvisionedIops);
-            Assert.AreEqual(125, propertiesResponse.Value.ProvisionedBandwidthMiBps);
-
-            // Cleanup
-            await share.DeleteAsync();
-        }
-
-        [RecordedTest]
-        [ServiceVersion(Min = ShareClientOptions.ServiceVersion.V2019_12_12)]
-        public async Task CreateAsync_AccessTier_Premium()
-        {
-            // Arrange
-            var shareName = GetNewShareName();
-            ShareServiceClient service = SharesClientBuilder.GetServiceClient_PremiumFile();
-            ShareClient share = InstrumentClient(service.GetShareClient(shareName));
-            ShareCreateOptions options = new ShareCreateOptions
-            {
-                AccessTier = ShareAccessTier.Premium
-            };
-
-            // Act
-            await share.CreateAsync(options);
-
-            // Assert
-            Response<ShareProperties> propertiesResponse = await share.GetPropertiesAsync();
-            Assert.AreEqual(ShareAccessTier.Premium.ToString(), propertiesResponse.Value.AccessTier);
 
             // Cleanup
             await share.DeleteAsync();
@@ -1823,27 +1775,6 @@ namespace Azure.Storage.Files.Shares.Tests
         }
 
         [RecordedTest]
-        [ServiceVersion(Min = ShareClientOptions.ServiceVersion.V2019_12_12)]
-        public async Task SetPropertiesAsync_AccessTier_Premium()
-        {
-            // Arrange
-            await using DisposingShare test = await GetTestShareAsync(SharesClientBuilder.GetServiceClient_PremiumFile());
-            ShareClient share = test.Share;
-
-            ShareSetPropertiesOptions options = new ShareSetPropertiesOptions
-            {
-                AccessTier = ShareAccessTier.Premium
-            };
-
-            // Act
-            await share.SetPropertiesAsync(options);
-
-            // Assert
-            Response<ShareProperties> response = await share.GetPropertiesAsync();
-            Assert.AreEqual(ShareAccessTier.Premium.ToString(), response.Value.AccessTier);
-        }
-
-        [RecordedTest]
         [PlaybackOnly("https://github.com/Azure/azure-sdk-for-net/issues/17262")]
         [ServiceVersion(Min = ShareClientOptions.ServiceVersion.V2020_04_08)]
         public async Task SetPropertiesAsync_RootSquash()
@@ -1962,33 +1893,6 @@ namespace Azure.Storage.Files.Shares.Tests
         }
 
         [RecordedTest]
-        [PlaybackOnly("https://github.com/Azure/azure-sdk-for-net/issues/45675")]
-        [ServiceVersion(Min = ShareClientOptions.ServiceVersion.V2025_01_05)]
-        public async Task SetPropertiesAsync_ProvisionedBilling()
-        {
-            // Arrange
-            await using DisposingShare test = await GetTestShareAsync();
-
-            ShareSetPropertiesOptions setPropertiesOptions = new ShareSetPropertiesOptions
-            {
-                ProvisionedMaxIops = 3000,
-                ProvisionedMaxBandwidthMibps = 125
-            };
-
-            // Act
-            await test.Share.SetPropertiesAsync(setPropertiesOptions);
-
-            // Assert
-            Response<ShareProperties> response = await test.Share.GetPropertiesAsync();
-            Assert.AreEqual(3000, response.Value.ProvisionedIops);
-            Assert.AreEqual(125, response.Value.ProvisionedBandwidthMiBps);
-            Assert.IsNotNull(response.Value.IncludedBurstIops);
-            Assert.IsNotNull(response.Value.MaxBurstCreditsForIops);
-            Assert.IsNotNull(response.Value.NextAllowedProvisionedIopsDowngradeTime);
-            Assert.IsNotNull(response.Value.NextAllowedProvisionedBandwidthDowngradeTime);
-        }
-
-        [RecordedTest]
         public async Task SetQuotaAsync()
         {
             await using DisposingShare test = await GetTestShareAsync();
@@ -2073,11 +1977,7 @@ namespace Azure.Storage.Files.Shares.Tests
             var shareName = GetNewShareName();
             ShareServiceClient service = SharesClientBuilder.GetServiceClient_SharedKey();
             ShareClient share = InstrumentClient(service.GetShareClient(shareName));
-            ShareCreateOptions options = new ShareCreateOptions
-            {
-                QuotaInGB = 1
-            };
-            await share.CreateIfNotExistsAsync(options);
+            await share.CreateIfNotExistsAsync(quotaInGB: 1);
 
             // Act
             Response response = await share.DeleteAsync(false);
@@ -2093,11 +1993,7 @@ namespace Azure.Storage.Files.Shares.Tests
             // Arrange
             ShareServiceClient service = SharesClientBuilder.GetServiceClient_SharedKey();
             ShareClient share = InstrumentClient(service.GetShareClient(GetNewShareName()));
-            ShareCreateOptions createOptions = new ShareCreateOptions
-            {
-                QuotaInGB = 1
-            };
-            await share.CreateIfNotExistsAsync(createOptions);
+            await share.CreateIfNotExistsAsync(quotaInGB: 1);
 
             // Create a snapshot
             Response<ShareSnapshotInfo> snapshotResponse0 = await share.CreateSnapshotAsync();
@@ -2245,11 +2141,7 @@ namespace Azure.Storage.Files.Shares.Tests
             var shareName = GetNewShareName();
             ShareServiceClient service = GetServiceClient_OAuth();
             ShareClient share = InstrumentClient(service.GetShareClient(shareName));
-            ShareCreateOptions options = new ShareCreateOptions
-            {
-                QuotaInGB = 1
-            };
-            await share.CreateIfNotExistsAsync(options);
+            await share.CreateIfNotExistsAsync(quotaInGB: 1);
 
             // Act
             Response response = await share.DeleteAsync(false);

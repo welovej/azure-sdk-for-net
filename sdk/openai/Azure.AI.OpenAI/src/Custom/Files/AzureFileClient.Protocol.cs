@@ -1,15 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#if !AZURE_OPENAI_GA
-
 using System.ClientModel;
 using System.ClientModel.Primitives;
 using System.ComponentModel;
 
 namespace Azure.AI.OpenAI.Files;
 
-internal partial class AzureFileClient : OpenAIFileClient
+internal partial class AzureFileClient : FileClient
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public override ClientResult DeleteFile(string fileId, RequestOptions options)
@@ -141,5 +139,3 @@ internal partial class AzureFileClient : OpenAIFileClient
             .WithOptions(options)
             .Build();
 }
-
-#endif

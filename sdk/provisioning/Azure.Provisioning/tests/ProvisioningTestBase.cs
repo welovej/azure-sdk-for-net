@@ -48,27 +48,34 @@ public class ProvisioningTestBase : ManagementRecordedTestBase<ProvisioningTestE
     }
 }
 
+public class TestProvisioningContextProvider(ProvisioningTestBase test) : ProvisioningContextProvider
+{
+    private ProvisioningContext CreateContext() =>
+        new()
+        {
+            ArmClient = test.InstrumentClient(
+                    new ArmClient(
+                        test.TestEnvironment.Credential,
+                        test.TestEnvironment.SubscriptionId,
+                        test.InstrumentClientOptions(new ArmClientOptions()))),
+            DefaultCredential = test.TestEnvironment.Credential,
+            DefaultSubscriptionId = test.TestEnvironment.SubscriptionId,
+            // Random = test.Recording.Random, // TODO: Add back when we've enabled recordings
+        };
+
+    private ProvisioningContext? _current = null;
+
+    public override ProvisioningContext GetProvisioningContext() =>
+        _current ??= CreateContext();
+
+    public void Reset() => _current = null;
+}
+
 public class Trycep(ProvisioningTestBase test) : IAsyncDisposable
 {
     public AzureLocation ResourceLocation { get; set; } = AzureLocation.WestUS2;
     public ProvisioningTestBase Test { get; set; } = test;
-    public ProvisioningContext Context { get; set; } =
-        new()
-        {
-            // TODO: Add back when we reenable test recording
-            Random = test.Recording.Random
-        };
-    public ProvisioningDeploymentOptions DeploymentOptions { get; set; } =
-        new()
-        {
-            ArmClient = test.InstrumentClient(
-                new ArmClient(
-                    test.TestEnvironment.Credential,
-                    test.TestEnvironment.SubscriptionId,
-                    test.InstrumentClientOptions(new ArmClientOptions()))),
-            DefaultCredential = test.TestEnvironment.Credential,
-            DefaultSubscriptionId = test.TestEnvironment.SubscriptionId
-        };
+    public TestProvisioningContextProvider ContextProvider { get; set; } = new TestProvisioningContextProvider(test);
     public Infrastructure? Infra { get; set; }
     public ProvisioningPlan? Plan { get; set; }
     public IDictionary<string, string>? BicepModules { get; set; }
@@ -83,27 +90,25 @@ public class Trycep(ProvisioningTestBase test) : IAsyncDisposable
 
     public Trycep Define(ProvisioningConstruct resource)
     {
-        Infra = resource.ParentInfrastructure;
-        if (Infra is null)
-        {
-            Infra = new Infrastructure();
-            Infra.Add(resource);
-        }
-        Plan = Infra.Build(Context);
+        ProvisioningContext.Provider = ContextProvider;
+        Infra = resource.ParentInfrastructure ?? ContextProvider.GetProvisioningContext().DefaultInfrastructure;
+        Plan = Infra.Build();
+        return this;
+    }
+
+    public Trycep Define(Action<Trycep> action)
+    {
+        ProvisioningContext.Provider = ContextProvider;
+        action(this);
+        Infra = ContextProvider.GetProvisioningContext().DefaultInfrastructure;
+        Plan = Infra.Build();
         return this;
     }
 
     public Trycep Define(Func<Trycep, Infrastructure> action)
     {
         Infra = action(this);
-        Plan = Infra.Build(Context);
-        return this;
-    }
-
-    public Trycep Define(Func<Trycep, ProvisioningContext, Infrastructure> action)
-    {
-        Infra = action(this, Context);
-        Plan = Infra.Build(Context);
+        Plan = Infra.Build();
         return this;
     }
 
@@ -221,16 +226,16 @@ public class Trycep(ProvisioningTestBase test) : IAsyncDisposable
         if (Test.SkipLiveCalls) { return; }
         if (ArmResourceGroup is not null) { return; }
 
-        string? subId = DeploymentOptions.DefaultSubscriptionId;
-        ArmClient client = DeploymentOptions.ArmClient;
+        ProvisioningContext context = ContextProvider.GetProvisioningContext();
+        ArmClient client = context.ArmClient;
 
         // Try a specific subscription if specified
-        ArmSubscription = (subId is not null) ?
-            await client.GetSubscriptions().GetAsync(subId, Cancellation).ConfigureAwait(false) :
+        ArmSubscription = (context.DefaultSubscriptionId is not null) ?
+            await client.GetSubscriptions().GetAsync(context.DefaultSubscriptionId, Cancellation).ConfigureAwait(false) :
             await client.GetDefaultSubscriptionAsync(Cancellation).ConfigureAwait(false);
 
         // Generate a random name
-        name ??= "rg-test-can-delete-" + Context.Random.NewGuid().ToString("N");
+        name ??= "rg-test-can-delete-" + context.Random.NewGuid().ToString("N");
 
         // Create a resource group to deploy into
         ResourceGroupCollection rgs = ArmSubscription.GetResourceGroups();
@@ -252,7 +257,7 @@ public class Trycep(ProvisioningTestBase test) : IAsyncDisposable
         ArmDeploymentValidateResult result =
             await plan.ValidateInResourceGroupAsync(
                 ArmResourceGroup!.Data.Name,
-                DeploymentOptions,
+                ContextProvider.GetProvisioningContext().ArmClient,
                 Cancellation)
                 .ConfigureAwait(false);
         if (validate is not null)
@@ -273,7 +278,7 @@ public class Trycep(ProvisioningTestBase test) : IAsyncDisposable
         Deployment =
             await plan.DeployToResourceGroupAsync(
                 ArmResourceGroup!.Data.Name,
-                DeploymentOptions,
+                ContextProvider.GetProvisioningContext().ArmClient,
                 Cancellation)
                 .ConfigureAwait(false);
         if (validate is not null)
@@ -322,6 +327,5 @@ public class Trycep(ProvisioningTestBase test) : IAsyncDisposable
             Directory.Delete(TempDir, recursive: true);
             TempDir = null;
         }
-        GC.SuppressFinalize(this);
     }
 }

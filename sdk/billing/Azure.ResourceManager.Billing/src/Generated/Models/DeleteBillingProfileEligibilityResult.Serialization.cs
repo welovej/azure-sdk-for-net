@@ -21,21 +21,13 @@ namespace Azure.ResourceManager.Billing.Models
 
         void IJsonModel<DeleteBillingProfileEligibilityResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<DeleteBillingProfileEligibilityResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DeleteBillingProfileEligibilityResult)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(EligibilityStatus))
             {
                 writer.WritePropertyName("eligibilityStatus"u8);
@@ -66,6 +58,7 @@ namespace Azure.ResourceManager.Billing.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         DeleteBillingProfileEligibilityResult IJsonModel<DeleteBillingProfileEligibilityResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

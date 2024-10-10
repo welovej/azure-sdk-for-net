@@ -20,8 +20,6 @@ public class BasicContainerRegistryTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
                 ContainerRegistryService registry =
                     new(nameof(registry))
                     {
@@ -30,11 +28,8 @@ public class BasicContainerRegistryTests(bool async)
                         Tags = { { "displayName", "ContainerRegistry" } }
                     };
                 registry.Tags.Add("container.registry", registry.Name);
-                infra.Add(registry);
 
-                infra.Add(new ProvisioningOutput("registryLoginServer", typeof(string)) { Value = registry.LoginServer });
-
-                return infra;
+                _ = new BicepOutput("registryLoginServer", typeof(string)) { Value = registry.LoginServer };
             })
         .Compare(
             """

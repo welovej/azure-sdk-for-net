@@ -10,24 +10,9 @@ namespace Azure.Storage.DataMovement
     public class TransferCheckpointStoreOptions
     {
         /// <summary>
-        /// Whether checkpointing should be enabled or not.
+        /// The local folder where the checkpoint information will be stored.
         /// </summary>
-        internal bool Enabled { get; private set; }
-
-        /// <summary>
-        /// The folder where the checkpoint information will be stored.
-        /// </summary>
-        internal string CheckpointerPath { get; private set; }
-
-        /// <summary>
-        /// Sets the checkpoint options to disable transfer checkpointing.
-        /// <para>NOTE: All pause/resume functionality will be disabled.</para>
-        /// </summary>
-        /// <returns></returns>
-        public static TransferCheckpointStoreOptions Disabled()
-        {
-            return new TransferCheckpointStoreOptions(false, default);
-        }
+        public string CheckpointerPath { get; private set; }
 
         /// <summary>
         /// Sets the checkpointer options to use a Local Checkpointer where
@@ -36,15 +21,14 @@ namespace Azure.Storage.DataMovement
         /// <param name="localCheckpointerPath">
         /// The local folder where the checkpoint information will be stored.
         /// </param>
-        public static TransferCheckpointStoreOptions Local(string localCheckpointerPath)
+        public TransferCheckpointStoreOptions(string localCheckpointerPath)
         {
-            return new TransferCheckpointStoreOptions(true, localCheckpointerPath);
+            CheckpointerPath = localCheckpointerPath;
         }
 
-        internal TransferCheckpointStoreOptions(bool enabled, string localCheckpointerPath)
+        internal TransferCheckpointStoreOptions(TransferCheckpointStoreOptions options)
         {
-            Enabled = enabled;
-            CheckpointerPath = localCheckpointerPath;
+            CheckpointerPath = options.CheckpointerPath;
         }
     }
 }

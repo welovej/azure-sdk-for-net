@@ -19,21 +19,13 @@ namespace Azure.ResourceManager.ProviderHub.Models
 
         void IJsonModel<LoggingRule>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<LoggingRule>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(LoggingRule)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             writer.WritePropertyName("action"u8);
             writer.WriteStringValue(Action);
             writer.WritePropertyName("direction"u8);
@@ -60,6 +52,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         LoggingRule IJsonModel<LoggingRule>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

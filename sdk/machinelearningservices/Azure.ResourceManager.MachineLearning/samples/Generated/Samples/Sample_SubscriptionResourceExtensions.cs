@@ -103,13 +103,13 @@ new MachineLearningQuotaProperties()
 {
 Id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg/providers/Microsoft.MachineLearningServices/workspaces/demo_workspace1/quotas/Standard_DSv2_Family_Cluster_Dedicated_vCPUs",
 QuotaBasePropertiesType = "Microsoft.MachineLearningServices/workspaces/quotas",
-Limit = 100L,
+Limit = 100,
 Unit = MachineLearningQuotaUnit.Count,
 },new MachineLearningQuotaProperties()
 {
 Id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg/providers/Microsoft.MachineLearningServices/workspaces/demo_workspace2/quotas/Standard_DSv2_Family_Cluster_Dedicated_vCPUs",
 QuotaBasePropertiesType = "Microsoft.MachineLearningServices/workspaces/quotas",
-Limit = 200L,
+Limit = 200,
 Unit = MachineLearningQuotaUnit.Count,
 }
 },

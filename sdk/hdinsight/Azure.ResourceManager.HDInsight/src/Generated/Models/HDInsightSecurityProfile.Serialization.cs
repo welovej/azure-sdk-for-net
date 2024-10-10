@@ -19,21 +19,13 @@ namespace Azure.ResourceManager.HDInsight.Models
 
         void IJsonModel<HDInsightSecurityProfile>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<HDInsightSecurityProfile>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(HDInsightSecurityProfile)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(DirectoryType))
             {
                 writer.WritePropertyName("directoryType"u8);
@@ -109,6 +101,7 @@ namespace Azure.ResourceManager.HDInsight.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         HDInsightSecurityProfile IJsonModel<HDInsightSecurityProfile>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

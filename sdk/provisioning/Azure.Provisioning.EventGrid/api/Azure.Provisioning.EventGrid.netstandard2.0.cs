@@ -2,7 +2,7 @@ namespace Azure.Provisioning.EventGrid
 {
     public partial class AdvancedFilter : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AdvancedFilter() { }
+        public AdvancedFilter() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Key { get { throw null; } set { } }
     }
     public enum AlternativeAuthenticationNameSource
@@ -40,7 +40,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class CaCertificate : Azure.Provisioning.Primitives.Resource
     {
-        public CaCertificate(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public CaCertificate(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> EncodedCertificate { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> ExpiryTimeInUtc { get { throw null; } }
@@ -50,11 +50,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.EventGrid.EventGridNamespace? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.CaCertificateProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.CaCertificate FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.CaCertificate FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum CaCertificateProvisioningState
     {
@@ -68,13 +64,13 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class ClientAuthenticationSettings : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ClientAuthenticationSettings() { }
+        public ClientAuthenticationSettings() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.AlternativeAuthenticationNameSource> AlternativeAuthenticationNameSources { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.CustomJwtAuthenticationSettings> CustomJwtAuthentication { get { throw null; } set { } }
     }
     public partial class ClientCertificateAuthentication : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ClientCertificateAuthentication() { }
+        public ClientCertificateAuthentication() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<string> AllowedThumbprints { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.ClientCertificateValidationScheme> ValidationScheme { get { throw null; } set { } }
     }
@@ -100,7 +96,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class CustomDomainConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public CustomDomainConfiguration() { }
+        public CustomDomainConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> CertificateUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ExpectedTxtRecordName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ExpectedTxtRecordValue { get { throw null; } set { } }
@@ -110,7 +106,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class CustomDomainIdentity : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public CustomDomainIdentity() { }
+        public CustomDomainIdentity() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.CustomDomainIdentityType> IdentityType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> UserAssignedIdentity { get { throw null; } set { } }
     }
@@ -127,7 +123,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class CustomJwtAuthenticationManagedIdentity : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public CustomJwtAuthenticationManagedIdentity() { }
+        public CustomJwtAuthenticationManagedIdentity() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.CustomJwtAuthenticationManagedIdentityType> IdentityType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> UserAssignedIdentity { get { throw null; } set { } }
     }
@@ -138,7 +134,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class CustomJwtAuthenticationSettings : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public CustomJwtAuthenticationSettings() { }
+        public CustomJwtAuthenticationSettings() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.IssuerCertificateInfo> IssuerCertificates { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> TokenIssuer { get { throw null; } set { } }
     }
@@ -149,22 +145,22 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class DeadLetterDestination : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public DeadLetterDestination() { }
+        public DeadLetterDestination() : base (default(Azure.Provisioning.ProvisioningContext)) { }
     }
     public partial class DeadLetterWithResourceIdentity : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public DeadLetterWithResourceIdentity() { }
+        public DeadLetterWithResourceIdentity() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterDestination> DeadLetterDestination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionIdentity> Identity { get { throw null; } set { } }
     }
     public partial class DeliveryAttributeMapping : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public DeliveryAttributeMapping() { }
+        public DeliveryAttributeMapping() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
     }
     public partial class DeliveryConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public DeliveryConfiguration() { }
+        public DeliveryConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryMode> DeliveryMode { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PushInfo> Push { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.QueueInfo> Queue { get { throw null; } set { } }
@@ -181,13 +177,13 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class DeliveryWithResourceIdentity : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public DeliveryWithResourceIdentity() { }
+        public DeliveryWithResourceIdentity() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionDestination> Destination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionIdentity> Identity { get { throw null; } set { } }
     }
     public partial class DomainEventSubscription : Azure.Provisioning.Primitives.Resource
     {
-        public DomainEventSubscription(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public DomainEventSubscription(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterDestination> DeadLetterDestination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryWithResourceIdentity> DeliveryWithResourceIdentity { get { throw null; } set { } }
@@ -203,25 +199,17 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionRetryPolicy> RetryPolicy { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Topic { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.DomainEventSubscription FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2019_06_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2021_12_01;
-            public static readonly string V2022_06_15;
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.DomainEventSubscription FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class DomainTopic : Azure.Provisioning.Primitives.Resource
     {
-        public DomainTopic(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public DomainTopic(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.EventGrid.EventGridDomain? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DomainTopicProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.DomainTopic FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.DomainTopic FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
         public static partial class ResourceVersions
@@ -235,7 +223,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class DomainTopicEventSubscription : Azure.Provisioning.Primitives.Resource
     {
-        public DomainTopicEventSubscription(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public DomainTopicEventSubscription(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterDestination> DeadLetterDestination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryWithResourceIdentity> DeliveryWithResourceIdentity { get { throw null; } set { } }
@@ -251,15 +239,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionRetryPolicy> RetryPolicy { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Topic { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.DomainTopicEventSubscription FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2019_06_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2021_12_01;
-            public static readonly string V2022_06_15;
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.DomainTopicEventSubscription FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum DomainTopicProvisioningState
     {
@@ -277,7 +257,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class DynamicRoutingEnrichment : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public DynamicRoutingEnrichment() { }
+        public DynamicRoutingEnrichment() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Key { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Value { get { throw null; } set { } }
     }
@@ -315,7 +295,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridDomain : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridDomain(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridDomain(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> AutoCreateTopicWithFirstSubscription { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> AutoDeleteTopicWithLastSubscription { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DataResidencyBoundary> DataResidencyBoundary { get { throw null; } set { } }
@@ -337,7 +317,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridSku> SkuName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.EventGridDomain FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.EventGridDomain FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
         public static partial class ResourceVersions
@@ -351,7 +331,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridDomainPrivateEndpointConnection : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridDomainPrivateEndpointConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridDomainPrivateEndpointConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridPrivateEndpointConnectionState> ConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> GroupIds { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -360,15 +340,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> PrivateEndpointId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridResourceProvisioningState> ProvisioningState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.EventGridDomainPrivateEndpointConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2019_06_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2021_12_01;
-            public static readonly string V2022_06_15;
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.EventGridDomainPrivateEndpointConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum EventGridDomainProvisioningState
     {
@@ -381,12 +353,12 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridFilter : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventGridFilter() { }
+        public EventGridFilter() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Key { get { throw null; } set { } }
     }
     public partial class EventGridInboundIPRule : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventGridInboundIPRule() { }
+        public EventGridInboundIPRule() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridIPActionType> Action { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> IPMask { get { throw null; } set { } }
     }
@@ -398,7 +370,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridInputSchemaMapping : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventGridInputSchemaMapping() { }
+        public EventGridInputSchemaMapping() : base (default(Azure.Provisioning.ProvisioningContext)) { }
     }
     public enum EventGridIPActionType
     {
@@ -416,7 +388,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridNamespace : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridNamespace(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridNamespace(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.ManagedServiceIdentity> Identity { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.EventGridInboundIPRule> InboundIPRules { get { throw null; } set { } }
@@ -432,7 +404,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.TopicsConfiguration> TopicsConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.TopicSpacesConfiguration> TopicSpacesConfiguration { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.EventGridNamespace FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.EventGridNamespace FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2024_06_01_preview;
@@ -440,7 +412,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridNamespaceClientGroup : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridNamespaceClientGroup(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridNamespaceClientGroup(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
@@ -448,11 +420,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.ClientGroupProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Query { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.EventGridNamespaceClientGroup FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.EventGridNamespaceClientGroup FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum EventGridNamespaceClientProvisioningState
     {
@@ -466,7 +434,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridNamespaceClientResource : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridNamespaceClientResource(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridNamespaceClientResource(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepDictionary<System.BinaryData> Attributes { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> AuthenticationName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.ClientCertificateAuthentication> ClientCertificateAuthentication { get { throw null; } set { } }
@@ -477,11 +445,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridNamespaceClientProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridNamespaceClientState> State { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.EventGridNamespaceClientResource FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.EventGridNamespaceClientResource FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum EventGridNamespaceClientState
     {
@@ -490,7 +454,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridNamespacePermissionBinding : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridNamespacePermissionBinding(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridNamespacePermissionBinding(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ClientGroupName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -500,22 +464,18 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PermissionBindingProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> TopicSpaceName { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.EventGridNamespacePermissionBinding FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.EventGridNamespacePermissionBinding FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class EventGridPartnerContent : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventGridPartnerContent() { }
+        public EventGridPartnerContent() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> AuthorizationExpireOn { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> PartnerName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Guid> PartnerRegistrationImmutableId { get { throw null; } set { } }
     }
     public partial class EventGridPartnerNamespacePrivateEndpointConnection : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridPartnerNamespacePrivateEndpointConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridPartnerNamespacePrivateEndpointConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridPrivateEndpointConnectionState> ConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> GroupIds { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -524,16 +484,11 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> PrivateEndpointId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridResourceProvisioningState> ProvisioningState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.EventGridPartnerNamespacePrivateEndpointConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2022_06_15;
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.EventGridPartnerNamespacePrivateEndpointConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class EventGridPrivateEndpointConnectionData : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventGridPrivateEndpointConnectionData() { }
+        public EventGridPrivateEndpointConnectionData() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridPrivateEndpointConnectionState> ConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> GroupIds { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -544,7 +499,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridPrivateEndpointConnectionState : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventGridPrivateEndpointConnectionState() { }
+        public EventGridPrivateEndpointConnectionState() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ActionsRequired { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridPrivateEndpointPersistedConnectionStatus> Status { get { throw null; } set { } }
@@ -582,7 +537,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridTopic : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridTopic(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridTopic(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DataResidencyBoundary> DataResidencyBoundary { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> Endpoint { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerTopicEventTypeInfo> EventTypeInfo { get { throw null; } set { } }
@@ -604,7 +559,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridSku> SkuName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.EventGridTopic FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.EventGridTopic FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
         public static partial class ResourceVersions
@@ -620,7 +575,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventGridTopicPrivateEndpointConnection : Azure.Provisioning.Primitives.Resource
     {
-        public EventGridTopicPrivateEndpointConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventGridTopicPrivateEndpointConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridPrivateEndpointConnectionState> ConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> GroupIds { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -629,17 +584,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> PrivateEndpointId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridResourceProvisioningState> ProvisioningState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.EventGridTopicPrivateEndpointConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2018_01_01;
-            public static readonly string V2019_01_01;
-            public static readonly string V2019_06_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2021_12_01;
-            public static readonly string V2022_06_15;
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.EventGridTopicPrivateEndpointConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum EventGridTopicProvisioningState
     {
@@ -663,7 +608,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventSubscription : Azure.Provisioning.Primitives.Resource
     {
-        public EventSubscription(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public EventSubscription(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterDestination> DeadLetterDestination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryWithResourceIdentity> DeliveryWithResourceIdentity { get { throw null; } set { } }
@@ -678,7 +623,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionRetryPolicy> RetryPolicy { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Topic { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.EventSubscription FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.EventSubscription FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
         public static partial class ResourceVersions
@@ -694,11 +639,11 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventSubscriptionDestination : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventSubscriptionDestination() { }
+        public EventSubscriptionDestination() : base (default(Azure.Provisioning.ProvisioningContext)) { }
     }
     public partial class EventSubscriptionFilter : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventSubscriptionFilter() { }
+        public EventSubscriptionFilter() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.AdvancedFilter> AdvancedFilters { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> IncludedEventTypes { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> IsAdvancedFilteringOnArraysEnabled { get { throw null; } set { } }
@@ -708,7 +653,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventSubscriptionIdentity : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventSubscriptionIdentity() { }
+        public EventSubscriptionIdentity() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionIdentityType> IdentityType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> UserAssignedIdentity { get { throw null; } set { } }
     }
@@ -729,13 +674,13 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class EventSubscriptionRetryPolicy : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public EventSubscriptionRetryPolicy() { }
+        public EventSubscriptionRetryPolicy() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> EventTimeToLiveInMinutes { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> MaxDeliveryAttempts { get { throw null; } set { } }
     }
     public partial class FiltersConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FiltersConfiguration() { }
+        public FiltersConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.EventGridFilter> Filters { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> IncludedEventTypes { get { throw null; } set { } }
     }
@@ -747,7 +692,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class InlineEventProperties : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public InlineEventProperties() { }
+        public InlineEventProperties() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> DataSchemaUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DisplayName { get { throw null; } set { } }
@@ -771,13 +716,13 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class IssuerCertificateInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public IssuerCertificateInfo() { }
+        public IssuerCertificateInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> CertificateUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.CustomJwtAuthenticationManagedIdentity> Identity { get { throw null; } set { } }
     }
     public partial class JsonFieldWithDefault : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public JsonFieldWithDefault() { }
+        public JsonFieldWithDefault() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> DefaultValue { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> SourceField { get { throw null; } set { } }
     }
@@ -811,13 +756,13 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class NamespaceSku : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public NamespaceSku() { }
+        public NamespaceSku() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Capacity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridSkuName> Name { get { throw null; } set { } }
     }
     public partial class NamespaceTopic : Azure.Provisioning.Primitives.Resource
     {
-        public NamespaceTopic(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public NamespaceTopic(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> EventRetentionInDays { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventInputSchema> InputSchema { get { throw null; } set { } }
@@ -826,15 +771,11 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.NamespaceTopicProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PublisherType> PublisherType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.NamespaceTopic FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.NamespaceTopic FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class NamespaceTopicEventSubscription : Azure.Provisioning.Primitives.Resource
     {
-        public NamespaceTopicEventSubscription(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public NamespaceTopicEventSubscription(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryConfiguration> DeliveryConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliverySchema> EventDeliverySchema { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> ExpireOn { get { throw null; } set { } }
@@ -844,11 +785,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.EventGrid.NamespaceTopic? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.SubscriptionProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.NamespaceTopicEventSubscription FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.NamespaceTopicEventSubscription FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class NamespaceTopicEventSubscriptionDestination : Azure.Provisioning.EventGrid.EventSubscriptionDestination
     {
@@ -950,17 +887,17 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerAuthorization : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PartnerAuthorization() { }
+        public PartnerAuthorization() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.EventGridPartnerContent> AuthorizedPartnersList { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> DefaultMaximumExpirationTimeInDays { get { throw null; } set { } }
     }
     public partial class PartnerClientAuthentication : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PartnerClientAuthentication() { }
+        public PartnerClientAuthentication() : base (default(Azure.Provisioning.ProvisioningContext)) { }
     }
     public partial class PartnerConfiguration : Azure.Provisioning.Primitives.Resource
     {
-        public PartnerConfiguration(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PartnerConfiguration(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.AzureLocation> Location { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
@@ -968,7 +905,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerConfigurationProvisioningState> ProvisioningState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.PartnerConfiguration FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.PartnerConfiguration FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2022_06_15;
@@ -986,7 +923,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerDestination : Azure.Provisioning.Primitives.Resource
     {
-        public PartnerDestination(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PartnerDestination(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerDestinationActivationState> ActivationState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> EndpointBaseUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> EndpointServiceContext { get { throw null; } set { } }
@@ -999,7 +936,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerDestinationProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.PartnerDestination FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.PartnerDestination FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2024_06_01_preview;
@@ -1012,7 +949,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerDestinationInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PartnerDestinationInfo() { }
+        public PartnerDestinationInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AzureSubscriptionId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> EndpointServiceContext { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
@@ -1036,7 +973,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerNamespace : Azure.Provisioning.Primitives.Resource
     {
-        public PartnerNamespace(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PartnerNamespace(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> Endpoint { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.EventGridInboundIPRule> InboundIPRules { get { throw null; } set { } }
@@ -1051,7 +988,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventGridPublicNetworkAccess> PublicNetworkAccess { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.PartnerNamespace FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.PartnerNamespace FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2022_06_15;
@@ -1060,7 +997,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerNamespaceChannel : Azure.Provisioning.Primitives.Resource
     {
-        public PartnerNamespaceChannel(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PartnerNamespaceChannel(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerNamespaceChannelType> ChannelType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> ExpireOnIfNotActivated { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -1072,7 +1009,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerNamespaceChannelProvisioningState> ProvisioningState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerTopicReadinessState> ReadinessState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.PartnerNamespaceChannel FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.PartnerNamespaceChannel FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2022_06_15;
@@ -1106,7 +1043,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerRegistration : Azure.Provisioning.Primitives.Resource
     {
-        public PartnerRegistration(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PartnerRegistration(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.AzureLocation> Location { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
@@ -1114,7 +1051,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerRegistrationProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.PartnerRegistration FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.PartnerRegistration FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2022_06_15;
@@ -1132,7 +1069,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerTopic : Azure.Provisioning.Primitives.Resource
     {
-        public PartnerTopic(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PartnerTopic(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerTopicActivationState> ActivationState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerTopicEventTypeInfo> EventTypeInfo { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> ExpireOnIfNotActivated { get { throw null; } set { } }
@@ -1147,7 +1084,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<string> Source { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.PartnerTopic FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.PartnerTopic FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2022_06_15;
@@ -1162,7 +1099,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerTopicEventSubscription : Azure.Provisioning.Primitives.Resource
     {
-        public PartnerTopicEventSubscription(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PartnerTopicEventSubscription(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterDestination> DeadLetterDestination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryWithResourceIdentity> DeliveryWithResourceIdentity { get { throw null; } set { } }
@@ -1178,7 +1115,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionRetryPolicy> RetryPolicy { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Topic { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.PartnerTopicEventSubscription FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.PartnerTopicEventSubscription FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2022_06_15;
@@ -1187,13 +1124,13 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PartnerTopicEventTypeInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PartnerTopicEventTypeInfo() { }
+        public PartnerTopicEventTypeInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepDictionary<Azure.Provisioning.EventGrid.InlineEventProperties> InlineEventTypes { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventDefinitionKind> Kind { get { throw null; } set { } }
     }
     public partial class PartnerTopicInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PartnerTopicInfo() { }
+        public PartnerTopicInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Guid> AzureSubscriptionId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.PartnerTopicEventTypeInfo> EventTypeInfo { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
@@ -1241,7 +1178,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class PushInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PushInfo() { }
+        public PushInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterDestinationWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryWithResourceIdentity> DeliveryWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionDestination> Destination { get { throw null; } set { } }
@@ -1250,7 +1187,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class QueueInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public QueueInfo() { }
+        public QueueInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterDestinationWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.TimeSpan> EventTimeToLive { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> MaxDeliveryCount { get { throw null; } set { } }
@@ -1263,20 +1200,20 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class ResourceMoveChangeHistory : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ResourceMoveChangeHistory() { }
+        public ResourceMoveChangeHistory() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AzureSubscriptionId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> ChangedTimeUtc { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ResourceGroupName { get { throw null; } set { } }
     }
     public partial class RoutingEnrichments : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public RoutingEnrichments() { }
+        public RoutingEnrichments() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.DynamicRoutingEnrichment> Dynamic { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.StaticRoutingEnrichment> Static { get { throw null; } set { } }
     }
     public partial class RoutingIdentityInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public RoutingIdentityInfo() { }
+        public RoutingIdentityInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.RoutingIdentityType> IdentityType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> UserAssignedIdentity { get { throw null; } set { } }
     }
@@ -1306,7 +1243,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class StaticRoutingEnrichment : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StaticRoutingEnrichment() { }
+        public StaticRoutingEnrichment() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Key { get { throw null; } set { } }
     }
     public partial class StaticStringRoutingEnrichment : Azure.Provisioning.EventGrid.StaticRoutingEnrichment
@@ -1423,7 +1360,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class SystemTopic : Azure.Provisioning.Primitives.Resource
     {
-        public SystemTopic(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SystemTopic(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.ManagedServiceIdentity> Identity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.AzureLocation> Location { get { throw null; } set { } }
@@ -1434,7 +1371,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> TopicType { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.SystemTopic FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.SystemTopic FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2021_12_01;
@@ -1444,7 +1381,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class SystemTopicEventSubscription : Azure.Provisioning.Primitives.Resource
     {
-        public SystemTopicEventSubscription(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SystemTopicEventSubscription(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterDestination> DeadLetterDestination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryWithResourceIdentity> DeliveryWithResourceIdentity { get { throw null; } set { } }
@@ -1460,7 +1397,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionRetryPolicy> RetryPolicy { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Topic { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.SystemTopicEventSubscription FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.EventGrid.SystemTopicEventSubscription FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2021_12_01;
@@ -1479,7 +1416,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class TopicEventSubscription : Azure.Provisioning.Primitives.Resource
     {
-        public TopicEventSubscription(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public TopicEventSubscription(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterDestination> DeadLetterDestination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeadLetterWithResourceIdentity> DeadLetterWithResourceIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.DeliveryWithResourceIdentity> DeliveryWithResourceIdentity { get { throw null; } set { } }
@@ -1495,27 +1432,17 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.EventSubscriptionRetryPolicy> RetryPolicy { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Topic { get { throw null; } }
-        public static Azure.Provisioning.EventGrid.TopicEventSubscription FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2018_01_01;
-            public static readonly string V2019_01_01;
-            public static readonly string V2019_06_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2021_12_01;
-            public static readonly string V2022_06_15;
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.TopicEventSubscription FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class TopicsConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public TopicsConfiguration() { }
+        public TopicsConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.CustomDomainConfiguration> CustomDomains { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Hostname { get { throw null; } }
     }
     public partial class TopicSpace : Azure.Provisioning.Primitives.Resource
     {
-        public TopicSpace(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public TopicSpace(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
@@ -1523,11 +1450,7 @@ namespace Azure.Provisioning.EventGrid
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.TopicSpaceProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepList<string> TopicTemplates { get { throw null; } set { } }
-        public static Azure.Provisioning.EventGrid.TopicSpace FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2024_06_01_preview;
-        }
+        public static Azure.Provisioning.EventGrid.TopicSpace FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum TopicSpaceProvisioningState
     {
@@ -1541,7 +1464,7 @@ namespace Azure.Provisioning.EventGrid
     }
     public partial class TopicSpacesConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public TopicSpacesConfiguration() { }
+        public TopicSpacesConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.EventGrid.ClientAuthenticationSettings> ClientAuthentication { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.EventGrid.CustomDomainConfiguration> CustomDomains { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Hostname { get { throw null; } }

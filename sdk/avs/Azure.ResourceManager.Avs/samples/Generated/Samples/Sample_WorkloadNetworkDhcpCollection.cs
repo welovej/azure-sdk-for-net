@@ -192,9 +192,9 @@ namespace Azure.ResourceManager.Avs.Samples
                 Properties = new WorkloadNetworkDhcpServer()
                 {
                     ServerAddress = "40.1.5.1/24",
-                    LeaseTime = 86400L,
+                    LeaseTime = 86400,
                     DisplayName = "dhcpConfigurations1",
-                    Revision = 1L,
+                    Revision = 1,
                 },
             };
             ArmOperation<WorkloadNetworkDhcpResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, dhcpId, data);

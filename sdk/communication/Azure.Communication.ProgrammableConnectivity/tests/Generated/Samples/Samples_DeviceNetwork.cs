@@ -18,18 +18,18 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DeviceNetwork_Retrieve_DeviceNetworkRetrieve()
+        public void Example_DeviceNetwork_Retrieve_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
-                identifierType = "ipv6",
-                identifier = "3001:0da8:75a3:0000:0000:8a2e:0370:7334",
+                identifierType = "<identifierType>",
+                identifier = "<identifier>",
             });
-            Response response = client.Retrieve("zdgrzzaxlodrvewbksn", content);
+            Response response = client.Retrieve("<apcGatewayId>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("networkCode").ToString());
@@ -37,18 +37,18 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DeviceNetwork_Retrieve_DeviceNetworkRetrieve_Async()
+        public async Task Example_DeviceNetwork_Retrieve_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
-                identifierType = "ipv6",
-                identifier = "3001:0da8:75a3:0000:0000:8a2e:0370:7334",
+                identifierType = "<identifierType>",
+                identifier = "<identifier>",
             });
-            Response response = await client.RetrieveAsync("zdgrzzaxlodrvewbksn", content);
+            Response response = await client.RetrieveAsync("<apcGatewayId>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("networkCode").ToString());
@@ -56,26 +56,88 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DeviceNetwork_Retrieve_DeviceNetworkRetrieve_Convenience()
+        public void Example_DeviceNetwork_Retrieve_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
 
-            NetworkIdentifier body = new NetworkIdentifier("ipv6", "3001:0da8:75a3:0000:0000:8a2e:0370:7334");
-            Response<NetworkRetrievalResult> response = client.Retrieve("zdgrzzaxlodrvewbksn", body);
+            NetworkIdentifier body = new NetworkIdentifier("<identifierType>", "<identifier>");
+            Response<NetworkRetrievalResult> response = client.Retrieve("<apcGatewayId>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DeviceNetwork_Retrieve_DeviceNetworkRetrieve_Convenience_Async()
+        public async Task Example_DeviceNetwork_Retrieve_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
 
-            NetworkIdentifier body = new NetworkIdentifier("ipv6", "3001:0da8:75a3:0000:0000:8a2e:0370:7334");
-            Response<NetworkRetrievalResult> response = await client.RetrieveAsync("zdgrzzaxlodrvewbksn", body);
+            NetworkIdentifier body = new NetworkIdentifier("<identifierType>", "<identifier>");
+            Response<NetworkRetrievalResult> response = await client.RetrieveAsync("<apcGatewayId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DeviceNetwork_Retrieve_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                identifierType = "<identifierType>",
+                identifier = "<identifier>",
+            });
+            Response response = client.Retrieve("<apcGatewayId>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("networkCode").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_DeviceNetwork_Retrieve_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                identifierType = "<identifierType>",
+                identifier = "<identifier>",
+            });
+            Response response = await client.RetrieveAsync("<apcGatewayId>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("networkCode").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DeviceNetwork_Retrieve_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
+
+            NetworkIdentifier body = new NetworkIdentifier("<identifierType>", "<identifier>");
+            Response<NetworkRetrievalResult> response = client.Retrieve("<apcGatewayId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_DeviceNetwork_Retrieve_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            DeviceNetwork client = new ProgrammableConnectivityClient(endpoint, credential).GetDeviceNetworkClient(apiVersion: "2024-02-09-preview");
+
+            NetworkIdentifier body = new NetworkIdentifier("<identifierType>", "<identifier>");
+            Response<NetworkRetrievalResult> response = await client.RetrieveAsync("<apcGatewayId>", body);
         }
     }
 }

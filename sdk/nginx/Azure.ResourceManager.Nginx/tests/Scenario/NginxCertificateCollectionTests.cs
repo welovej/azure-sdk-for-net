@@ -38,17 +38,15 @@ namespace Azure.ResourceManager.Nginx.Tests.Scenario
             string nginxDeploymentName = Recording.GenerateAssetName("testDeployment-");
             NginxDeploymentResource nginxDeployment = await CreateNginxDeployment(ResGroup, Location, nginxDeploymentName);
 
-            string nginxCertificateName = Recording.GenerateAssetName("testCertificate-");
-            const string certificateVirtualPath = "/etc/nginx/nginx.cert";
-            const string keyVirtualPath = "/etc/nginx/nginx.key";
+            string nginxCertificateName = Recording.GenerateAssetName("testcertificate-");
+            string certificateVirtualPath = "/etc/nginx/nginx.cert";
+            string keyVirtualPath = "/etc/nginx/nginx.key";
             NginxCertificateResource nginxCertificate = await CreateNginxCertificate(Location, nginxDeployment, nginxCertificateName, certificateVirtualPath, keyVirtualPath);
-            Assert.IsTrue(nginxCertificateName.Equals(nginxCertificate.Data.Name, StringComparison.InvariantCultureIgnoreCase));
+            Assert.IsTrue(nginxCertificateName.Equals(nginxCertificate.Data.Name));
             Assert.ThrowsAsync<ArgumentNullException>(async () => _ = (await nginxDeployment.GetNginxCertificates().CreateOrUpdateAsync(WaitUntil.Completed, nginxCertificateName, null)).Value);
 
-            NginxCertificateData nginxCertificateData = new NginxCertificateData
-            {
-                Location = Location
-            };
+            NginxCertificateData nginxCertificateData = new NginxCertificateData();
+            nginxCertificateData.Location = Location;
             Assert.ThrowsAsync<ArgumentNullException>(async () => _ = (await nginxDeployment.GetNginxCertificates().CreateOrUpdateAsync(WaitUntil.Completed, null, nginxCertificateData)).Value);
         }
 
@@ -60,9 +58,9 @@ namespace Azure.ResourceManager.Nginx.Tests.Scenario
             NginxDeploymentResource nginxDeployment = await CreateNginxDeployment(ResGroup, Location, nginxDeploymentName);
 
             NginxCertificateCollection collection = nginxDeployment.GetNginxCertificates();
-            string nginxCertificateName = Recording.GenerateAssetName("testCertificate-");
-            const string certificateVirtualPath = "/etc/nginx/nginx.cert";
-            const string keyVirtualPath = "/etc/nginx/nginx.key";
+            string nginxCertificateName = Recording.GenerateAssetName("testcertificate-");
+            string certificateVirtualPath = "/etc/nginx/nginx.cert";
+            string keyVirtualPath = "/etc/nginx/nginx.key";
             NginxCertificateResource nginxCertificate1 = await CreateNginxCertificate(Location, nginxDeployment, nginxCertificateName, certificateVirtualPath, keyVirtualPath);
             NginxCertificateResource nginxCertificate2 = await collection.GetAsync(nginxCertificateName);
 
@@ -79,10 +77,10 @@ namespace Azure.ResourceManager.Nginx.Tests.Scenario
             NginxDeploymentResource nginxDeployment = await CreateNginxDeployment(ResGroup, Location, nginxDeploymentName);
 
             NginxCertificateCollection collection = nginxDeployment.GetNginxCertificates();
-            string nginxCertificateName = Recording.GenerateAssetName("testCertificate-");
-            const string certificateVirtualPath = "/etc/nginx/nginx.cert";
-            const string keyVirtualPath = "/etc/nginx/nginx.key";
-            _ = await CreateNginxCertificate(Location, nginxDeployment, nginxCertificateName, certificateVirtualPath, keyVirtualPath);
+            string nginxCertificateName = Recording.GenerateAssetName("testcertificate-");
+            string certificateVirtualPath = "/etc/nginx/nginx.cert";
+            string keyVirtualPath = "/etc/nginx/nginx.key";
+            NginxCertificateResource nginxCertificate = await CreateNginxCertificate(Location, nginxDeployment, nginxCertificateName, certificateVirtualPath, keyVirtualPath);
 
             Assert.IsTrue(await collection.ExistsAsync(nginxCertificateName));
             Assert.IsFalse(await collection.ExistsAsync(nginxCertificateName + "1"));
@@ -97,12 +95,12 @@ namespace Azure.ResourceManager.Nginx.Tests.Scenario
             NginxDeploymentResource nginxDeployment = await CreateNginxDeployment(ResGroup, Location, nginxDeploymentName);
 
             NginxCertificateCollection collection = nginxDeployment.GetNginxCertificates();
-            string nginxCertificateName = Recording.GenerateAssetName("testCertificate-");
+            string nginxCertificateName = Recording.GenerateAssetName("testcertificate-");
             NullableResponse<NginxCertificateResource> nginxCertificateResponse = await collection.GetIfExistsAsync(nginxCertificateName);
             Assert.False(nginxCertificateResponse.HasValue);
 
-            const string certificateVirtualPath = "/etc/nginx/nginx.cert";
-            const string keyVirtualPath = "/etc/nginx/nginx.key";
+            string certificateVirtualPath = "/etc/nginx/nginx.cert";
+            string keyVirtualPath = "/etc/nginx/nginx.key";
             NginxCertificateResource nginxCertificate1 = await CreateNginxCertificate(Location, nginxDeployment, nginxCertificateName, certificateVirtualPath, keyVirtualPath);
             NullableResponse<NginxCertificateResource> nginxCertificateResponse2 = await collection.GetIfExistsAsync(nginxCertificateName);
             Assert.True(nginxCertificateResponse2.HasValue);
@@ -127,14 +125,14 @@ namespace Azure.ResourceManager.Nginx.Tests.Scenario
                 count++;
             }
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(count, 0);
 
-            string nginxCertificateName1 = Recording.GenerateAssetName("testCertificate-");
-            const string certificateVirtualPath1 = "/etc/nginx/nginx.cert";
-            const string keyVirtualPath1 = "/etc/nginx/nginx.key";
-            string nginxCertificateName2 = Recording.GenerateAssetName("testCertificate-");
-            const string certificateVirtualPath2 = "/etc/nginx/nginx2.cert";
-            const string keyVirtualPath2 = "/etc/nginx/nginx2.key";
+            string nginxCertificateName1 = Recording.GenerateAssetName("testcertificate-");
+            string certificateVirtualPath1 = "/etc/nginx/nginx.cert";
+            string keyVirtualPath1 = "/etc/nginx/nginx.key";
+            string nginxCertificateName2 = Recording.GenerateAssetName("testcertificate-");
+            string certificateVirtualPath2 = "/etc/nginx/nginx2.cert";
+            string keyVirtualPath2 = "/etc/nginx/nginx2.key";
             _ = await CreateNginxCertificate(Location, nginxDeployment, nginxCertificateName1, certificateVirtualPath1, keyVirtualPath1);
             _ = await CreateNginxCertificate(Location, nginxDeployment, nginxCertificateName2, certificateVirtualPath2, keyVirtualPath2);
 

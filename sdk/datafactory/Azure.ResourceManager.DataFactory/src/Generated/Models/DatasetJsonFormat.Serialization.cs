@@ -20,22 +20,13 @@ namespace Azure.ResourceManager.DataFactory.Models
 
         void IJsonModel<DatasetJsonFormat>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<DatasetJsonFormat>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DatasetJsonFormat)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
+            writer.WriteStartObject();
             if (Optional.IsDefined(FilePattern))
             {
                 writer.WritePropertyName("filePattern"u8);
@@ -75,6 +66,18 @@ namespace Azure.ResourceManager.DataFactory.Models
                 }
 #endif
             }
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(DatasetStorageFormatType);
+            if (Optional.IsDefined(Serializer))
+            {
+                writer.WritePropertyName("serializer"u8);
+                JsonSerializer.Serialize(writer, Serializer);
+            }
+            if (Optional.IsDefined(Deserializer))
+            {
+                writer.WritePropertyName("deserializer"u8);
+                JsonSerializer.Serialize(writer, Deserializer);
+            }
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -87,6 +90,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 }
 #endif
             }
+            writer.WriteEndObject();
         }
 
         DatasetJsonFormat IJsonModel<DatasetJsonFormat>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

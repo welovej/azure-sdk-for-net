@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // invoke the operation
             EventHubData data = new EventHubData()
             {
-                PartitionCount = 4L,
+                PartitionCount = 4,
                 Status = EventHubEntityStatus.Active,
                 UserMetadata = "key",
                 CaptureDescription = new CaptureDescription()
@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
                 RetentionDescription = new RetentionDescription()
                 {
                     CleanupPolicy = CleanupPolicyRetentionDescription.Compaction,
-                    RetentionTimeInHours = 96L,
+                    RetentionTimeInHours = 96,
                     TombstoneRetentionTimeInHours = 1,
                 },
             };

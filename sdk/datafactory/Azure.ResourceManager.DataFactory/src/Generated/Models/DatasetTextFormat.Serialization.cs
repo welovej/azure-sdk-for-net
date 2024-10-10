@@ -20,22 +20,13 @@ namespace Azure.ResourceManager.DataFactory.Models
 
         void IJsonModel<DatasetTextFormat>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<DatasetTextFormat>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DatasetTextFormat)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
+            writer.WriteStartObject();
             if (Optional.IsDefined(ColumnDelimiter))
             {
                 writer.WritePropertyName("columnDelimiter"u8);
@@ -81,6 +72,18 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("firstRowAsHeader"u8);
                 JsonSerializer.Serialize(writer, FirstRowAsHeader);
             }
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(DatasetStorageFormatType);
+            if (Optional.IsDefined(Serializer))
+            {
+                writer.WritePropertyName("serializer"u8);
+                JsonSerializer.Serialize(writer, Serializer);
+            }
+            if (Optional.IsDefined(Deserializer))
+            {
+                writer.WritePropertyName("deserializer"u8);
+                JsonSerializer.Serialize(writer, Deserializer);
+            }
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -93,6 +96,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 }
 #endif
             }
+            writer.WriteEndObject();
         }
 
         DatasetTextFormat IJsonModel<DatasetTextFormat>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

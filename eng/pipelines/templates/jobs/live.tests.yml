@@ -56,7 +56,6 @@ parameters:
     type: string
   - name: UseFederatedAuth
     type: boolean
-    default: true
 
 jobs:
   - job:

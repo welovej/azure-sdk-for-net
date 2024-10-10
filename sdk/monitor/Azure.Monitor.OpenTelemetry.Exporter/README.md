@@ -35,12 +35,10 @@ These are provided without support and are not intended for production workloads
 
 The following examples demonstrate how to add the `AzureMonitorExporter` to your OpenTelemetry configuration.
 
-It's important to keep the `TracerProvider`, `MeterProvider`, and `LoggerFactory` instances active throughout the process lifetime. These must be properly disposed when your application is shutting down to flush any remaining telemetry items.
-
 - Traces
     ```csharp
-    var tracerProvider = Sdk.CreateTracerProviderBuilder()
-        .AddAzureMonitorTraceExporter(options => options.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000")
+    Sdk.CreateTracerProviderBuilder()
+        .AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000")
         .Build();
     ```
 
@@ -48,8 +46,8 @@ It's important to keep the `TracerProvider`, `MeterProvider`, and `LoggerFactory
 
 - Metrics
     ```csharp
-    var meterProvider = Sdk.CreateMeterProviderBuilder()
-        .AddAzureMonitorMetricExporter(options => options.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000")
+    Sdk.CreateMeterProviderBuilder()
+        .AddAzureMonitorMetricExporter(o => o.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000")
         .Build();
     ```
 
@@ -57,11 +55,11 @@ It's important to keep the `TracerProvider`, `MeterProvider`, and `LoggerFactory
 
 - Logs
     ```csharp
-    var loggerFactory = LoggerFactory.Create(builder =>
+    LoggerFactory.Create(builder =>
     {
-        builder.AddOpenTelemetry(logging =>
+        builder.AddOpenTelemetry(options =>
         {
-            logging.AddAzureMonitorLogExporter(options => options.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000");
+            options.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000");
         });
     });
     ```
@@ -80,11 +78,11 @@ There are two options to enable AAD authentication. Note that if both have been 
     ```csharp
     var credential = new DefaultAzureCredential();
 
-    var tracerProvider = Sdk.CreateTracerProviderBuilder()
-        .AddAzureMonitorTraceExporter(options =>
+    Sdk.CreateTracerProviderBuilder()
+        .AddAzureMonitorTraceExporter(o =>
         {
-            options.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000";
-            options.Credential = credential;
+            o.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000";
+            o.Credential = credential;
         })
         .Build();
     ```
@@ -94,8 +92,8 @@ There are two options to enable AAD authentication. Note that if both have been 
     ```csharp
     var credential = new DefaultAzureCredential();
 
-    var tracerProvider = Sdk.CreateTracerProviderBuilder()
-        .AddAzureMonitorTraceExporter(options => options.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000", credential)
+    Sdk.CreateTracerProviderBuilder()
+        .AddAzureMonitorTraceExporter(o => o.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000", credential)
         .Build();
     ```
 
@@ -153,10 +151,10 @@ To include the scope with your logs, set `OpenTelemetryLoggerOptions.IncludeScop
 ```csharp
 var loggerFactory = LoggerFactory.Create(builder =>
 {
-    builder.AddOpenTelemetry(logging =>
+    builder.AddOpenTelemetry(options =>
     {
-        logging.AddAzureMonitorLogExporter(options => options.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000");
-        logging.IncludeScopes = true;
+        options.AddAzureMonitorLogExporter(o => o.ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000");
+        options.IncludeScopes = true;
     });
 });
 ```

@@ -64,15 +64,11 @@ public partial class CosmosDBFirewallRule : Resource
     /// <summary>
     /// Creates a new CosmosDBFirewallRule.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the CosmosDBFirewallRule resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the CosmosDBFirewallRule.</param>
     /// <param name="resourceVersion">Version of the CosmosDBFirewallRule.</param>
-    public CosmosDBFirewallRule(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.DocumentDB/mongoClusters/firewallRules", resourceVersion ?? "2024-07-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public CosmosDBFirewallRule(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.DocumentDB/mongoClusters/firewallRules", resourceVersion, context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _endIPAddress = BicepValue<string>.DefineProperty(this, "EndIPAddress", ["properties", "endIpAddress"], isRequired: true);
@@ -84,27 +80,11 @@ public partial class CosmosDBFirewallRule : Resource
     }
 
     /// <summary>
-    /// Supported CosmosDBFirewallRule resource versions.
-    /// </summary>
-    public static class ResourceVersions
-    {
-        /// <summary>
-        /// 2024-07-01.
-        /// </summary>
-        public static readonly string V2024_07_01 = "2024-07-01";
-    }
-
-    /// <summary>
     /// Creates a reference to an existing CosmosDBFirewallRule.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the CosmosDBFirewallRule resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the CosmosDBFirewallRule.</param>
     /// <param name="resourceVersion">Version of the CosmosDBFirewallRule.</param>
     /// <returns>The existing CosmosDBFirewallRule resource.</returns>
-    public static CosmosDBFirewallRule FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static CosmosDBFirewallRule FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

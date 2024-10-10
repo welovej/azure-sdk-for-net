@@ -51,15 +51,11 @@ public partial class SqlServerJobTargetGroup : Resource
     /// <summary>
     /// Creates a new SqlServerJobTargetGroup.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SqlServerJobTargetGroup resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SqlServerJobTargetGroup.</param>
     /// <param name="resourceVersion">Version of the SqlServerJobTargetGroup.</param>
-    public SqlServerJobTargetGroup(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Sql/servers/jobAgents/targetGroups", resourceVersion ?? "2021-11-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public SqlServerJobTargetGroup(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Sql/servers/jobAgents/targetGroups", resourceVersion, context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _members = BicepList<JobTarget>.DefineProperty(this, "Members", ["properties", "members"]);
@@ -69,32 +65,11 @@ public partial class SqlServerJobTargetGroup : Resource
     }
 
     /// <summary>
-    /// Supported SqlServerJobTargetGroup resource versions.
-    /// </summary>
-    public static class ResourceVersions
-    {
-        /// <summary>
-        /// 2024-05-01-preview.
-        /// </summary>
-        public static readonly string V2024_05_01_preview = "2024-05-01-preview";
-
-        /// <summary>
-        /// 2021-11-01.
-        /// </summary>
-        public static readonly string V2021_11_01 = "2021-11-01";
-    }
-
-    /// <summary>
     /// Creates a reference to an existing SqlServerJobTargetGroup.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SqlServerJobTargetGroup resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SqlServerJobTargetGroup.</param>
     /// <param name="resourceVersion">Version of the SqlServerJobTargetGroup.</param>
     /// <returns>The existing SqlServerJobTargetGroup resource.</returns>
-    public static SqlServerJobTargetGroup FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static SqlServerJobTargetGroup FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

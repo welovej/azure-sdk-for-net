@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ConfigurationsGet()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Configurations_Get.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Configurations_Get.json
             // this example is just showing the usage of "Configurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ConfigurationsCreateOrUpdate()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Configurations_CreateOrUpdate.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Configurations_CreateOrUpdate.json
             // this example is just showing the usage of "Configurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -70,7 +70,25 @@ namespace Azure.ResourceManager.Nginx.Samples
             NginxConfigurationResource nginxConfiguration = client.GetNginxConfigurationResource(nginxConfigurationResourceId);
 
             // invoke the operation
-            NginxConfigurationData data = new NginxConfigurationData();
+            NginxConfigurationData data = new NginxConfigurationData()
+            {
+                Properties = new NginxConfigurationProperties()
+                {
+                    Files =
+{
+new NginxConfigurationFile()
+{
+Content = "ABCDEF==",
+VirtualPath = "/etc/nginx/nginx.conf",
+}
+},
+                    Package = new NginxConfigurationPackage()
+                    {
+                        Data = null,
+                    },
+                    RootFile = "/etc/nginx/nginx.conf",
+                },
+            };
             ArmOperation<NginxConfigurationResource> lro = await nginxConfiguration.UpdateAsync(WaitUntil.Completed, data);
             NginxConfigurationResource result = lro.Value;
 
@@ -86,7 +104,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ConfigurationsDelete()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Configurations_Delete.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Configurations_Delete.json
             // this example is just showing the usage of "Configurations_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -114,7 +132,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Analysis_ConfigurationsAnalysis()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Configurations_Analysis.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Configurations_Analysis.json
             // this example is just showing the usage of "Configurations_Analysis" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,7 +150,23 @@ namespace Azure.ResourceManager.Nginx.Samples
             NginxConfigurationResource nginxConfiguration = client.GetNginxConfigurationResource(nginxConfigurationResourceId);
 
             // invoke the operation
-            NginxAnalysisResult result = await nginxConfiguration.AnalysisAsync();
+            NginxAnalysisContent content = new NginxAnalysisContent(new NginxAnalysisConfig()
+            {
+                RootFile = "/etc/nginx/nginx.conf",
+                Files =
+{
+new NginxConfigurationFile()
+{
+Content = "ABCDEF==",
+VirtualPath = "/etc/nginx/nginx.conf",
+}
+},
+                Package = new NginxConfigurationPackage()
+                {
+                    Data = null,
+                },
+            });
+            NginxAnalysisResult result = await nginxConfiguration.AnalysisAsync(content: content);
 
             Console.WriteLine($"Succeeded: {result}");
         }

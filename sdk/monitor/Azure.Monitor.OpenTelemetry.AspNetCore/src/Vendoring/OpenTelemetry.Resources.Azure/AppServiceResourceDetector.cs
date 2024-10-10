@@ -1,6 +1,8 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
+using System;
+using System.Collections.Generic;
 using OpenTelemetry.Trace;
 
 namespace OpenTelemetry.Resources.Azure;
@@ -64,7 +66,7 @@ internal sealed class AppServiceResourceDetector : IResourceDetector
         string? websiteResourceGroup = Environment.GetEnvironmentVariable(ResourceAttributeConstants.AppServiceResourceGroupEnvVar);
         string websiteOwnerName = Environment.GetEnvironmentVariable(ResourceAttributeConstants.AppServiceOwnerNameEnvVar) ?? string.Empty;
 
-#if NET
+#if NET6_0_OR_GREATER
         int idx = websiteOwnerName.IndexOf('+', StringComparison.Ordinal);
 #else
         int idx = websiteOwnerName.IndexOf("+", StringComparison.Ordinal);

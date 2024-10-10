@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Azure.Identity;
 using Azure.Messaging.EventHubs.Producer;
 using NUnit.Framework;
 
@@ -34,19 +33,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_EventBatch
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
 
             try
             {
@@ -79,19 +73,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_AutomaticRouting
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
 
             try
             {
@@ -129,19 +118,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_AutomaticRoutingBuffered
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubBufferedProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubBufferedProducerClient(connectionString, eventHubName);
 
             // The failure handler is required and invoked after all allowable
             // retries were applied.
@@ -191,19 +175,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_PartitionKey
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
 
             try
             {
@@ -246,19 +225,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_PartitionKeyBuffered
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubBufferedProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubBufferedProducerClient(connectionString, eventHubName);
 
             // The failure handler is required and invoked after all allowable
             // retries were applied.
@@ -313,19 +287,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_PartitionId
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
 
             try
             {
@@ -370,19 +339,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_PartitionIdBuffered
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubBufferedProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubBufferedProducerClient(connectionString, eventHubName);
 
             // The failure handler is required and invoked after all allowable
             // retries were applied.
@@ -439,19 +403,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_CustomMetadata
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubBufferedProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubBufferedProducerClient(connectionString, eventHubName);
 
             // The failure handler is required and invoked after all allowable
             // retries were applied.
@@ -519,13 +478,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_BufferedConfiguration
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
             var options = new EventHubBufferedProducerClientOptions
@@ -537,11 +494,7 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
                 EnableIdempotentRetries = true
             };
 
-            var producer = new EventHubBufferedProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential,
-                options);
+            var producer = new EventHubBufferedProducerClient(connectionString, eventHubName, options);
 
             // The failure handler is required and invoked after all allowable
             // retries were applied.
@@ -591,19 +544,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_NoBatch
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
 
             try
             {
@@ -637,20 +585,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_MultipleBatches
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
-
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
             var batches = default(IEnumerable<EventDataBatch>);
             var eventsToSend = new Queue<EventData>();
 
@@ -693,19 +635,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample04_CustomBatchSize
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
 
             try
             {

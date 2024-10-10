@@ -50,15 +50,11 @@ public partial class SqlServerDnsAlias : Resource
     /// <summary>
     /// Creates a new SqlServerDnsAlias.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SqlServerDnsAlias resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SqlServerDnsAlias.</param>
     /// <param name="resourceVersion">Version of the SqlServerDnsAlias.</param>
-    public SqlServerDnsAlias(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Sql/servers/dnsAliases", resourceVersion ?? "2021-11-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public SqlServerDnsAlias(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Sql/servers/dnsAliases", resourceVersion ?? "2021-11-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _azureDnsRecord = BicepValue<string>.DefineProperty(this, "AzureDnsRecord", ["properties", "azureDnsRecord"], isOutput: true);
@@ -86,14 +82,9 @@ public partial class SqlServerDnsAlias : Resource
     /// <summary>
     /// Creates a reference to an existing SqlServerDnsAlias.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the SqlServerDnsAlias resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the SqlServerDnsAlias.</param>
     /// <param name="resourceVersion">Version of the SqlServerDnsAlias.</param>
     /// <returns>The existing SqlServerDnsAlias resource.</returns>
-    public static SqlServerDnsAlias FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static SqlServerDnsAlias FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

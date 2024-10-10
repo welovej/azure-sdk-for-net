@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Identity;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Primitives;
 using Azure.Messaging.EventHubs.Producer;
@@ -39,21 +38,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadAllPartitions
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -102,21 +98,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadAllPartitionsWaitTime
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -170,21 +163,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadAllPartitionsFromLatest
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -226,21 +216,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadPartition
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -286,21 +273,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadPartitionWaitTime
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -368,21 +352,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadPartitionFromDate
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -430,21 +411,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadPartitionFromOffset
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -491,21 +469,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadPartitionFromSequence
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -552,21 +527,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadPartitionTrackLastEnqueued
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {
@@ -622,13 +594,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample05_ReadPartitionWithReceiver
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
@@ -637,10 +607,7 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
 
             string firstPartition;
 
-            await using (var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential))
+            await using (var producer = new EventHubProducerClient(connectionString, eventHubName))
             {
                 firstPartition = (await producer.GetPartitionIdsAsync()).First();
             }
@@ -649,9 +616,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
                 consumerGroup,
                 firstPartition,
                 EventPosition.Earliest,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {

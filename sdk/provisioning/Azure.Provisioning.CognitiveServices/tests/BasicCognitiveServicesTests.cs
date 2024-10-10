@@ -21,8 +21,6 @@ public class BasicCognitiveServicesTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
                 CognitiveServicesAccount account =
                     new(nameof(account))
                     {
@@ -39,16 +37,13 @@ public class BasicCognitiveServicesTests(bool async)
                             DisableLocalAuth = true
                         }
                     };
-                infra.Add(account);
-
-                return infra;
             })
         .Compare(
             """
             @description('The location for the resource(s) to be deployed.')
             param location string = resourceGroup().location
 
-            resource account 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
+            resource account 'Microsoft.CognitiveServices/accounts@2022-12-01' = {
               name: take('account-${uniqueString(resourceGroup().id)}', 64)
               location: location
               identity: {

@@ -80,7 +80,7 @@ namespace Azure.AI.OpenAI
             }
             InternalAzureOpenAIDalleErrorInnerErrorCode? code = default;
             string revisedPrompt = default;
-            RequestImageContentFilterResult contentFilterResults = default;
+            ImageContentFilterResultForPrompt contentFilterResults = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -105,7 +105,7 @@ namespace Azure.AI.OpenAI
                     {
                         continue;
                     }
-                    contentFilterResults = RequestImageContentFilterResult.DeserializeRequestImageContentFilterResult(property.Value, options);
+                    contentFilterResults = ImageContentFilterResultForPrompt.DeserializeImageContentFilterResultForPrompt(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

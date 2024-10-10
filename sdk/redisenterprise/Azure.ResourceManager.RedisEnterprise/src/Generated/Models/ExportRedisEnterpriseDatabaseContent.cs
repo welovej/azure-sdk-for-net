@@ -70,7 +70,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         }
 
         /// <summary> SAS URI for the target directory to export to. </summary>
-        [WirePath("sasUri")]
         public Uri SasUri { get; }
     }
 }

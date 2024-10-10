@@ -143,15 +143,11 @@ public partial class ApplicationInsightsWebTest : Resource
     /// <summary>
     /// Creates a new ApplicationInsightsWebTest.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the ApplicationInsightsWebTest
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ApplicationInsightsWebTest.</param>
     /// <param name="resourceVersion">Version of the ApplicationInsightsWebTest.</param>
-    public ApplicationInsightsWebTest(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Insights/webtests", resourceVersion ?? "2022-06-15")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public ApplicationInsightsWebTest(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Insights/webtests", resourceVersion ?? "2022-06-15", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -203,14 +199,9 @@ public partial class ApplicationInsightsWebTest : Resource
     /// <summary>
     /// Creates a reference to an existing ApplicationInsightsWebTest.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the ApplicationInsightsWebTest
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ApplicationInsightsWebTest.</param>
     /// <param name="resourceVersion">Version of the ApplicationInsightsWebTest.</param>
     /// <returns>The existing ApplicationInsightsWebTest resource.</returns>
-    public static ApplicationInsightsWebTest FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static ApplicationInsightsWebTest FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

@@ -20,8 +20,6 @@ public class BasicRedisTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
                 RedisResource cache =
                     new(nameof(cache), "2020-06-01")
                     {
@@ -35,9 +33,6 @@ public class BasicRedisTests(bool async)
                                 Capacity = 1
                             },
                     };
-                infra.Add(cache);
-
-                return infra;
             })
         .Compare(
             """

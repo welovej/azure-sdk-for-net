@@ -304,8 +304,8 @@
   {
    "$id": "34",
    "kind": "enum",
-   "name": "Versions",
-   "crossLanguageDefinitionId": "Azure.Communication.MessagesService.Versions",
+   "name": "MessageTemplateStatus",
+   "crossLanguageDefinitionId": "Azure.Communication.MessagesService.MessageTemplateStatus",
    "valueType": {
     "$id": "35",
     "kind": "string",
@@ -317,8 +317,8 @@
     {
      "$id": "36",
      "kind": "enumvalue",
-     "name": "c2024_02_01",
-     "value": "2024-02-01",
+     "name": "approved",
+     "value": "approved",
      "valueType": {
       "$id": "37",
       "kind": "string",
@@ -329,34 +329,32 @@
      "enumType": {
       "$ref": "34"
      },
-     "description": "Azure Communication Messages 2024-02-01 api version",
+     "description": "Message template is approved.",
      "decorators": []
-    }
-   ],
-   "description": "Azure Communication Messages Versions",
-   "isFixed": true,
-   "isFlags": false,
-   "usage": "ApiVersionEnum",
-   "decorators": []
-  },
-  {
-   "$id": "38",
-   "kind": "enum",
-   "name": "MessageTemplateStatus",
-   "crossLanguageDefinitionId": "Azure.Communication.MessagesService.MessageTemplateStatus",
-   "valueType": {
-    "$id": "39",
-    "kind": "string",
-    "name": "string",
-    "crossLanguageDefinitionId": "TypeSpec.string",
-    "decorators": []
-   },
-   "values": [
+    },
+    {
+     "$id": "38",
+     "kind": "enumvalue",
+     "name": "rejected",
+     "value": "rejected",
+     "valueType": {
+      "$id": "39",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "34"
+     },
+     "description": "Message template is rejected.",
+     "decorators": []
+    },
     {
      "$id": "40",
      "kind": "enumvalue",
-     "name": "approved",
-     "value": "approved",
+     "name": "pending",
+     "value": "pending",
      "valueType": {
       "$id": "41",
       "kind": "string",
@@ -365,16 +363,16 @@
       "decorators": []
      },
      "enumType": {
-      "$ref": "38"
+      "$ref": "34"
      },
-     "description": "Message template is approved.",
+     "description": "Message template is pending.",
      "decorators": []
     },
     {
      "$id": "42",
      "kind": "enumvalue",
-     "name": "rejected",
-     "value": "rejected",
+     "name": "paused",
+     "value": "paused",
      "valueType": {
       "$id": "43",
       "kind": "string",
@@ -383,43 +381,7 @@
       "decorators": []
      },
      "enumType": {
-      "$ref": "38"
-     },
-     "description": "Message template is rejected.",
-     "decorators": []
-    },
-    {
-     "$id": "44",
-     "kind": "enumvalue",
-     "name": "pending",
-     "value": "pending",
-     "valueType": {
-      "$id": "45",
-      "kind": "string",
-      "name": "string",
-      "crossLanguageDefinitionId": "TypeSpec.string",
-      "decorators": []
-     },
-     "enumType": {
-      "$ref": "38"
-     },
-     "description": "Message template is pending.",
-     "decorators": []
-    },
-    {
-     "$id": "46",
-     "kind": "enumvalue",
-     "name": "paused",
-     "value": "paused",
-     "valueType": {
-      "$id": "47",
-      "kind": "string",
-      "name": "string",
-      "crossLanguageDefinitionId": "TypeSpec.string",
-      "decorators": []
-     },
-     "enumType": {
-      "$ref": "38"
+      "$ref": "34"
      },
      "description": "Message template is paused.",
      "decorators": []
@@ -432,10 +394,48 @@
    "decorators": []
   },
   {
-   "$id": "48",
+   "$id": "44",
    "kind": "enum",
    "name": "CommunicationMessagesChannel",
    "crossLanguageDefinitionId": "Azure.Communication.MessagesService.CommunicationMessagesChannel",
+   "valueType": {
+    "$id": "45",
+    "kind": "string",
+    "name": "string",
+    "crossLanguageDefinitionId": "TypeSpec.string",
+    "decorators": []
+   },
+   "values": [
+    {
+     "$id": "46",
+     "kind": "enumvalue",
+     "name": "whatsApp",
+     "value": "whatsApp",
+     "valueType": {
+      "$id": "47",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "44"
+     },
+     "description": "The WhatsApp communication messages channel type.",
+     "decorators": []
+    }
+   ],
+   "description": "The type of the communication messages channel.",
+   "isFixed": false,
+   "isFlags": false,
+   "usage": "Output,Json",
+   "decorators": []
+  },
+  {
+   "$id": "48",
+   "kind": "enum",
+   "name": "Versions",
+   "crossLanguageDefinitionId": "Azure.Communication.MessagesService.Versions",
    "valueType": {
     "$id": "49",
     "kind": "string",
@@ -447,8 +447,8 @@
     {
      "$id": "50",
      "kind": "enumvalue",
-     "name": "whatsApp",
-     "value": "whatsApp",
+     "name": "c2024_02_01",
+     "value": "2024-02-01",
      "valueType": {
       "$id": "51",
       "kind": "string",
@@ -459,14 +459,14 @@
      "enumType": {
       "$ref": "48"
      },
-     "description": "The WhatsApp communication messages channel type.",
+     "description": "Azure Communication Messages 2024-02-01 api version",
      "decorators": []
     }
    ],
-   "description": "The type of the communication messages channel.",
-   "isFixed": false,
+   "description": "Azure Communication Messages Versions",
+   "isFixed": true,
    "isFlags": false,
-   "usage": "Output,Json",
+   "usage": "ApiVersionEnum",
    "decorators": []
   },
   {
@@ -522,7 +522,7 @@
    "description": "Repeatability Result header options",
    "isFixed": true,
    "isFlags": false,
-   "usage": "Output",
+   "usage": "None",
    "decorators": []
   }
  ],
@@ -1846,7 +1846,7 @@
     "serializedName": "kind",
     "description": "The type discriminator describing a template type.",
     "type": {
-     "$ref": "48"
+     "$ref": "44"
     },
     "optional": false,
     "readOnly": false,
@@ -1900,7 +1900,7 @@
      "serializedName": "status",
      "description": "The aggregated template status.",
      "type": {
-      "$ref": "38"
+      "$ref": "34"
      },
      "optional": false,
      "readOnly": false,
@@ -1935,7 +1935,7 @@
        "description": "WhatsApp platform's template content. This is the payload returned from WhatsApp API.",
        "type": {
         "$id": "195",
-        "kind": "unknown",
+        "kind": "any",
         "name": "unknown",
         "crossLanguageDefinitionId": "",
         "decorators": []
@@ -1983,7 +1983,7 @@
    "kind": "model",
    "name": "PagedMessageTemplateItem",
    "crossLanguageDefinitionId": "Azure.Core.Foundations.CustomPage",
-   "usage": "Output,Json",
+   "usage": "None",
    "description": "Paged collection of MessageTemplateItem items",
    "decorators": [],
    "properties": [
@@ -2509,67 +2509,11 @@
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true,
      "CrossLanguageDefinitionId": "ClientForAcsMessages.NotificationMessagesClient.downloadMedia",
-     "Decorators": [],
-     "Examples": [
-      {
-       "$id": "254",
-       "kind": "http",
-       "name": "Download media",
-       "description": "Download media",
-       "filePath": "2024-02-01/Stream_GetMedia.json",
-       "parameters": [
-        {
-         "$id": "255",
-         "parameter": {
-          "$ref": "234"
-         },
-         "value": {
-          "$id": "256",
-          "kind": "string",
-          "type": {
-           "$ref": "235"
-          },
-          "value": "2024-02-01"
-         }
-        },
-        {
-         "$id": "257",
-         "parameter": {
-          "$ref": "238"
-         },
-         "value": {
-          "$id": "258",
-          "kind": "string",
-          "type": {
-           "$ref": "239"
-          },
-          "value": "d19e68ec-bdd6-4a50-8dfb-cbb1642df6ab"
-         }
-        }
-       ],
-       "responses": [
-        {
-         "$id": "259",
-         "response": {
-          "$ref": "246"
-         },
-         "statusCode": 200,
-         "bodyValue": {
-          "$id": "260",
-          "kind": "string",
-          "type": {
-           "$ref": "247"
-          },
-          "value": "<binary_media_data>"
-         }
-        }
-       ]
-      }
-     ]
+     "Decorators": []
     }
    ],
    "Protocol": {
-    "$id": "261"
+    "$id": "254"
    },
    "Parameters": [
     {
@@ -2579,23 +2523,23 @@
    "Decorators": []
   },
   {
-   "$id": "262",
+   "$id": "255",
    "Name": "MessageTemplateClient",
    "Operations": [
     {
-     "$id": "263",
+     "$id": "256",
      "Name": "getTemplates",
      "ResourceName": "MessageTemplateItem",
      "Description": "List all templates for given Azure Communication Services channel",
      "Accessibility": "public",
      "Parameters": [
       {
-       "$id": "264",
+       "$id": "257",
        "Name": "endpoint",
        "NameInRequest": "endpoint",
        "Description": "The communication resource, for example https://my-resource.communication.azure.com",
        "Type": {
-        "$id": "265",
+        "$id": "258",
         "kind": "url",
         "name": "url",
         "crossLanguageDefinitionId": "TypeSpec.url"
@@ -2611,12 +2555,12 @@
        "Kind": "Client"
       },
       {
-       "$id": "266",
+       "$id": "259",
        "Name": "apiVersion",
        "NameInRequest": "api-version",
        "Description": "The API version to use for this operation.",
        "Type": {
-        "$id": "267",
+        "$id": "260",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
@@ -2630,9 +2574,9 @@
        "IsRequired": true,
        "Kind": "Client",
        "DefaultValue": {
-        "$id": "268",
+        "$id": "261",
         "Type": {
-         "$id": "269",
+         "$id": "262",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string"
@@ -2643,17 +2587,17 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "270",
+       "$id": "263",
        "Name": "channelId",
        "NameInRequest": "channelId",
        "Description": "The registration ID of the channel.",
        "Type": {
-        "$id": "271",
+        "$id": "264",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "272",
+         "$id": "265",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -2672,12 +2616,12 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "273",
+       "$id": "266",
        "Name": "maxpagesize",
        "NameInRequest": "maxpagesize",
        "Description": "Number of objects to return per page.",
        "Type": {
-        "$id": "274",
+        "$id": "267",
         "kind": "int32",
         "name": "int32",
         "crossLanguageDefinitionId": "TypeSpec.int32",
@@ -2694,17 +2638,17 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "275",
+       "$id": "268",
        "Name": "clientRequestId",
        "NameInRequest": "x-ms-client-request-id",
        "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
        "Type": {
-        "$id": "276",
+        "$id": "269",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "277",
+         "$id": "270",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -2723,14 +2667,14 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "278",
+       "$id": "271",
        "Name": "accept",
        "NameInRequest": "Accept",
        "Type": {
-        "$id": "279",
+        "$id": "272",
         "kind": "constant",
         "valueType": {
-         "$id": "280",
+         "$id": "273",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -2752,7 +2696,7 @@
      ],
      "Responses": [
       {
-       "$id": "281",
+       "$id": "274",
        "StatusCodes": [
         200
        ],
@@ -2762,17 +2706,17 @@
        "BodyMediaType": "Json",
        "Headers": [
         {
-         "$id": "282",
+         "$id": "275",
          "Name": "clientRequestId",
          "NameInResponse": "x-ms-client-request-id",
          "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
          "Type": {
-          "$id": "283",
+          "$id": "276",
           "kind": "string",
           "name": "uuid",
           "crossLanguageDefinitionId": "Azure.Core.uuid",
           "baseType": {
-           "$id": "284",
+           "$id": "277",
            "kind": "string",
            "name": "string",
            "crossLanguageDefinitionId": "TypeSpec.string",
@@ -2794,7 +2738,7 @@
      "Path": "/messages/channels/{channelId}/templates",
      "BufferResponse": true,
      "Paging": {
-      "$id": "285",
+      "$id": "278",
       "ItemName": "value",
       "NextLinkName": "nextLink"
      },
@@ -2805,26 +2749,26 @@
     }
    ],
    "Protocol": {
-    "$id": "286"
+    "$id": "279"
    },
    "Parameters": [
     {
-     "$ref": "264"
+     "$ref": "257"
     }
    ],
    "Decorators": []
   }
  ],
  "Auth": {
-  "$id": "287",
+  "$id": "280",
   "OAuth2": {
-   "$id": "288",
+   "$id": "281",
    "Scopes": [
     "https://communication.azure.com/.default"
    ]
   },
   "ApiKey": {
-   "$id": "289",
+   "$id": "282",
    "Name": "Authorization"
   }
  }

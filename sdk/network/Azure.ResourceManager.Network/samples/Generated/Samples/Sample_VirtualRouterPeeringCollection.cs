@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.Network.Samples
             string peeringName = "peering1";
             VirtualRouterPeeringData data = new VirtualRouterPeeringData()
             {
-                PeerAsn = 20000L,
+                PeerAsn = 20000,
                 PeerIP = "192.168.1.5",
             };
             ArmOperation<VirtualRouterPeeringResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, peeringName, data);

@@ -311,11 +311,11 @@ namespace Azure.ResourceManager.TrafficManager.Samples
                 MonitorConfig = new TrafficManagerMonitorConfig()
                 {
                     Protocol = TrafficManagerMonitorProtocol.Http,
-                    Port = 80L,
+                    Port = 80,
                     Path = "/testpath.aspx",
-                    IntervalInSeconds = 30L,
-                    TimeoutInSeconds = 6L,
-                    ToleratedNumberOfFailures = 4L,
+                    IntervalInSeconds = 30,
+                    TimeoutInSeconds = 6,
+                    ToleratedNumberOfFailures = 4,
                     CustomHeaders =
 {
 new TrafficManagerMonitorConfigCustomHeaderInfo()

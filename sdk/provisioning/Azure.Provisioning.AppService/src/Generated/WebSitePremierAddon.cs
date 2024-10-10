@@ -93,15 +93,11 @@ public partial class WebSitePremierAddon : Resource
     /// <summary>
     /// Creates a new WebSitePremierAddon.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the WebSitePremierAddon resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the WebSitePremierAddon.</param>
     /// <param name="resourceVersion">Version of the WebSitePremierAddon.</param>
-    public WebSitePremierAddon(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Web/sites/premieraddons", resourceVersion ?? "2024-04-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public WebSitePremierAddon(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Web/sites/premieraddons", resourceVersion ?? "2023-12-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -122,11 +118,6 @@ public partial class WebSitePremierAddon : Resource
     /// </summary>
     public static class ResourceVersions
     {
-        /// <summary>
-        /// 2024-04-01.
-        /// </summary>
-        public static readonly string V2024_04_01 = "2024-04-01";
-
         /// <summary>
         /// 2023-12-01.
         /// </summary>
@@ -236,14 +227,9 @@ public partial class WebSitePremierAddon : Resource
     /// <summary>
     /// Creates a reference to an existing WebSitePremierAddon.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the WebSitePremierAddon resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the WebSitePremierAddon.</param>
     /// <param name="resourceVersion">Version of the WebSitePremierAddon.</param>
     /// <returns>The existing WebSitePremierAddon resource.</returns>
-    public static WebSitePremierAddon FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static WebSitePremierAddon FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

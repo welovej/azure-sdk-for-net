@@ -275,7 +275,6 @@ namespace Azure.Monitor.OpenTelemetry.AspNetCore.Integration.Tests
                     Properties = new List<KeyValuePair<string, string>>
                     {
                         new("_MS.ProcessedByMetricExtractors", "(Name: X,Ver:'1.1')"),
-                        new("network.protocol.version", "1.1"),
                         new("CustomProperty1", "Value1"),
                     },
                 });
@@ -302,7 +301,6 @@ namespace Azure.Monitor.OpenTelemetry.AspNetCore.Integration.Tests
                     Properties = new List<KeyValuePair<string, string>>
                     {
                         new("_MS.ProcessedByMetricExtractors", "(Name: X,Ver:'1.1')"),
-                        new("network.protocol.version", "1.1"),
                         new("CustomProperty1", "Value1"),
                     },
                 });

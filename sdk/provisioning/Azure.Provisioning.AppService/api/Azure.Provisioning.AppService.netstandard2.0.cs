@@ -2,7 +2,7 @@ namespace Azure.Provisioning.AppService
 {
     public partial class AppCertificate : Azure.Provisioning.Primitives.Resource
     {
-        public AppCertificate(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppCertificate(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> CanonicalName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.BinaryData> CerBlob { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> DomainValidationMethod { get { throw null; } set { } }
@@ -30,7 +30,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ThumbprintString { get { throw null; } }
-        public static Azure.Provisioning.AppService.AppCertificate FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.AppCertificate FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
         public static partial class ResourceVersions
@@ -60,12 +60,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class AppDaprConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppDaprConfig() { }
+        public AppDaprConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AppId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> AppPort { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> HttpMaxRequestSize { get { throw null; } set { } }
@@ -87,20 +86,20 @@ namespace Azure.Provisioning.AppService
     }
     public partial class ApplicationLogsConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ApplicationLogsConfig() { }
+        public ApplicationLogsConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceBlobStorageApplicationLogsConfig> AzureBlobStorage { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceTableStorageApplicationLogsConfig> AzureTableStorage { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.WebAppLogLevel> FileSystemLevel { get { throw null; } set { } }
     }
     public partial class AppLogsConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppLogsConfiguration() { }
+        public AppLogsConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Destination { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.LogAnalyticsConfiguration> LogAnalyticsConfiguration { get { throw null; } set { } }
     }
     public partial class AppServiceArmPlan : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceArmPlan() { }
+        public AppServiceArmPlan() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Product { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> PromotionCode { get { throw null; } }
@@ -109,14 +108,14 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceBlobStorageApplicationLogsConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceBlobStorageApplicationLogsConfig() { }
+        public AppServiceBlobStorageApplicationLogsConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.WebAppLogLevel> Level { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> RetentionInDays { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> SasUri { get { throw null; } set { } }
     }
     public partial class AppServiceBlobStorageHttpLogsConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceBlobStorageHttpLogsConfig() { }
+        public AppServiceBlobStorageHttpLogsConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> IsEnabled { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> RetentionInDays { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> SasUri { get { throw null; } set { } }
@@ -143,7 +142,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceCertificate : Azure.Provisioning.Primitives.Resource
     {
-        public AppServiceCertificate(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppServiceCertificate(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> KeyVaultId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> KeyVaultSecretName { get { throw null; } set { } }
@@ -154,30 +153,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.KeyVaultSecretStatus> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.AppServiceCertificate FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2015_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.AppServiceCertificate FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class AppServiceCertificateDetails : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceCertificateDetails() { }
+        public AppServiceCertificateDetails() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Issuer { get { throw null; } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> NotAfter { get { throw null; } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> NotBefore { get { throw null; } }
@@ -196,7 +176,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceCertificateOrder : Azure.Provisioning.Primitives.Resource
     {
-        public AppServiceCertificateOrder(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppServiceCertificateOrder(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.AppServiceCertificateNotRenewableReason> AppServiceCertificateNotRenewableReasons { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<Azure.Provisioning.AppService.AppServiceCertificateProperties> Certificates { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.CertificateOrderContact> Contact { get { throw null; } }
@@ -223,37 +203,18 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> ValidityInYears { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.AppServiceCertificateOrder FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2015_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.AppServiceCertificateOrder FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class AppServiceCertificateProperties : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceCertificateProperties() { }
+        public AppServiceCertificateProperties() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> KeyVaultId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> KeyVaultSecretName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.KeyVaultSecretStatus> ProvisioningState { get { throw null; } }
     }
     public partial class AppServiceCorsSettings : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceCorsSettings() { }
+        public AppServiceCorsSettings() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<string> AllowedOrigins { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> IsCredentialsSupported { get { throw null; } set { } }
     }
@@ -264,7 +225,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceDomain : Azure.Provisioning.Primitives.Resource
     {
-        public AppServiceDomain(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppServiceDomain(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AuthCode { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.DomainPurchaseConsent> Consent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.RegistrationContactInfo> ContactAdmin { get { throw null; } set { } }
@@ -291,27 +252,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceDnsType> TargetDnsType { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.AppServiceDomain FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.AppServiceDomain FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum AppServiceDomainStatus
     {
@@ -339,7 +280,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceEnvironment : Azure.Provisioning.Primitives.Resource
     {
-        public AppServiceEnvironment(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppServiceEnvironment(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.AppServiceNameValuePair> ClusterSettings { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.CustomDnsSuffixConfigurationData> CustomDnsSuffixConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> DedicatedHostCount { get { throw null; } set { } }
@@ -366,7 +307,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceEnvironmentUpgradePreference> UpgradePreference { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> UserWhitelistedIPRanges { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceVirtualNetworkProfile> VirtualNetwork { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.AppServiceEnvironment FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.AppServiceEnvironment FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2014_04_01;
@@ -399,7 +340,6 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public enum AppServiceEnvironmentUpgradeAvailability
@@ -422,7 +362,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceHostName : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceHostName() { }
+        public AppServiceHostName() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AzureResourceName { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceResourceType> AzureResourceType { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.CustomHostNameDnsRecordType> CustomHostNameDnsRecordType { get { throw null; } }
@@ -442,7 +382,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceHttpLogsConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceHttpLogsConfig() { }
+        public AppServiceHttpLogsConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceBlobStorageHttpLogsConfig> AzureBlobStorage { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FileSystemHttpLogsConfig> FileSystem { get { throw null; } set { } }
     }
@@ -454,7 +394,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceIPSecurityRestriction : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceIPSecurityRestriction() { }
+        public AppServiceIPSecurityRestriction() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Action { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepDictionary<Azure.Provisioning.BicepList<string>> Headers { get { throw null; } set { } }
@@ -469,13 +409,13 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceNameValuePair : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceNameValuePair() { }
+        public AppServiceNameValuePair() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Value { get { throw null; } set { } }
     }
     public partial class AppServicePlan : Azure.Provisioning.Primitives.Resource
     {
-        public AppServicePlan(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppServicePlan(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.ExtendedAzureLocation> ExtendedLocation { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> FreeOfferExpireOn { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> GeoRegion { get { throw null; } }
@@ -507,40 +447,9 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<int> TargetWorkerCount { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> TargetWorkerSizeId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> WorkerTierName { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.AppServicePlan FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.AppServicePlan FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
     }
     public enum AppServicePlanStatus
     {
@@ -550,14 +459,14 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServicePlanVirtualNetworkConnectionGateway : Azure.Provisioning.Primitives.Resource
     {
-        public AppServicePlanVirtualNetworkConnectionGateway(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppServicePlanVirtualNetworkConnectionGateway(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> VnetName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> VpnPackageUri { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.AppServicePlanVirtualNetworkConnectionGateway FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.AppServicePlanVirtualNetworkConnectionGateway FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum AppServiceResourceType
     {
@@ -566,14 +475,14 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceSkuCapability : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceSkuCapability() { }
+        public AppServiceSkuCapability() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Reason { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Value { get { throw null; } set { } }
     }
     public partial class AppServiceSkuCapacity : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceSkuCapacity() { }
+        public AppServiceSkuCapacity() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Default { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> ElasticMaximum { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> Maximum { get { throw null; } set { } }
@@ -582,7 +491,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceSkuDescription : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceSkuDescription() { }
+        public AppServiceSkuDescription() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.AppServiceSkuCapability> Capabilities { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> Capacity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Family { get { throw null; } set { } }
@@ -594,7 +503,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceSourceControl : Azure.Provisioning.Primitives.Resource
     {
-        public AppServiceSourceControl(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AppServiceSourceControl(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> ExpireOn { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -603,40 +512,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Token { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> TokenSecret { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.AppServiceSourceControl FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.AppServiceSourceControl FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class AppServiceStorageAccessInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceStorageAccessInfo() { }
+        public AppServiceStorageAccessInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AccessKey { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> AccountName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> MountPath { get { throw null; } set { } }
@@ -676,7 +556,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceTableStorageApplicationLogsConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceTableStorageApplicationLogsConfig() { }
+        public AppServiceTableStorageApplicationLogsConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.WebAppLogLevel> Level { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> SasUriString { get { throw null; } set { } }
     }
@@ -724,7 +604,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceVirtualNetworkProfile : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceVirtualNetworkProfile() { }
+        public AppServiceVirtualNetworkProfile() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceType> ResourceType { get { throw null; } }
@@ -732,7 +612,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AppServiceVirtualNetworkRoute : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AppServiceVirtualNetworkRoute() { }
+        public AppServiceVirtualNetworkRoute() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> EndAddress { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -752,7 +632,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class ArcConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ArcConfiguration() { }
+        public ArcConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.ArtifactStorageType> ArtifactsStorageType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ArtifactStorageAccessMode { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ArtifactStorageClassName { get { throw null; } set { } }
@@ -768,7 +648,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AseV3NetworkingConfiguration : Azure.Provisioning.Primitives.Resource
     {
-        public AseV3NetworkingConfiguration(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public AseV3NetworkingConfiguration(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> AllowNewPrivateEndpointConnections { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> ExternalInboundIPAddresses { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -782,45 +662,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.AppService.AppServiceEnvironment? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> WindowsOutboundIPAddresses { get { throw null; } }
-        public static Azure.Provisioning.AppService.AseV3NetworkingConfiguration FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_08_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_01_01;
-            public static readonly string V2019_02_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.AseV3NetworkingConfiguration FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class AseV3NetworkingConfigurationData : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AseV3NetworkingConfigurationData() { }
+        public AseV3NetworkingConfigurationData() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> AllowNewPrivateEndpointConnections { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> ExternalInboundIPAddresses { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -836,7 +682,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AutoHealActions : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AutoHealActions() { }
+        public AutoHealActions() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AutoHealActionType> ActionType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AutoHealCustomAction> CustomAction { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> MinProcessExecutionTime { get { throw null; } set { } }
@@ -849,19 +695,19 @@ namespace Azure.Provisioning.AppService
     }
     public partial class AutoHealCustomAction : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AutoHealCustomAction() { }
+        public AutoHealCustomAction() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Exe { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Parameters { get { throw null; } set { } }
     }
     public partial class AutoHealRules : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AutoHealRules() { }
+        public AutoHealRules() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AutoHealActions> Actions { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AutoHealTriggers> Triggers { get { throw null; } set { } }
     }
     public partial class AutoHealTriggers : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public AutoHealTriggers() { }
+        public AutoHealTriggers() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> PrivateBytesInKB { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.RequestsBasedTrigger> Requests { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.SlowRequestsBasedTrigger> SlowRequests { get { throw null; } set { } }
@@ -871,7 +717,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class CertificateOrderContact : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public CertificateOrderContact() { }
+        public CertificateOrderContact() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Email { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> NameFirst { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> NameLast { get { throw null; } }
@@ -903,7 +749,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class CloningInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public CloningInfo() { }
+        public CloningInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepDictionary<string> AppSettingsOverrides { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> CanOverwrite { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> CloneCustomHostNames { get { throw null; } set { } }
@@ -942,14 +788,14 @@ namespace Azure.Provisioning.AppService
     }
     public partial class ConnStringInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ConnStringInfo() { }
+        public ConnStringInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.ConnectionStringType> ConnectionStringType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
     }
     public partial class ContainerAppsConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ContainerAppsConfiguration() { }
+        public ContainerAppsConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AppSubnetResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ControlPlaneSubnetResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DaprAIInstrumentationKey { get { throw null; } set { } }
@@ -959,7 +805,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class CustomDnsSuffixConfiguration : Azure.Provisioning.Primitives.Resource
     {
-        public CustomDnsSuffixConfiguration(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public CustomDnsSuffixConfiguration(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> CertificateUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DnsSuffix { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -970,45 +816,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> ProvisioningDetails { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.CustomDnsSuffixProvisioningState> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.CustomDnsSuffixConfiguration FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_08_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_01_01;
-            public static readonly string V2019_02_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.CustomDnsSuffixConfiguration FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class CustomDnsSuffixConfigurationData : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public CustomDnsSuffixConfigurationData() { }
+        public CustomDnsSuffixConfigurationData() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> CertificateUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DnsSuffix { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -1049,38 +861,18 @@ namespace Azure.Provisioning.AppService
     }
     public partial class DomainOwnershipIdentifier : Azure.Provisioning.Primitives.Resource
     {
-        public DomainOwnershipIdentifier(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public DomainOwnershipIdentifier(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> OwnershipId { get { throw null; } set { } }
         public Azure.Provisioning.AppService.AppServiceDomain? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.DomainOwnershipIdentifier FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.DomainOwnershipIdentifier FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class DomainPurchaseConsent : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public DomainPurchaseConsent() { }
+        public DomainPurchaseConsent() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AgreedBy { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> AgreedOn { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> AgreementKeys { get { throw null; } set { } }
@@ -1094,7 +886,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class FileSystemHttpLogsConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FileSystemHttpLogsConfig() { }
+        public FileSystemHttpLogsConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> IsEnabled { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> RetentionInDays { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> RetentionInMb { get { throw null; } set { } }
@@ -1106,26 +898,26 @@ namespace Azure.Provisioning.AppService
     }
     public partial class FunctionAppAlwaysReadyConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FunctionAppAlwaysReadyConfig() { }
+        public FunctionAppAlwaysReadyConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<float> InstanceCount { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
     }
     public partial class FunctionAppConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FunctionAppConfig() { }
+        public FunctionAppConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FunctionAppStorage> DeploymentStorage { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FunctionAppRuntime> Runtime { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FunctionAppScaleAndConcurrency> ScaleAndConcurrency { get { throw null; } set { } }
     }
     public partial class FunctionAppResourceConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FunctionAppResourceConfig() { }
+        public FunctionAppResourceConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<double> Cpu { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Memory { get { throw null; } set { } }
     }
     public partial class FunctionAppRuntime : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FunctionAppRuntime() { }
+        public FunctionAppRuntime() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FunctionAppRuntimeName> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Version { get { throw null; } set { } }
     }
@@ -1146,7 +938,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class FunctionAppScaleAndConcurrency : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FunctionAppScaleAndConcurrency() { }
+        public FunctionAppScaleAndConcurrency() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.FunctionAppAlwaysReadyConfig> AlwaysReady { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<float> HttpPerInstanceConcurrency { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<float> InstanceMemoryMB { get { throw null; } set { } }
@@ -1154,7 +946,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class FunctionAppStorage : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FunctionAppStorage() { }
+        public FunctionAppStorage() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FunctionAppStorageAuthentication> Authentication { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FunctionAppStorageType> StorageType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> Value { get { throw null; } set { } }
@@ -1167,7 +959,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class FunctionAppStorageAuthentication : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public FunctionAppStorageAuthentication() { }
+        public FunctionAppStorageAuthentication() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.FunctionAppStorageAccountAuthenticationType> AuthenticationType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> StorageAccountConnectionStringName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> UserAssignedIdentityResourceId { get { throw null; } set { } }
@@ -1179,13 +971,13 @@ namespace Azure.Provisioning.AppService
     }
     public partial class GitHubActionCodeConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public GitHubActionCodeConfiguration() { }
+        public GitHubActionCodeConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> RuntimeStack { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> RuntimeVersion { get { throw null; } set { } }
     }
     public partial class GitHubActionConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public GitHubActionConfiguration() { }
+        public GitHubActionConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.GitHubActionCodeConfiguration> CodeConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.GitHubActionContainerConfiguration> ContainerConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> GenerateWorkflowFile { get { throw null; } set { } }
@@ -1193,7 +985,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class GitHubActionContainerConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public GitHubActionContainerConfiguration() { }
+        public GitHubActionContainerConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ImageName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Password { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> ServerUri { get { throw null; } set { } }
@@ -1201,7 +993,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class HostingEnvironmentMultiRolePool : Azure.Provisioning.Primitives.Resource
     {
-        public HostingEnvironmentMultiRolePool(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public HostingEnvironmentMultiRolePool(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.ComputeModeOption> ComputeMode { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<string> InstanceNames { get { throw null; } }
@@ -1213,7 +1005,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<int> WorkerCount { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> WorkerSize { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> WorkerSizeId { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.HostingEnvironmentMultiRolePool FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.HostingEnvironmentMultiRolePool FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2014_04_01;
@@ -1245,12 +1037,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class HostingEnvironmentPrivateEndpointConnection : Azure.Provisioning.Primitives.Resource
     {
-        public HostingEnvironmentPrivateEndpointConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public HostingEnvironmentPrivateEndpointConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> IPAddresses { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -1260,45 +1051,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.PrivateLinkConnectionState> PrivateLinkServiceConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.HostingEnvironmentPrivateEndpointConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_08_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_01_01;
-            public static readonly string V2019_02_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.HostingEnvironmentPrivateEndpointConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class HostingEnvironmentProfile : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public HostingEnvironmentProfile() { }
+        public HostingEnvironmentProfile() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceType> ResourceType { get { throw null; } }
@@ -1312,7 +1069,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class HostingEnvironmentWorkerPool : Azure.Provisioning.Primitives.Resource
     {
-        public HostingEnvironmentWorkerPool(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public HostingEnvironmentWorkerPool(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.ComputeModeOption> ComputeMode { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<string> InstanceNames { get { throw null; } }
@@ -1324,7 +1081,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<int> WorkerCount { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> WorkerSize { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> WorkerSizeId { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.HostingEnvironmentWorkerPool FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.HostingEnvironmentWorkerPool FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2014_04_01;
@@ -1356,7 +1113,6 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public enum HostNameBindingSslState
@@ -1368,7 +1124,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class HostNameSslState : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public HostNameSslState() { }
+        public HostNameSslState() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceHostType> HostType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.HostNameBindingSslState> SslState { get { throw null; } set { } }
@@ -1378,7 +1134,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class HttpRequestHandlerMapping : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public HttpRequestHandlerMapping() { }
+        public HttpRequestHandlerMapping() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Arguments { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Extension { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ScriptProcessor { get { throw null; } set { } }
@@ -1399,7 +1155,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class KubeEnvironment : Azure.Provisioning.Primitives.Resource
     {
-        public KubeEnvironment(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public KubeEnvironment(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> AksResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppLogsConfiguration> AppLogsConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.ArcConfiguration> ArcConfiguration { get { throw null; } set { } }
@@ -1417,7 +1173,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> StaticIP { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.KubeEnvironment FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.KubeEnvironment FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2021_03_01;
@@ -1425,7 +1181,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class KubeEnvironmentProfile : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public KubeEnvironmentProfile() { }
+        public KubeEnvironmentProfile() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceType> ResourceType { get { throw null; } }
@@ -1453,13 +1209,13 @@ namespace Azure.Provisioning.AppService
     }
     public partial class LogAnalyticsConfiguration : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public LogAnalyticsConfiguration() { }
+        public LogAnalyticsConfiguration() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> CustomerId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> SharedKey { get { throw null; } set { } }
     }
     public partial class LogsSiteConfig : Azure.Provisioning.Primitives.Resource
     {
-        public LogsSiteConfig(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public LogsSiteConfig(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.ApplicationLogsConfig> ApplicationLogs { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceHttpLogsConfig> HttpLogs { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -1469,45 +1225,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.LogsSiteConfig FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.LogsSiteConfig FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class LogsSiteSlotConfig : Azure.Provisioning.Primitives.Resource
     {
-        public LogsSiteSlotConfig(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public LogsSiteSlotConfig(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.ApplicationLogsConfig> ApplicationLogs { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceHttpLogsConfig> HttpLogs { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -1517,41 +1239,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.AppService.WebSiteSlot? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.LogsSiteSlotConfig FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.LogsSiteSlotConfig FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum ManagedPipelineMode
     {
@@ -1573,13 +1261,13 @@ namespace Azure.Provisioning.AppService
     }
     public partial class PrivateAccessSubnet : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PrivateAccessSubnet() { }
+        public PrivateAccessSubnet() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Key { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
     }
     public partial class PrivateAccessVirtualNetwork : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PrivateAccessVirtualNetwork() { }
+        public PrivateAccessVirtualNetwork() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Key { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> ResourceId { get { throw null; } set { } }
@@ -1587,7 +1275,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class PrivateLinkConnectionState : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public PrivateLinkConnectionState() { }
+        public PrivateLinkConnectionState() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ActionsRequired { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Status { get { throw null; } set { } }
@@ -1608,7 +1296,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class PublishingUser : Azure.Provisioning.Primitives.Resource
     {
-        public PublishingUser(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public PublishingUser(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
@@ -1618,7 +1306,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> PublishingUserName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> ScmUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.PublishingUser FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.PublishingUser FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2014_04_01;
@@ -1646,12 +1334,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class RampUpRule : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public RampUpRule() { }
+        public RampUpRule() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ActionHostName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> ChangeDecisionCallbackUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> ChangeIntervalInMinutes { get { throw null; } set { } }
@@ -1671,7 +1358,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class RegistrationAddressInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public RegistrationAddressInfo() { }
+        public RegistrationAddressInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Address1 { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Address2 { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> City { get { throw null; } set { } }
@@ -1681,7 +1368,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class RegistrationContactInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public RegistrationContactInfo() { }
+        public RegistrationContactInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.RegistrationAddressInfo> AddressMailing { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Email { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Fax { get { throw null; } set { } }
@@ -1694,7 +1381,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class RemotePrivateEndpointConnection : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public RemotePrivateEndpointConnection() { }
+        public RemotePrivateEndpointConnection() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> IPAddresses { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -1706,13 +1393,13 @@ namespace Azure.Provisioning.AppService
     }
     public partial class RequestsBasedTrigger : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public RequestsBasedTrigger() { }
+        public RequestsBasedTrigger() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Count { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> TimeInterval { get { throw null; } set { } }
     }
     public partial class ResponseMessageEnvelopeRemotePrivateEndpointConnection : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public ResponseMessageEnvelopeRemotePrivateEndpointConnection() { }
+        public ResponseMessageEnvelopeRemotePrivateEndpointConnection() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.ResponseError> Error { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.ManagedServiceIdentity> Identity { get { throw null; } }
@@ -1728,93 +1415,25 @@ namespace Azure.Provisioning.AppService
     }
     public partial class ScmSiteBasicPublishingCredentialsPolicy : Azure.Provisioning.Primitives.Resource
     {
-        public ScmSiteBasicPublishingCredentialsPolicy(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public ScmSiteBasicPublishingCredentialsPolicy(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> Allow { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.ScmSiteBasicPublishingCredentialsPolicy FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.ScmSiteBasicPublishingCredentialsPolicy FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class ScmSiteSlotBasicPublishingCredentialsPolicy : Azure.Provisioning.Primitives.Resource
     {
-        public ScmSiteSlotBasicPublishingCredentialsPolicy(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public ScmSiteSlotBasicPublishingCredentialsPolicy(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> Allow { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.AppService.WebSiteSlot? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.ScmSiteSlotBasicPublishingCredentialsPolicy FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.ScmSiteSlotBasicPublishingCredentialsPolicy FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum ScmType
     {
@@ -1836,7 +1455,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteConfigProperties : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public SiteConfigProperties() { }
+        public SiteConfigProperties() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AcrUserManagedIdentityId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> AllowIPSecurityRestrictionsForScmToUseMain { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> ApiDefinitionUri { get { throw null; } set { } }
@@ -1912,7 +1531,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteContainer : Azure.Provisioning.Primitives.Resource
     {
-        public SiteContainer(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteContainer(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.SiteContainerAuthType> AuthType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.WebAppEnvironmentVariable> EnvironmentVariables { get { throw null; } set { } }
@@ -1930,41 +1549,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> UserManagedIdentityClientId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> UserName { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.SiteContainerVolumeMount> VolumeMounts { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteContainer FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteContainer FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum SiteContainerAuthType
     {
@@ -1975,7 +1560,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteContainerVolumeMount : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public SiteContainerVolumeMount() { }
+        public SiteContainerVolumeMount() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ContainerMountPath { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Data { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> IsReadOnly { get { throw null; } set { } }
@@ -1988,7 +1573,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteDeployment : Azure.Provisioning.Primitives.Resource
     {
-        public SiteDeployment(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteDeployment(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Author { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> AuthorEmail { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Deployer { get { throw null; } set { } }
@@ -2002,45 +1587,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartOn { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> Status { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteDeployment FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteDeployment FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteDnsConfig : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public SiteDnsConfig() { }
+        public SiteDnsConfig() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> DnsAltServer { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> DnsLegacySortOrder { get { throw null; } }
         public Azure.Provisioning.BicepValue<int> DnsMaxCacheTimeout { get { throw null; } set { } }
@@ -2050,52 +1601,18 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteDomainOwnershipIdentifier : Azure.Provisioning.Primitives.Resource
     {
-        public SiteDomainOwnershipIdentifier(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteDomainOwnershipIdentifier(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Value { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteDomainOwnershipIdentifier FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteDomainOwnershipIdentifier FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteExtension : Azure.Provisioning.Primitives.Resource
     {
-        public SiteExtension(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteExtension(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DBType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Deployer { get { throw null; } }
@@ -2113,41 +1630,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<bool> SkipAppData { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteExtension FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteExtension FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public enum SiteExtensionType
     {
@@ -2156,7 +1639,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteFunction : Azure.Provisioning.Primitives.Resource
     {
-        public SiteFunction(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteFunction(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.BinaryData> Config { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ConfigHref { get { throw null; } set { } }
         public Azure.Provisioning.BicepDictionary<string> Files { get { throw null; } set { } }
@@ -2175,45 +1658,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> TestData { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> TestDataHref { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteFunction FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteFunction FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteHostNameBinding : Azure.Provisioning.Primitives.Resource
     {
-        public SiteHostNameBinding(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteHostNameBinding(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AzureResourceName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceResourceType> AzureResourceType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.CustomHostNameDnsRecordType> CustomHostNameDnsRecordType { get { throw null; } set { } }
@@ -2228,7 +1677,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ThumbprintString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> VirtualIP { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteHostNameBinding FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteHostNameBinding FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2015_02_01;
@@ -2254,12 +1703,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class SiteHybridConnectionNamespaceRelay : Azure.Provisioning.Primitives.Resource
     {
-        public SiteHybridConnectionNamespaceRelay(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteHybridConnectionNamespaceRelay(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Hostname { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -2272,11 +1720,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> ServiceBusNamespace { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ServiceBusSuffix { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteHybridConnectionNamespaceRelay FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteHybridConnectionNamespaceRelay FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteInstanceExtension : Azure.Provisioning.Primitives.Resource
     {
-        public SiteInstanceExtension(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteInstanceExtension(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DBType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Deployer { get { throw null; } }
@@ -2293,11 +1741,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<bool> SkipAppData { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteInstanceExtension FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteInstanceExtension FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteLimits : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public SiteLimits() { }
+        public SiteLimits() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<long> MaxDiskSizeInMb { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<long> MaxMemoryInMb { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<double> MaxPercentageCpu { get { throw null; } set { } }
@@ -2313,7 +1761,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteMachineKey : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public SiteMachineKey() { }
+        public SiteMachineKey() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Decryption { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> DecryptionKey { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Validation { get { throw null; } }
@@ -2321,7 +1769,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class SiteNetworkConfig : Azure.Provisioning.Primitives.Resource
     {
-        public SiteNetworkConfig(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteNetworkConfig(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<bool> IsSwiftSupported { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -2329,7 +1777,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> SubnetResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteNetworkConfig FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteNetworkConfig FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2015_02_01;
@@ -2355,12 +1803,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class SitePrivateEndpointConnection : Azure.Provisioning.Primitives.Resource
     {
-        public SitePrivateEndpointConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SitePrivateEndpointConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> IPAddresses { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -2370,47 +1817,13 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.PrivateLinkConnectionState> PrivateLinkServiceConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SitePrivateEndpointConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SitePrivateEndpointConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
     }
     public partial class SitePublicCertificate : Azure.Provisioning.Primitives.Resource
     {
-        public SitePublicCertificate(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SitePublicCertificate(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.BinaryData> Blob { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -2419,45 +1832,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.PublicCertificateLocation> PublicCertificateLocation { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ThumbprintString { get { throw null; } }
-        public static Azure.Provisioning.AppService.SitePublicCertificate FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SitePublicCertificate FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotDeployment : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotDeployment(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotDeployment(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Author { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> AuthorEmail { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Deployer { get { throw null; } set { } }
@@ -2471,90 +1850,22 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartOn { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> Status { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteSlotDeployment FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotDeployment FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotDomainOwnershipIdentifier : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotDomainOwnershipIdentifier(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotDomainOwnershipIdentifier(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.AppService.WebSiteSlot? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Value { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteSlotDomainOwnershipIdentifier FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotDomainOwnershipIdentifier FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotExtension : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotExtension(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotExtension(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DBType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Deployer { get { throw null; } }
@@ -2572,45 +1883,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<bool> SkipAppData { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteSlotExtension FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotExtension FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotFunction : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotFunction(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotFunction(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.BinaryData> Config { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ConfigHref { get { throw null; } set { } }
         public Azure.Provisioning.BicepDictionary<string> Files { get { throw null; } set { } }
@@ -2629,45 +1906,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> TestData { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> TestDataHref { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteSlotFunction FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotFunction FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotHostNameBinding : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotHostNameBinding(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotHostNameBinding(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AzureResourceName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceResourceType> AzureResourceType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.CustomHostNameDnsRecordType> CustomHostNameDnsRecordType { get { throw null; } set { } }
@@ -2682,7 +1925,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ThumbprintString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> VirtualIP { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteSlotHostNameBinding FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteSlotHostNameBinding FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2015_02_01;
@@ -2708,12 +1951,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class SiteSlotHybridConnectionNamespaceRelay : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotHybridConnectionNamespaceRelay(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotHybridConnectionNamespaceRelay(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Hostname { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -2726,11 +1968,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> ServiceBusNamespace { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ServiceBusSuffix { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteSlotHybridConnectionNamespaceRelay FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteSlotHybridConnectionNamespaceRelay FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotInstanceExtension : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotInstanceExtension(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotInstanceExtension(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> DBType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Deployer { get { throw null; } }
@@ -2747,11 +1989,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<bool> SkipAppData { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteSlotInstanceExtension FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteSlotInstanceExtension FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotNetworkConfig : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotNetworkConfig(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotNetworkConfig(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<bool> IsSwiftSupported { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -2759,7 +2001,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.AppService.WebSiteSlot? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> SubnetResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteSlotNetworkConfig FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.SiteSlotNetworkConfig FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2015_02_01;
@@ -2785,12 +2027,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class SiteSlotPrivateEndpointConnection : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotPrivateEndpointConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotPrivateEndpointConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> IPAddresses { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -2800,45 +2041,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.PrivateLinkConnectionState> PrivateLinkServiceConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SiteSlotPrivateEndpointConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotPrivateEndpointConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotSiteContainer : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotSiteContainer(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotSiteContainer(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.SiteContainerAuthType> AuthType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.WebAppEnvironmentVariable> EnvironmentVariables { get { throw null; } set { } }
@@ -2856,45 +2063,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> UserManagedIdentityClientId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> UserName { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.SiteContainerVolumeMount> VolumeMounts { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteSlotSiteContainer FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotSiteContainer FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotVirtualNetworkConnection : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotVirtualNetworkConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotVirtualNetworkConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> CertBlob { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> CertThumbprintString { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> DnsServers { get { throw null; } set { } }
@@ -2907,45 +2080,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.AppServiceVirtualNetworkRoute> Routes { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> VnetResourceId { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteSlotVirtualNetworkConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotVirtualNetworkConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteSlotVirtualNetworkConnectionGateway : Azure.Provisioning.Primitives.Resource
     {
-        public SiteSlotVirtualNetworkConnectionGateway(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteSlotVirtualNetworkConnectionGateway(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
@@ -2953,45 +2092,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> VnetName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> VpnPackageUri { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteSlotVirtualNetworkConnectionGateway FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteSlotVirtualNetworkConnectionGateway FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteVirtualNetworkConnection : Azure.Provisioning.Primitives.Resource
     {
-        public SiteVirtualNetworkConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteVirtualNetworkConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> CertBlob { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> CertThumbprintString { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> DnsServers { get { throw null; } set { } }
@@ -3004,45 +2109,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.AppServiceVirtualNetworkRoute> Routes { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> VnetResourceId { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteVirtualNetworkConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteVirtualNetworkConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SiteVirtualNetworkConnectionGateway : Azure.Provisioning.Primitives.Resource
     {
-        public SiteVirtualNetworkConnectionGateway(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SiteVirtualNetworkConnectionGateway(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
@@ -3050,45 +2121,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> VnetName { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> VpnPackageUri { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.SiteVirtualNetworkConnectionGateway FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SiteVirtualNetworkConnectionGateway FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SlotConfigNames : Azure.Provisioning.Primitives.Resource
     {
-        public SlotConfigNames(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public SlotConfigNames(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<string> AppSettingNames { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> AzureStorageConfigNames { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> ConnectionStringNames { get { throw null; } set { } }
@@ -3097,52 +2134,18 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.SlotConfigNames FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.SlotConfigNames FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class SlotSwapStatus : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public SlotSwapStatus() { }
+        public SlotSwapStatus() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> DestinationSlotName { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> SourceSlotName { get { throw null; } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> TimestampUtc { get { throw null; } }
     }
     public partial class SlowRequestsBasedTrigger : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public SlowRequestsBasedTrigger() { }
+        public SlowRequestsBasedTrigger() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Count { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Path { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> TimeInterval { get { throw null; } set { } }
@@ -3155,7 +2158,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StaticSite : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSite(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSite(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> AllowConfigFileUpdates { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Branch { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.StaticSiteBuildProperties> BuildProperties { get { throw null; } set { } }
@@ -3182,7 +2185,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.StaticSiteTemplate> TemplateProperties { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.StaticSiteUserProvidedFunctionAppData> UserProvidedFunctionApps { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSite FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.StaticSite FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2019_08_01;
@@ -3198,7 +2201,6 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public enum StaticSiteBasicAuthName
@@ -3208,7 +2210,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StaticSiteBasicAuthProperty : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteBasicAuthProperty(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteBasicAuthProperty(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ApplicableEnvironmentsMode { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<string> Environments { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -3219,28 +2221,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> SecretState { get { throw null; } }
         public Azure.Provisioning.BicepValue<System.Uri> SecretUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteBasicAuthProperty FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.StaticSiteBasicAuthProperty FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class StaticSiteBuildDatabaseConnection : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteBuildDatabaseConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteBuildDatabaseConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.StaticSiteDatabaseConnectionConfigurationFileOverview> ConfigurationFiles { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ConnectionIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ConnectionString { get { throw null; } set { } }
@@ -3250,7 +2235,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> Region { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> ResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteBuildDatabaseConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.StaticSiteBuildDatabaseConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2019_08_01;
@@ -3266,12 +2251,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class StaticSiteBuildLinkedBackend : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteBuildLinkedBackend(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteBuildLinkedBackend(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> BackendResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -3280,7 +2264,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Region { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteBuildLinkedBackend FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.StaticSiteBuildLinkedBackend FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2019_08_01;
@@ -3296,12 +2280,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class StaticSiteBuildProperties : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StaticSiteBuildProperties() { }
+        public StaticSiteBuildProperties() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> ApiBuildCommand { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ApiLocation { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> AppArtifactLocation { get { throw null; } set { } }
@@ -3313,7 +2296,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StaticSiteBuildUserProvidedFunctionApp : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteBuildUserProvidedFunctionApp(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteBuildUserProvidedFunctionApp(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> FunctionAppRegion { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> FunctionAppResourceId { get { throw null; } set { } }
@@ -3321,7 +2304,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteBuildUserProvidedFunctionApp FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.StaticSiteBuildUserProvidedFunctionApp FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2020_12_01;
@@ -3333,12 +2316,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class StaticSiteCustomDomainOverview : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteCustomDomainOverview(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteCustomDomainOverview(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> DomainName { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ErrorMessage { get { throw null; } }
@@ -3350,28 +2332,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ValidationMethod { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ValidationToken { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteCustomDomainOverview FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.StaticSiteCustomDomainOverview FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class StaticSiteDatabaseConnection : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteDatabaseConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteDatabaseConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.StaticSiteDatabaseConnectionConfigurationFileOverview> ConfigurationFiles { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ConnectionIdentity { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ConnectionString { get { throw null; } set { } }
@@ -3382,7 +2347,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> Region { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> ResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteDatabaseConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.StaticSiteDatabaseConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2019_08_01;
@@ -3398,19 +2363,18 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class StaticSiteDatabaseConnectionConfigurationFileOverview : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StaticSiteDatabaseConnectionConfigurationFileOverview() { }
+        public StaticSiteDatabaseConnectionConfigurationFileOverview() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Contents { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> FileName { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> StaticSiteDatabaseConnectionConfigurationFileOverviewType { get { throw null; } }
     }
     public partial class StaticSiteDatabaseConnectionOverview : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StaticSiteDatabaseConnectionOverview() { }
+        public StaticSiteDatabaseConnectionOverview() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.StaticSiteDatabaseConnectionConfigurationFileOverview> ConfigurationFiles { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ConnectionIdentity { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
@@ -3419,7 +2383,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StaticSiteLinkedBackend : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteLinkedBackend(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteLinkedBackend(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> BackendResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -3429,7 +2393,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Region { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteLinkedBackend FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.StaticSiteLinkedBackend FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2019_08_01;
@@ -3445,12 +2409,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class StaticSiteLinkedBackendInfo : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StaticSiteLinkedBackendInfo() { }
+        public StaticSiteLinkedBackendInfo() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> BackendResourceId { get { throw null; } }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ProvisioningState { get { throw null; } }
@@ -3458,7 +2421,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StaticSitePrivateEndpointConnection : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSitePrivateEndpointConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSitePrivateEndpointConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepList<System.Net.IPAddress> IPAddresses { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -3468,28 +2431,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.PrivateLinkConnectionState> PrivateLinkServiceConnectionState { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ProvisioningState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSitePrivateEndpointConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.StaticSitePrivateEndpointConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class StaticSiteTemplate : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StaticSiteTemplate() { }
+        public StaticSiteTemplate() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> IsPrivate { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Owner { get { throw null; } set { } }
@@ -3498,7 +2444,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StaticSiteUserProvidedFunctionApp : Azure.Provisioning.Primitives.Resource
     {
-        public StaticSiteUserProvidedFunctionApp(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public StaticSiteUserProvidedFunctionApp(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> FunctionAppRegion { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> FunctionAppResourceId { get { throw null; } set { } }
@@ -3507,7 +2453,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.AppService.StaticSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.StaticSiteUserProvidedFunctionApp FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.StaticSiteUserProvidedFunctionApp FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2020_12_01;
@@ -3519,12 +2465,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class StaticSiteUserProvidedFunctionAppData : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StaticSiteUserProvidedFunctionAppData() { }
+        public StaticSiteUserProvidedFunctionAppData() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.DateTimeOffset> CreatedOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> FunctionAppRegion { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> FunctionAppResourceId { get { throw null; } set { } }
@@ -3535,7 +2480,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StatusCodesBasedTrigger : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StatusCodesBasedTrigger() { }
+        public StatusCodesBasedTrigger() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Count { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Path { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> Status { get { throw null; } set { } }
@@ -3545,7 +2490,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class StatusCodesRangeBasedTrigger : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public StatusCodesRangeBasedTrigger() { }
+        public StatusCodesRangeBasedTrigger() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<int> Count { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Path { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> StatusCodes { get { throw null; } set { } }
@@ -3553,7 +2498,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class VirtualApplication : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public VirtualApplication() { }
+        public VirtualApplication() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> IsPreloadEnabled { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> PhysicalPath { get { throw null; } set { } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.VirtualDirectory> VirtualDirectories { get { throw null; } set { } }
@@ -3561,13 +2506,13 @@ namespace Azure.Provisioning.AppService
     }
     public partial class VirtualDirectory : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public VirtualDirectory() { }
+        public VirtualDirectory() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> PhysicalPath { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> VirtualPath { get { throw null; } set { } }
     }
     public partial class WebAppEnvironmentVariable : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public WebAppEnvironmentVariable() { }
+        public WebAppEnvironmentVariable() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Value { get { throw null; } set { } }
     }
@@ -3581,7 +2526,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class WebAppPushSettings : Azure.Provisioning.Primitives.ProvisioningConstruct
     {
-        public WebAppPushSettings() { }
+        public WebAppPushSettings() : base (default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> DynamicTagsJson { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<bool> IsPushEnabled { get { throw null; } set { } }
@@ -3593,7 +2538,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class WebSite : Azure.Provisioning.Primitives.Resource
     {
-        public WebSite(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSite(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> AppServicePlanId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.WebSiteAvailabilityState> AvailabilityState { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ClientCertExclusionPaths { get { throw null; } set { } }
@@ -3654,7 +2599,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceUsageState> UsageState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> VirtualNetworkSubnetId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> WorkloadProfileName { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSite FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.WebSite FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
         public static partial class ResourceVersions
@@ -3689,7 +2634,6 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public enum WebSiteAvailabilityState
@@ -3700,7 +2644,7 @@ namespace Azure.Provisioning.AppService
     }
     public partial class WebSiteConfig : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteConfig(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteConfig(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AcrUserManagedIdentityId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> AllowIPSecurityRestrictionsForScmToUseMain { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> ApiDefinitionUri { get { throw null; } set { } }
@@ -3778,45 +2722,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> WebsiteTimeZone { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> WindowsFxVersion { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> XManagedServiceIdentityId { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSiteConfig FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteConfig FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteExtension : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteExtension(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteExtension(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<string> Authors { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Comment { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } }
@@ -3842,90 +2752,22 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Title { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Version { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteExtension FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteExtension FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteFtpPublishingCredentialsPolicy : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteFtpPublishingCredentialsPolicy(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteFtpPublishingCredentialsPolicy(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> Allow { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteFtpPublishingCredentialsPolicy FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteFtpPublishingCredentialsPolicy FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteHybridConnection : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteHybridConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteHybridConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> BiztalkUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> EntityConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> EntityName { get { throw null; } set { } }
@@ -3937,45 +2779,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<int> Port { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ResourceConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteHybridConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteHybridConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSitePremierAddon : Azure.Provisioning.Primitives.Resource
     {
-        public WebSitePremierAddon(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSitePremierAddon(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.AzureLocation> Location { get { throw null; } set { } }
@@ -3988,7 +2796,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Vendor { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSitePremierAddon FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.WebSitePremierAddon FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         public static partial class ResourceVersions
         {
             public static readonly string V2015_04_01;
@@ -4012,12 +2820,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class WebSitePrivateAccess : Azure.Provisioning.Primitives.Resource
     {
-        public WebSitePrivateAccess(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSitePrivateAccess(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<bool> IsEnabled { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -4025,45 +2832,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.PrivateAccessVirtualNetwork> VirtualNetworks { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSitePrivateAccess FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSitePrivateAccess FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlot : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlot(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlot(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> AppServicePlanId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.WebSiteAvailabilityState> AvailabilityState { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ClientCertExclusionPaths { get { throw null; } set { } }
@@ -4125,7 +2898,7 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.AppServiceUsageState> UsageState { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> VirtualNetworkSubnetId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> WorkloadProfileName { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSiteSlot FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
+        public static Azure.Provisioning.AppService.WebSiteSlot FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override Azure.Provisioning.Primitives.ResourceNameRequirements GetResourceNameRequirements() { throw null; }
         public static partial class ResourceVersions
@@ -4160,12 +2933,11 @@ namespace Azure.Provisioning.AppService
             public static readonly string V2022_09_01;
             public static readonly string V2023_01_01;
             public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
         }
     }
     public partial class WebSiteSlotConfig : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotConfig(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotConfig(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> AcrUserManagedIdentityId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<bool> AllowIPSecurityRestrictionsForScmToUseMain { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> ApiDefinitionUri { get { throw null; } set { } }
@@ -4243,45 +3015,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<string> WebsiteTimeZone { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> WindowsFxVersion { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<int> XManagedServiceIdentityId { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSiteSlotConfig FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotConfig FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlotExtension : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotExtension(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotExtension(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepList<string> Authors { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Comment { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Description { get { throw null; } }
@@ -4307,90 +3045,22 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Title { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Version { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteSlotExtension FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotExtension FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlotFtpPublishingCredentialsPolicy : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotFtpPublishingCredentialsPolicy(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotFtpPublishingCredentialsPolicy(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<bool> Allow { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } }
         public Azure.Provisioning.AppService.WebSiteSlot? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteSlotFtpPublishingCredentialsPolicy FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotFtpPublishingCredentialsPolicy FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlotHybridConnection : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotHybridConnection(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotHybridConnection(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.Uri> BiztalkUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> EntityConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> EntityName { get { throw null; } set { } }
@@ -4402,45 +3072,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<int> Port { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> ResourceConnectionString { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteSlotHybridConnection FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotHybridConnection FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlotPremierAddOn : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotPremierAddOn(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotPremierAddOn(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.AzureLocation> Location { get { throw null; } set { } }
@@ -4453,45 +3089,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Vendor { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSiteSlotPremierAddOn FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotPremierAddOn FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlotPrivateAccess : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotPrivateAccess(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotPrivateAccess(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<bool> IsEnabled { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -4499,45 +3101,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.AppService.WebSiteSlot? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepList<Azure.Provisioning.AppService.PrivateAccessVirtualNetwork> VirtualNetworks { get { throw null; } set { } }
-        public static Azure.Provisioning.AppService.WebSiteSlotPrivateAccess FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotPrivateAccess FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlotPublicCertificate : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotPublicCertificate(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotPublicCertificate(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<System.BinaryData> Blob { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Kind { get { throw null; } set { } }
@@ -4546,45 +3114,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.PublicCertificateLocation> PublicCertificateLocation { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ThumbprintString { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteSlotPublicCertificate FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotPublicCertificate FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSlotSourceControl : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSlotSourceControl(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSlotSourceControl(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Branch { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.GitHubActionConfiguration> GitHubActionConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -4597,45 +3131,11 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.AppService.WebSiteSlot? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> RepoUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteSlotSourceControl FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSlotSourceControl FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
     public partial class WebSiteSourceControl : Azure.Provisioning.Primitives.Resource
     {
-        public WebSiteSourceControl(string identifierName, string? resourceVersion = null) : base (default(string), default(Azure.Core.ResourceType), default(string)) { }
+        public WebSiteSourceControl(string resourceName, string? resourceVersion = null, Azure.Provisioning.ProvisioningContext? context = null) : base (default(string), default(Azure.Core.ResourceType), default(string), default(Azure.Provisioning.ProvisioningContext)) { }
         public Azure.Provisioning.BicepValue<string> Branch { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.AppService.GitHubActionConfiguration> GitHubActionConfiguration { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
@@ -4648,40 +3148,6 @@ namespace Azure.Provisioning.AppService
         public Azure.Provisioning.AppService.WebSite? Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<System.Uri> RepoUri { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.Resources.SystemData> SystemData { get { throw null; } }
-        public static Azure.Provisioning.AppService.WebSiteSourceControl FromExisting(string identifierName, string? resourceVersion = null) { throw null; }
-        public static partial class ResourceVersions
-        {
-            public static readonly string V2014_04_01;
-            public static readonly string V2014_06_01;
-            public static readonly string V2014_11_01;
-            public static readonly string V2015_01_01;
-            public static readonly string V2015_02_01;
-            public static readonly string V2015_04_01;
-            public static readonly string V2015_05_01;
-            public static readonly string V2015_06_01;
-            public static readonly string V2015_07_01;
-            public static readonly string V2015_08_01;
-            public static readonly string V2015_11_01;
-            public static readonly string V2016_03_01;
-            public static readonly string V2016_08_01;
-            public static readonly string V2016_09_01;
-            public static readonly string V2017_08_01;
-            public static readonly string V2018_02_01;
-            public static readonly string V2018_11_01;
-            public static readonly string V2019_08_01;
-            public static readonly string V2020_06_01;
-            public static readonly string V2020_09_01;
-            public static readonly string V2020_10_01;
-            public static readonly string V2020_12_01;
-            public static readonly string V2021_01_01;
-            public static readonly string V2021_01_15;
-            public static readonly string V2021_02_01;
-            public static readonly string V2021_03_01;
-            public static readonly string V2022_03_01;
-            public static readonly string V2022_09_01;
-            public static readonly string V2023_01_01;
-            public static readonly string V2023_12_01;
-            public static readonly string V2024_04_01;
-        }
+        public static Azure.Provisioning.AppService.WebSiteSourceControl FromExisting(string resourceName, string? resourceVersion = null) { throw null; }
     }
 }

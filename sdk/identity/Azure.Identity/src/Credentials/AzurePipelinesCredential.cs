@@ -16,7 +16,7 @@ namespace Azure.Identity
     /// </summary>
     public class AzurePipelinesCredential : TokenCredential
     {
-        internal const string Troubleshooting = "See the troubleshooting guide for more information. https://aka.ms/azsdk/net/identity/azurepipelinescredential/troubleshoot";
+        private const string Troubleshooting = "See the troubleshooting guide for more information. https://aka.ms/azsdk/net/identity/azurepipelinescredential/troubleshoot";
         internal readonly string[] AdditionallyAllowedTenantIds;
         internal string SystemAccessToken { get; }
         internal string TenantId { get; }
@@ -116,8 +116,6 @@ namespace Azure.Identity
             message.Request.Uri.Reset(requestUri);
             message.Request.Headers.SetValue(HttpHeader.Names.Authorization, $"Bearer {systemToken}");
             message.Request.Headers.SetValue(HttpHeader.Names.ContentType, "application/json");
-            // Prevents the service from responding with a redirect HTTP status code (useful for automation).
-            message.Request.Headers.SetValue("X-TFS-FedAuthRedirect", "Suppress");
             message.Request.Method = RequestMethod.Post;
             return message;
         }
@@ -151,10 +149,7 @@ namespace Azure.Identity
                 string error = $"OIDC token not found in response. " + Troubleshooting;
                 if (message.Response.Status != 200)
                 {
-                    var is_x_vss_e2eidValueFound = message.Response.Headers.TryGetValue("x-vss-e2eid", out var x_vss_e2eidValue);
-                    var is_x_msedge_refValueFound = message.Response.Headers.TryGetValue("x-msedge-ref", out var x_msedge_refValue);
-
-                    error = error + $"\n\nResponse= {message.Response.Content}\n\nx-vss-e2eid= {(is_x_vss_e2eidValueFound ? x_vss_e2eidValue : "Not Found")}\n\nx-msedge-ref= {(is_x_msedge_refValueFound ? x_msedge_refValue : "Not Found")}";
+                    error = error + $"\n\nResponse= {message.Response.Content}";
                 }
                 throw new AuthenticationFailedException(error);
             }

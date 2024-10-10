@@ -23,10 +23,7 @@ public class BasicEventGridTests(bool async)
         await test.Define(
             ctx =>
             {
-                Infrastructure infra = new();
-
-                ProvisioningParameter webhookUri = new(nameof(webhookUri), typeof(string));
-                infra.Add(webhookUri);
+                BicepParameter webhookUri = new(nameof(webhookUri), typeof(string));
 
                 StorageAccount storage =
                     new(nameof(storage))
@@ -37,8 +34,6 @@ public class BasicEventGridTests(bool async)
                         AccessTier = StorageAccountAccessTier.Hot,
                         EnableHttpsTrafficOnly = true,
                     };
-                infra.Add(storage);
-
                 SystemTopic topic =
                     new(nameof(topic))
                     {
@@ -46,8 +41,6 @@ public class BasicEventGridTests(bool async)
                         Source = storage.Id,
                         TopicType = "Microsoft.Storage.StorageAccounts"
                     };
-                infra.Add(topic);
-
                 SystemTopicEventSubscription subscription =
                     new(nameof(subscription))
                     {
@@ -62,9 +55,6 @@ public class BasicEventGridTests(bool async)
                             }
                         }
                     };
-                infra.Add(subscription);
-
-                return infra;
             })
         .Compare(
             """
@@ -73,7 +63,7 @@ public class BasicEventGridTests(bool async)
             @description('The location for the resource(s) to be deployed.')
             param location string = resourceGroup().location
 
-            resource storage 'Microsoft.Storage/storageAccounts@2024-01-01' = {
+            resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
               name: take('storage${uniqueString(resourceGroup().id)}', 24)
               kind: 'StorageV2'
               location: location

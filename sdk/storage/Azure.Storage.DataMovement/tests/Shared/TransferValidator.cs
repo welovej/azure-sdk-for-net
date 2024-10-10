@@ -27,8 +27,8 @@ namespace Azure.Storage.DataMovement.Tests
         });
 
         public async Task TransferAndVerifyAsync(
-            StorageResource sourceResource,
-            StorageResource destinationResource,
+            StorageResourceContainer sourceResource,
+            StorageResourceContainer destinationResource,
             ListFilesAsync getSourceFilesAsync,
             ListFilesAsync getDestinationFilesAsync,
             int expectedItemTransferCount,
@@ -74,8 +74,8 @@ namespace Azure.Storage.DataMovement.Tests
         }
 
         public async Task TransferAndVerifyAsync(
-            StorageResource sourceResource,
-            StorageResource destinationResource,
+            StorageResourceItem sourceResource,
+            StorageResourceItem destinationResource,
             Func<CancellationToken, Task<Stream>> openReadSourceAsync,
             Func<CancellationToken, Task<Stream>> openReadDestinationAsync,
             DataTransferOptions options = default,

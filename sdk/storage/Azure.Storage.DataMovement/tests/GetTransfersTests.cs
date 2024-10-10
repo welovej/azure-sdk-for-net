@@ -25,7 +25,7 @@ namespace Azure.Storage.DataMovement.Tests
         private TransferManagerOptions GetDefaultManagerOptions(string checkpointerPath) =>
             new TransferManagerOptions()
             {
-                CheckpointerOptions = TransferCheckpointStoreOptions.Local(checkpointerPath)
+                CheckpointerOptions = new TransferCheckpointStoreOptions(checkpointerPath)
             };
 
         private void AssertListTransfersEquals(IList<DataTransfer> expected, IList<DataTransfer> actual)
@@ -216,7 +216,7 @@ namespace Azure.Storage.DataMovement.Tests
             // Build TransferManager with the stored transfers
             TransferManagerOptions options = new TransferManagerOptions()
             {
-                CheckpointerOptions = TransferCheckpointStoreOptions.Local(test.DirectoryPath)
+                CheckpointerOptions = new TransferCheckpointStoreOptions(test.DirectoryPath)
             };
             TransferManager manager = new TransferManager(options);
 
@@ -257,7 +257,7 @@ namespace Azure.Storage.DataMovement.Tests
             // Build TransferManager with the stored transfers
             TransferManagerOptions options = new TransferManagerOptions()
             {
-                CheckpointerOptions = TransferCheckpointStoreOptions.Local(test.DirectoryPath)
+                CheckpointerOptions = new TransferCheckpointStoreOptions(test.DirectoryPath)
             };
             TransferManager manager = new TransferManager(options);
 
@@ -296,7 +296,7 @@ namespace Azure.Storage.DataMovement.Tests
             // Build TransferManager with the stored transfers
             TransferManagerOptions options = new TransferManagerOptions()
             {
-                CheckpointerOptions = TransferCheckpointStoreOptions.Local(test.DirectoryPath)
+                CheckpointerOptions = new TransferCheckpointStoreOptions(test.DirectoryPath)
             };
             TransferManager manager = new TransferManager(options);
 

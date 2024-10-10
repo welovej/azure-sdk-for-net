@@ -19,30 +19,19 @@ namespace Azure.ResourceManager.ContainerInstance.Models
 
         void IJsonModel<ContainerInstanceContainer>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<ContainerInstanceContainer>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(ContainerInstanceContainer)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             writer.WritePropertyName("name"u8);
             writer.WriteStringValue(Name);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(Image))
-            {
-                writer.WritePropertyName("image"u8);
-                writer.WriteStringValue(Image);
-            }
+            writer.WritePropertyName("image"u8);
+            writer.WriteStringValue(Image);
             if (Optional.IsCollectionDefined(Command))
             {
                 writer.WritePropertyName("command"u8);
@@ -78,11 +67,8 @@ namespace Azure.ResourceManager.ContainerInstance.Models
                 writer.WritePropertyName("instanceView"u8);
                 writer.WriteObjectValue(InstanceView, options);
             }
-            if (Optional.IsDefined(Resources))
-            {
-                writer.WritePropertyName("resources"u8);
-                writer.WriteObjectValue(Resources, options);
-            }
+            writer.WritePropertyName("resources"u8);
+            writer.WriteObjectValue(Resources, options);
             if (Optional.IsCollectionDefined(VolumeMounts))
             {
                 writer.WritePropertyName("volumeMounts"u8);
@@ -108,11 +94,6 @@ namespace Azure.ResourceManager.ContainerInstance.Models
                 writer.WritePropertyName("securityContext"u8);
                 writer.WriteObjectValue(SecurityContext, options);
             }
-            if (Optional.IsDefined(ConfigMap))
-            {
-                writer.WritePropertyName("configMap"u8);
-                writer.WriteObjectValue(ConfigMap, options);
-            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -129,6 +110,7 @@ namespace Azure.ResourceManager.ContainerInstance.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         ContainerInstanceContainer IJsonModel<ContainerInstanceContainer>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -162,7 +144,6 @@ namespace Azure.ResourceManager.ContainerInstance.Models
             ContainerProbe livenessProbe = default;
             ContainerProbe readinessProbe = default;
             ContainerSecurityContextDefinition securityContext = default;
-            ConfigMap configMap = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -239,10 +220,6 @@ namespace Azure.ResourceManager.ContainerInstance.Models
                         }
                         if (property0.NameEquals("resources"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             resources = ContainerResourceRequirements.DeserializeContainerResourceRequirements(property0.Value, options);
                             continue;
                         }
@@ -287,15 +264,6 @@ namespace Azure.ResourceManager.ContainerInstance.Models
                             securityContext = ContainerSecurityContextDefinition.DeserializeContainerSecurityContextDefinition(property0.Value, options);
                             continue;
                         }
-                        if (property0.NameEquals("configMap"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            configMap = ConfigMap.DeserializeConfigMap(property0.Value, options);
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -317,7 +285,6 @@ namespace Azure.ResourceManager.ContainerInstance.Models
                 livenessProbe,
                 readinessProbe,
                 securityContext,
-                configMap,
                 serializedAdditionalRawData);
         }
 

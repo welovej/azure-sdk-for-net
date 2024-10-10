@@ -68,15 +68,11 @@ public partial class StaticSiteBuildLinkedBackend : Resource
     /// <summary>
     /// Creates a new StaticSiteBuildLinkedBackend.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the StaticSiteBuildLinkedBackend
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the StaticSiteBuildLinkedBackend.</param>
     /// <param name="resourceVersion">Version of the StaticSiteBuildLinkedBackend.</param>
-    public StaticSiteBuildLinkedBackend(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Web/staticSites/builds/linkedBackends", resourceVersion ?? "2024-04-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public StaticSiteBuildLinkedBackend(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Web/staticSites/builds/linkedBackends", resourceVersion ?? "2020-06-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _backendResourceId = BicepValue<ResourceIdentifier>.DefineProperty(this, "BackendResourceId", ["properties", "backendResourceId"]);
@@ -93,11 +89,6 @@ public partial class StaticSiteBuildLinkedBackend : Resource
     /// </summary>
     public static class ResourceVersions
     {
-        /// <summary>
-        /// 2024-04-01.
-        /// </summary>
-        public static readonly string V2024_04_01 = "2024-04-01";
-
         /// <summary>
         /// 2023-12-01.
         /// </summary>
@@ -167,14 +158,9 @@ public partial class StaticSiteBuildLinkedBackend : Resource
     /// <summary>
     /// Creates a reference to an existing StaticSiteBuildLinkedBackend.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the StaticSiteBuildLinkedBackend
-    /// resource.  This can be used to refer to the resource in expressions,
-    /// but is not the Azure name of the resource.  This value can contain
-    /// letters, numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the StaticSiteBuildLinkedBackend.</param>
     /// <param name="resourceVersion">Version of the StaticSiteBuildLinkedBackend.</param>
     /// <returns>The existing StaticSiteBuildLinkedBackend resource.</returns>
-    public static StaticSiteBuildLinkedBackend FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static StaticSiteBuildLinkedBackend FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

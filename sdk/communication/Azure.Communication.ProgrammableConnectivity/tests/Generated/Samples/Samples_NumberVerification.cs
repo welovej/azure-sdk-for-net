@@ -18,9 +18,9 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_NumberVerification_VerifyWithoutCode_NumberVerificationVerifyWithoutCode()
+        public void Example_NumberVerification_VerifyWithoutCode_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
@@ -28,23 +28,21 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
             {
                 networkIdentifier = new
                 {
-                    identifierType = "ipv4",
-                    identifier = "12.12.12.12",
+                    identifierType = "<identifierType>",
+                    identifier = "<identifier>",
                 },
-                phoneNumber = "+14424318793",
-                hashedPhoneNumber = "bwsl",
-                redirectUri = "https://www.contoso.com",
+                redirectUri = "http://localhost:3000",
             });
-            Response response = client.VerifyWithoutCode("zdgrzzaxlodrvewbksn", content);
+            Response response = client.VerifyWithoutCode("<apcGatewayId>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_NumberVerification_VerifyWithoutCode_NumberVerificationVerifyWithoutCode_Async()
+        public async Task Example_NumberVerification_VerifyWithoutCode_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
@@ -52,63 +50,133 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
             {
                 networkIdentifier = new
                 {
-                    identifierType = "ipv4",
-                    identifier = "12.12.12.12",
+                    identifierType = "<identifierType>",
+                    identifier = "<identifier>",
                 },
-                phoneNumber = "+14424318793",
-                hashedPhoneNumber = "bwsl",
-                redirectUri = "https://www.contoso.com",
+                redirectUri = "http://localhost:3000",
             });
-            Response response = await client.VerifyWithoutCodeAsync("zdgrzzaxlodrvewbksn", content);
+            Response response = await client.VerifyWithoutCodeAsync("<apcGatewayId>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_NumberVerification_VerifyWithoutCode_NumberVerificationVerifyWithoutCode_Convenience()
+        public void Example_NumberVerification_VerifyWithoutCode_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
-            NumberVerificationWithoutCodeContent body = new NumberVerificationWithoutCodeContent(new NetworkIdentifier("ipv4", "12.12.12.12"), new Uri("https://www.contoso.com"))
-            {
-                PhoneNumber = "+14424318793",
-                HashedPhoneNumber = "bwsl",
-            };
-            Response response = client.VerifyWithoutCode("zdgrzzaxlodrvewbksn", body);
+            NumberVerificationWithoutCodeContent body = new NumberVerificationWithoutCodeContent(new NetworkIdentifier("<identifierType>", "<identifier>"), new Uri("http://localhost:3000"));
+            Response response = client.VerifyWithoutCode("<apcGatewayId>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_NumberVerification_VerifyWithoutCode_NumberVerificationVerifyWithoutCode_Convenience_Async()
+        public async Task Example_NumberVerification_VerifyWithoutCode_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
-            NumberVerificationWithoutCodeContent body = new NumberVerificationWithoutCodeContent(new NetworkIdentifier("ipv4", "12.12.12.12"), new Uri("https://www.contoso.com"))
-            {
-                PhoneNumber = "+14424318793",
-                HashedPhoneNumber = "bwsl",
-            };
-            Response response = await client.VerifyWithoutCodeAsync("zdgrzzaxlodrvewbksn", body);
+            NumberVerificationWithoutCodeContent body = new NumberVerificationWithoutCodeContent(new NetworkIdentifier("<identifierType>", "<identifier>"), new Uri("http://localhost:3000"));
+            Response response = await client.VerifyWithoutCodeAsync("<apcGatewayId>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_NumberVerification_VerifyWithCode_NumberVerificationVerifyWithCode()
+        public void Example_NumberVerification_VerifyWithoutCode_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
-                apcCode = "yn",
+                networkIdentifier = new
+                {
+                    identifierType = "<identifierType>",
+                    identifier = "<identifier>",
+                },
+                phoneNumber = "<phoneNumber>",
+                hashedPhoneNumber = "<hashedPhoneNumber>",
+                redirectUri = "http://localhost:3000",
             });
-            Response response = client.VerifyWithCode("zdgrzzaxlodrvewbksn", content);
+            Response response = client.VerifyWithoutCode("<apcGatewayId>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_NumberVerification_VerifyWithoutCode_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                networkIdentifier = new
+                {
+                    identifierType = "<identifierType>",
+                    identifier = "<identifier>",
+                },
+                phoneNumber = "<phoneNumber>",
+                hashedPhoneNumber = "<hashedPhoneNumber>",
+                redirectUri = "http://localhost:3000",
+            });
+            Response response = await client.VerifyWithoutCodeAsync("<apcGatewayId>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_NumberVerification_VerifyWithoutCode_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            NumberVerificationWithoutCodeContent body = new NumberVerificationWithoutCodeContent(new NetworkIdentifier("<identifierType>", "<identifier>"), new Uri("http://localhost:3000"))
+            {
+                PhoneNumber = "<phoneNumber>",
+                HashedPhoneNumber = "<hashedPhoneNumber>",
+            };
+            Response response = client.VerifyWithoutCode("<apcGatewayId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_NumberVerification_VerifyWithoutCode_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            NumberVerificationWithoutCodeContent body = new NumberVerificationWithoutCodeContent(new NetworkIdentifier("<identifierType>", "<identifier>"), new Uri("http://localhost:3000"))
+            {
+                PhoneNumber = "<phoneNumber>",
+                HashedPhoneNumber = "<hashedPhoneNumber>",
+            };
+            Response response = await client.VerifyWithoutCodeAsync("<apcGatewayId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_NumberVerification_VerifyWithCode_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                apcCode = "<apcCode>",
+            });
+            Response response = client.VerifyWithCode("<apcGatewayId>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("verificationResult").ToString());
@@ -116,17 +184,17 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_NumberVerification_VerifyWithCode_NumberVerificationVerifyWithCode_Async()
+        public async Task Example_NumberVerification_VerifyWithCode_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
-                apcCode = "yn",
+                apcCode = "<apcCode>",
             });
-            Response response = await client.VerifyWithCodeAsync("zdgrzzaxlodrvewbksn", content);
+            Response response = await client.VerifyWithCodeAsync("<apcGatewayId>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("verificationResult").ToString());
@@ -134,26 +202,86 @@ namespace Azure.Communication.ProgrammableConnectivity.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_NumberVerification_VerifyWithCode_NumberVerificationVerifyWithCode_Convenience()
+        public void Example_NumberVerification_VerifyWithCode_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
-            NumberVerificationWithCodeContent body = new NumberVerificationWithCodeContent("yn");
-            Response<NumberVerificationResult> response = client.VerifyWithCode("zdgrzzaxlodrvewbksn", body);
+            NumberVerificationWithCodeContent body = new NumberVerificationWithCodeContent("<apcCode>");
+            Response<NumberVerificationResult> response = client.VerifyWithCode("<apcGatewayId>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_NumberVerification_VerifyWithCode_NumberVerificationVerifyWithCode_Convenience_Async()
+        public async Task Example_NumberVerification_VerifyWithCode_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
 
-            NumberVerificationWithCodeContent body = new NumberVerificationWithCodeContent("yn");
-            Response<NumberVerificationResult> response = await client.VerifyWithCodeAsync("zdgrzzaxlodrvewbksn", body);
+            NumberVerificationWithCodeContent body = new NumberVerificationWithCodeContent("<apcCode>");
+            Response<NumberVerificationResult> response = await client.VerifyWithCodeAsync("<apcGatewayId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_NumberVerification_VerifyWithCode_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                apcCode = "<apcCode>",
+            });
+            Response response = client.VerifyWithCode("<apcGatewayId>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("verificationResult").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_NumberVerification_VerifyWithCode_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                apcCode = "<apcCode>",
+            });
+            Response response = await client.VerifyWithCodeAsync("<apcGatewayId>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("verificationResult").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_NumberVerification_VerifyWithCode_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            NumberVerificationWithCodeContent body = new NumberVerificationWithCodeContent("<apcCode>");
+            Response<NumberVerificationResult> response = client.VerifyWithCode("<apcGatewayId>", body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_NumberVerification_VerifyWithCode_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "2024-02-09-preview");
+
+            NumberVerificationWithCodeContent body = new NumberVerificationWithCodeContent("<apcCode>");
+            Response<NumberVerificationResult> response = await client.VerifyWithCodeAsync("<apcGatewayId>", body);
         }
     }
 }

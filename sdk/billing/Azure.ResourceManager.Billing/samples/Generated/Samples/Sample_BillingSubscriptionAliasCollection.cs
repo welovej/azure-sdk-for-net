@@ -147,7 +147,7 @@ namespace Azure.ResourceManager.Billing.Samples
             {
                 BillingFrequency = "P1M",
                 DisplayName = "Subscription 3",
-                Quantity = 1L,
+                Quantity = 1,
                 SkuId = "0001",
                 TermDuration = XmlConvert.ToTimeSpan("P1M"),
             };

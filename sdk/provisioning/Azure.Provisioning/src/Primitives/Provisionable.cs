@@ -38,6 +38,7 @@ public abstract class Provisionable
     /// <summary>
     /// Compile the resource into a set of Bicep statements.
     /// </summary>
+    /// <param name="context">Optional <see cref="ProvisioningContext"/>.</param>
     /// <returns>Bicep representation of the resource.</returns>
-    protected internal abstract IEnumerable<Statement> Compile();
+    protected internal abstract IEnumerable<Statement> Compile(ProvisioningContext? context = default);
 }

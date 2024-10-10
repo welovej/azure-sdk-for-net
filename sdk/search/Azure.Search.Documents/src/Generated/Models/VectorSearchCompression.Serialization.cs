@@ -37,18 +37,6 @@ namespace Azure.Search.Documents.Indexes.Models
                     writer.WriteNull("defaultOversampling");
                 }
             }
-            if (Optional.IsDefined(TruncationDimension))
-            {
-                if (TruncationDimension != null)
-                {
-                    writer.WritePropertyName("truncationDimension"u8);
-                    writer.WriteNumberValue(TruncationDimension.Value);
-                }
-                else
-                {
-                    writer.WriteNull("truncationDimension");
-                }
-            }
             writer.WriteEndObject();
         }
 

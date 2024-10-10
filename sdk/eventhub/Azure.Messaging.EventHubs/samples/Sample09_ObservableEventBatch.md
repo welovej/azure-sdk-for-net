@@ -93,14 +93,10 @@ An `EventHubProducerClient` is safe to cache and use for the lifetime of the app
 ## Accessing the EventData Instances
 
 ```C# Snippet:Sample09_AccessingEventData
-var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
 var eventHubName = "<< NAME OF THE EVENT HUB >>";
-var credential = new DefaultAzureCredential();
 
-var producer = new EventHubProducerClient(
-    fullyQualifiedNamespace,
-    eventHubName,
-    credential);
+var producer = new EventHubProducerClient(connectionString, eventHubName);
 
 try
 {
@@ -139,14 +135,10 @@ finally
 This sample demonstrates how to add an `EventData` identification property that can be used to verify that a given event ID was added to the observable batch. 
 
 ```C# Snippet:Sample09_CheckingBatch
-var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
 var eventHubName = "<< NAME OF THE EVENT HUB >>";
-var credential = new DefaultAzureCredential();
 
-var producer = new EventHubProducerClient(
-    fullyQualifiedNamespace,
-    eventHubName,
-    credential);
+var producer = new EventHubProducerClient(connectionString, eventHubName);
 
 try
 {

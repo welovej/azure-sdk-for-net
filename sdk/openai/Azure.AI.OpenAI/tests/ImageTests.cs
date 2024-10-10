@@ -4,7 +4,6 @@
 using System;
 using System.ClientModel;
 using System.Threading.Tasks;
-using Azure.AI.OpenAI.Images;
 using OpenAI.Images;
 using OpenAI.TestFramework;
 
@@ -69,8 +68,8 @@ public class ImageTests(bool isAsync) : AoaiTestBase<ImageClient>(isAsync)
         Assert.That(image, Is.Not.Null);
         Assert.That(image.ImageUri, Is.Not.Null);
         Console.WriteLine($"RESPONSE--\n{imageResult.GetRawResponse().Content}");
-        RequestImageContentFilterResult promptResults = image.GetRequestContentFilterResult();
-        ResponseImageContentFilterResult responseResults = image.GetResponseContentFilterResult();
+        ImageContentFilterResultForPrompt promptResults = image.GetContentFilterResultForPrompt();
+        ImageContentFilterResultForResponse responseResults = image.GetContentFilterResultForResponse();
         Assert.That(promptResults?.Sexual?.Severity, Is.EqualTo(ContentFilterSeverity.Safe));
         Assert.That(responseResults?.Sexual?.Severity, Is.EqualTo(ContentFilterSeverity.Safe));
     }

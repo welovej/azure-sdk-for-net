@@ -196,7 +196,7 @@ CloudRoleArn = "arn:aws:iam::00000000:role/ASCMonitor",
 },
                 EnvironmentData = new AwsEnvironment()
                 {
-                    ScanInterval = 4L,
+                    ScanInterval = 4,
                 },
                 ETag = new ETag("etag value (must be supplied for update)"),
                 Tags =

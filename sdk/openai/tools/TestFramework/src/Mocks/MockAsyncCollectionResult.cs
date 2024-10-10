@@ -2,8 +2,7 @@
 // Licensed under the MIT License.
 
 using System.ClientModel;
-using System.Globalization;
-using OpenAI.TestFramework.Adapters;
+using System.ClientModel.Primitives;
 
 namespace OpenAI.TestFramework.Mocks;
 
@@ -14,7 +13,6 @@ namespace OpenAI.TestFramework.Mocks;
 public class MockAsyncCollectionResult<TValue> : AsyncCollectionResult<TValue>
 {
     private readonly Func<IAsyncEnumerable<TValue>> _enumerateAsyncFunc;
-    private readonly int _itemsPerPage;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MockAsyncCollectionResult{TValue}"/> class
@@ -22,58 +20,13 @@ public class MockAsyncCollectionResult<TValue> : AsyncCollectionResult<TValue>
     /// </summary>
     /// <param name="enumerateAsyncFunc">The function that asynchronously enumerates the values in the collection.</param>
     /// <param name="response">The optional pipeline response.</param>
-    public MockAsyncCollectionResult(Func<IAsyncEnumerable<TValue>> enumerateAsyncFunc, int itemsPerPage = 5)
+    public MockAsyncCollectionResult(Func<IAsyncEnumerable<TValue>> enumerateAsyncFunc, PipelineResponse? response = null) :
+        base(response ?? new MockPipelineResponse())
     {
-        if (itemsPerPage < 1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(itemsPerPage), "Items per page must be greater than 0.");
-        }
-
         _enumerateAsyncFunc = enumerateAsyncFunc ?? throw new ArgumentNullException(nameof(enumerateAsyncFunc));
-        _itemsPerPage = itemsPerPage;
     }
 
-    /// <inheritdoc />
-    public override ContinuationToken? GetContinuationToken(ClientResult page)
-    {
-        var parsed = MockPage<TValue>.FromClientResult(page);
-        string token = parsed.Next.ToString(CultureInfo.InvariantCulture);
-        return ContinuationToken.FromBytes(BinaryData.FromString(token));
-    }
-
-    /// <inheritdoc />
-    public override async IAsyncEnumerable<ClientResult> GetRawPagesAsync()
-    {
-        List<TValue> items = new(_itemsPerPage);
-        int next = 0;
-
-        await foreach (TValue item in _enumerateAsyncFunc())
-        {
-            items.Add(item);
-            next++;
-            if (items.Count == _itemsPerPage)
-            {
-                yield return new MockPage<TValue>
-                {
-                    Values = items,
-                    Next = next
-                }.AsClientResult();
-
-                items.Clear();
-            }
-        }
-
-        if (items.Count > 0)
-        {
-            yield return new MockPage<TValue>
-            {
-                Values = items,
-                Next = next
-            }.AsClientResult();
-        }
-    }
-
-    /// <inheritdoc />
-    protected override IAsyncEnumerable<TValue> GetValuesFromPageAsync(ClientResult page)
-        => new SyncToAsyncEnumerable<TValue>(MockPage<TValue>.FromClientResult(page).Values);
+    /// <inheritdoc/>
+    public override IAsyncEnumerator<TValue> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+        => _enumerateAsyncFunc().GetAsyncEnumerator(cancellationToken);
 }

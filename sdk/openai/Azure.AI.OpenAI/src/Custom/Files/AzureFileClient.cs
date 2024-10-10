@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#if !AZURE_OPENAI_GA
-
 using OpenAI.Files;
 using System.ClientModel;
 using System.ClientModel.Primitives;
@@ -15,7 +13,7 @@ namespace Azure.AI.OpenAI.Files;
 /// <remarks>
 /// To retrieve an instance of this type, use the matching method on <see cref="AzureOpenAIClient"/>.
 /// </remarks>
-internal partial class AzureFileClient : OpenAIFileClient
+internal partial class AzureFileClient : FileClient
 {
     private readonly Uri _endpoint;
     private readonly string _apiVersion;
@@ -35,7 +33,7 @@ internal partial class AzureFileClient : OpenAIFileClient
     { }
 
     /// <inheritdoc />
-    public override ClientResult<OpenAIFile> UploadFile(Stream file, string filename, FileUploadPurpose purpose, CancellationToken cancellationToken = default)
+    public override ClientResult<OpenAIFileInfo> UploadFile(Stream file, string filename, FileUploadPurpose purpose, CancellationToken cancellationToken = default)
     {
         if (purpose != FileUploadPurpose.FineTune)
         {
@@ -48,11 +46,11 @@ internal partial class AzureFileClient : OpenAIFileClient
 
         using MultipartFormDataBinaryContent content = CreateMultiPartContentWithMimeType(file, filename, purpose);
         ClientResult clientResult = UploadFile(content, content.ContentType, new() { CancellationToken = cancellationToken });
-        return ClientResult.FromValue(OpenAIFile.FromResponse(clientResult.GetRawResponse()), clientResult.GetRawResponse());
+        return ClientResult.FromValue(OpenAIFileInfo.FromResponse(clientResult.GetRawResponse()), clientResult.GetRawResponse());
     }
 
     /// <inheritdoc />
-    public override async Task<ClientResult<OpenAIFile>> UploadFileAsync(Stream file, string filename, FileUploadPurpose purpose, CancellationToken cancellationToken = default)
+    public override async Task<ClientResult<OpenAIFileInfo>> UploadFileAsync(Stream file, string filename, FileUploadPurpose purpose, CancellationToken cancellationToken = default)
     {
         if (purpose != FileUploadPurpose.FineTune)
         {
@@ -67,7 +65,7 @@ internal partial class AzureFileClient : OpenAIFileClient
         using MultipartFormDataBinaryContent content = CreateMultiPartContentWithMimeType(file, filename, purpose);
         ClientResult result = await UploadFileAsync(content, content.ContentType, new() { CancellationToken = cancellationToken })
             .ConfigureAwait(continueOnCapturedContext: false);
-        return ClientResult.FromValue(OpenAIFile.FromResponse(result.GetRawResponse()), result.GetRawResponse());
+        return ClientResult.FromValue(OpenAIFileInfo.FromResponse(result.GetRawResponse()), result.GetRawResponse());
     }
 
     private MultipartFormDataBinaryContent CreateMultiPartContentWithMimeType(Stream file, string filename, FileUploadPurpose purpose)
@@ -78,5 +76,3 @@ internal partial class AzureFileClient : OpenAIFileClient
         return multipartFormDataBinaryContent;
     }
 }
-
-#endif

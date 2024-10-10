@@ -18,9 +18,9 @@ namespace Azure.AI.ContentSafety.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_BlocklistClient_AddOrUpdateBlocklistItems_AddOrUpdateBlocklistItemsToTextBlocklist()
+        public void Example_BlocklistClient_AddOrUpdateBlocklistItems_ShortVersion()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
@@ -30,12 +30,11 @@ namespace Azure.AI.ContentSafety.Samples
             {
 new
 {
-description = "Hate word",
-text = "hate",
+text = "<text>",
 }
             },
             });
-            Response response = client.AddOrUpdateBlocklistItems("TestBlocklist", content);
+            Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
@@ -44,9 +43,9 @@ text = "hate",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_BlocklistClient_AddOrUpdateBlocklistItems_AddOrUpdateBlocklistItemsToTextBlocklist_Async()
+        public async Task Example_BlocklistClient_AddOrUpdateBlocklistItems_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
@@ -56,12 +55,11 @@ text = "hate",
             {
 new
 {
-description = "Hate word",
-text = "hate",
+text = "<text>",
 }
             },
             });
-            Response response = await client.AddOrUpdateBlocklistItemsAsync("TestBlocklist", content);
+            Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
@@ -70,50 +68,137 @@ text = "hate",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_BlocklistClient_AddOrUpdateBlocklistItems_AddOrUpdateBlocklistItemsToTextBlocklist_Convenience()
+        public void Example_BlocklistClient_AddOrUpdateBlocklistItems_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
             AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
-new TextBlocklistItem("hate")
-{
-Description = "Hate word",
-}
+new TextBlocklistItem("<text>")
             });
-            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("TestBlocklist", options);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_BlocklistClient_AddOrUpdateBlocklistItems_AddOrUpdateBlocklistItemsToTextBlocklist_Convenience_Async()
+        public async Task Example_BlocklistClient_AddOrUpdateBlocklistItems_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
             AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
-new TextBlocklistItem("hate")
-{
-Description = "Hate word",
-}
+new TextBlocklistItem("<text>")
             });
-            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("TestBlocklist", options);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklist_CreateOrUpdateTextBlocklist_CreateOrUpdateTextBlocklist()
+        public void Example_BlocklistClient_AddOrUpdateBlocklistItems_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            using RequestContent content = null;
-            Response response = client.CreateOrUpdateTextBlocklist("TestBlocklist", content);
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistItems = new object[]
+            {
+new
+{
+description = "<description>",
+text = "<text>",
+}
+            },
+            });
+            Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_BlocklistClient_AddOrUpdateBlocklistItems_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistItems = new object[]
+            {
+new
+{
+description = "<description>",
+text = "<text>",
+}
+            },
+            });
+            Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_BlocklistClient_AddOrUpdateBlocklistItems_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+            {
+new TextBlocklistItem("<text>")
+{
+Description = "<description>",
+}
+            });
+            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_BlocklistClient_AddOrUpdateBlocklistItems_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+            {
+new TextBlocklistItem("<text>")
+{
+Description = "<description>",
+}
+            });
+            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklist_CreateOrUpdateTextBlocklist_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistName = "<blocklistName>",
+            });
+            Response response = client.CreateOrUpdateTextBlocklist("<Name>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistName").ToString());
@@ -121,14 +206,17 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklist_CreateOrUpdateTextBlocklist_CreateOrUpdateTextBlocklist_Async()
+        public async Task Example_TextBlocklist_CreateOrUpdateTextBlocklist_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            using RequestContent content = null;
-            Response response = await client.CreateOrUpdateTextBlocklistAsync("TestBlocklist", content);
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistName = "<blocklistName>",
+            });
+            Response response = await client.CreateOrUpdateTextBlocklistAsync("<Name>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistName").ToString());
@@ -136,39 +224,105 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklist_DeleteTextBlocklist_DeleteTextBlocklistByBlocklistName()
+        public void Example_TextBlocklist_CreateOrUpdateTextBlocklist_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response response = client.DeleteTextBlocklist("TestBlocklist");
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistName = "<blocklistName>",
+                description = "<description>",
+            });
+            Response response = client.CreateOrUpdateTextBlocklist("<Name>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistName").ToString());
+            Console.WriteLine(result.GetProperty("description").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklist_CreateOrUpdateTextBlocklist_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistName = "<blocklistName>",
+                description = "<description>",
+            });
+            Response response = await client.CreateOrUpdateTextBlocklistAsync("<Name>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistName").ToString());
+            Console.WriteLine(result.GetProperty("description").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklist_DeleteTextBlocklist_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response response = client.DeleteTextBlocklist("<Name>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklist_DeleteTextBlocklist_DeleteTextBlocklistByBlocklistName_Async()
+        public async Task Example_TextBlocklist_DeleteTextBlocklist_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response response = await client.DeleteTextBlocklistAsync("TestBlocklist");
+            Response response = await client.DeleteTextBlocklistAsync("<Name>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklist_GetTextBlocklist_GetTextBlocklistByBlocklistName()
+        public void Example_TextBlocklist_DeleteTextBlocklist_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response response = client.GetTextBlocklist("TestBlocklist", null);
+            Response response = client.DeleteTextBlocklist("<Name>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklist_DeleteTextBlocklist_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response response = await client.DeleteTextBlocklistAsync("<Name>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklist_GetTextBlocklist_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response response = client.GetTextBlocklist("<Name>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistName").ToString());
@@ -176,13 +330,13 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklist_GetTextBlocklist_GetTextBlocklistByBlocklistName_Async()
+        public async Task Example_TextBlocklist_GetTextBlocklist_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response response = await client.GetTextBlocklistAsync("TestBlocklist", null);
+            Response response = await client.GetTextBlocklistAsync("<Name>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistName").ToString());
@@ -190,35 +344,87 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklist_GetTextBlocklist_GetTextBlocklistByBlocklistName_Convenience()
+        public void Example_TextBlocklist_GetTextBlocklist_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response<TextBlocklist> response = client.GetTextBlocklist("TestBlocklist");
+            Response<TextBlocklist> response = client.GetTextBlocklist("<Name>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklist_GetTextBlocklist_GetTextBlocklistByBlocklistName_Convenience_Async()
+        public async Task Example_TextBlocklist_GetTextBlocklist_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response<TextBlocklist> response = await client.GetTextBlocklistAsync("TestBlocklist");
+            Response<TextBlocklist> response = await client.GetTextBlocklistAsync("<Name>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklistItem_GetTextBlocklistItem_GetBlockItemByBlocklistNameAndBlocklistItemId()
+        public void Example_TextBlocklist_GetTextBlocklist_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response response = client.GetTextBlocklistItem("TestBlocklist", "9511969e-f1e3-4604-9127-05ee16c509ec", null);
+            Response response = client.GetTextBlocklist("<Name>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistName").ToString());
+            Console.WriteLine(result.GetProperty("description").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklist_GetTextBlocklist_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response response = await client.GetTextBlocklistAsync("<Name>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistName").ToString());
+            Console.WriteLine(result.GetProperty("description").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklist_GetTextBlocklist_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response<TextBlocklist> response = client.GetTextBlocklist("<Name>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklist_GetTextBlocklist_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response<TextBlocklist> response = await client.GetTextBlocklistAsync("<Name>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklistItem_GetTextBlocklistItem_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response response = client.GetTextBlocklistItem("<Name>", "<blocklistItemId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
@@ -227,13 +433,13 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklistItem_GetTextBlocklistItem_GetBlockItemByBlocklistNameAndBlocklistItemId_Async()
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItem_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response response = await client.GetTextBlocklistItemAsync("TestBlocklist", "9511969e-f1e3-4604-9127-05ee16c509ec", null);
+            Response response = await client.GetTextBlocklistItemAsync("<Name>", "<blocklistItemId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
@@ -242,31 +448,85 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklistItem_GetTextBlocklistItem_GetBlockItemByBlocklistNameAndBlocklistItemId_Convenience()
+        public void Example_TextBlocklistItem_GetTextBlocklistItem_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response<TextBlocklistItem> response = client.GetTextBlocklistItem("TestBlocklist", "9511969e-f1e3-4604-9127-05ee16c509ec");
+            Response<TextBlocklistItem> response = client.GetTextBlocklistItem("<Name>", "<blocklistItemId>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklistItem_GetTextBlocklistItem_GetBlockItemByBlocklistNameAndBlocklistItemId_Convenience_Async()
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItem_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            Response<TextBlocklistItem> response = await client.GetTextBlocklistItemAsync("TestBlocklist", "9511969e-f1e3-4604-9127-05ee16c509ec");
+            Response<TextBlocklistItem> response = await client.GetTextBlocklistItemAsync("<Name>", "<blocklistItemId>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_BlocklistClient_RemoveBlocklistItems_RemoveBlockItemsFromTextBlocklist()
+        public void Example_TextBlocklistItem_GetTextBlocklistItem_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response response = client.GetTextBlocklistItem("<Name>", "<blocklistItemId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItem_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response response = await client.GetTextBlocklistItemAsync("<Name>", "<blocklistItemId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklistItem_GetTextBlocklistItem_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response<TextBlocklistItem> response = client.GetTextBlocklistItem("<Name>", "<blocklistItemId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItem_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            Response<TextBlocklistItem> response = await client.GetTextBlocklistItemAsync("<Name>", "<blocklistItemId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_BlocklistClient_RemoveBlocklistItems_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
@@ -274,19 +534,19 @@ Description = "Hate word",
             {
                 blocklistItemIds = new object[]
             {
-"9511969e-f1e3-4604-9127-05ee16c509ec"
+"<blocklistItemIds>"
             },
             });
-            Response response = client.RemoveBlocklistItems("TestBlocklist", content);
+            Response response = client.RemoveBlocklistItems("<Name>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_BlocklistClient_RemoveBlocklistItems_RemoveBlockItemsFromTextBlocklist_Async()
+        public async Task Example_BlocklistClient_RemoveBlocklistItems_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
@@ -294,47 +554,111 @@ Description = "Hate word",
             {
                 blocklistItemIds = new object[]
             {
-"9511969e-f1e3-4604-9127-05ee16c509ec"
+"<blocklistItemIds>"
             },
             });
-            Response response = await client.RemoveBlocklistItemsAsync("TestBlocklist", content);
+            Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_BlocklistClient_RemoveBlocklistItems_RemoveBlockItemsFromTextBlocklist_Convenience()
+        public void Example_BlocklistClient_RemoveBlocklistItems_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "9511969e-f1e3-4604-9127-05ee16c509ec" });
-            Response response = client.RemoveBlocklistItems("TestBlocklist", options);
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = client.RemoveBlocklistItems("<Name>", options);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_BlocklistClient_RemoveBlocklistItems_RemoveBlockItemsFromTextBlocklist_Convenience_Async()
+        public async Task Example_BlocklistClient_RemoveBlocklistItems_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "9511969e-f1e3-4604-9127-05ee16c509ec" });
-            Response response = await client.RemoveBlocklistItemsAsync("TestBlocklist", options);
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = await client.RemoveBlocklistItemsAsync("<Name>", options);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklistItem_GetTextBlocklistItems_GetAllBlockItemsByBlocklistName()
+        public void Example_BlocklistClient_RemoveBlocklistItems_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetTextBlocklistItems("TestBlocklist", null, null, null, null))
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistItemIds = new object[]
+            {
+"<blocklistItemIds>"
+            },
+            });
+            Response response = client.RemoveBlocklistItems("<Name>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_BlocklistClient_RemoveBlocklistItems_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                blocklistItemIds = new object[]
+            {
+"<blocklistItemIds>"
+            },
+            });
+            Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_BlocklistClient_RemoveBlocklistItems_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = client.RemoveBlocklistItems("<Name>", options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_BlocklistClient_RemoveBlocklistItems_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = await client.RemoveBlocklistItemsAsync("<Name>", options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklistItem_GetTextBlocklistItems_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            foreach (BinaryData item in client.GetTextBlocklistItems("<Name>", null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
@@ -344,13 +668,13 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklistItem_GetTextBlocklistItems_GetAllBlockItemsByBlocklistName_Async()
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItems_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            await foreach (BinaryData item in client.GetTextBlocklistItemsAsync("TestBlocklist", null, null, null, null))
+            await foreach (BinaryData item in client.GetTextBlocklistItemsAsync("<Name>", null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
@@ -360,35 +684,95 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklistItem_GetTextBlocklistItems_GetAllBlockItemsByBlocklistName_Convenience()
+        public void Example_TextBlocklistItem_GetTextBlocklistItems_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            foreach (TextBlocklistItem item in client.GetTextBlocklistItems("TestBlocklist"))
+            foreach (TextBlocklistItem item in client.GetTextBlocklistItems("<Name>"))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklistItem_GetTextBlocklistItems_GetAllBlockItemsByBlocklistName_Convenience_Async()
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItems_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            await foreach (TextBlocklistItem item in client.GetTextBlocklistItemsAsync("TestBlocklist"))
+            await foreach (TextBlocklistItem item in client.GetTextBlocklistItemsAsync("<Name>"))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklist_GetTextBlocklists_GetAllTextBlocklists()
+        public void Example_TextBlocklistItem_GetTextBlocklistItems_AllParameters()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            foreach (BinaryData item in client.GetTextBlocklistItems("<Name>", 1234, 1234, 1234, null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
+                Console.WriteLine(result.GetProperty("description").ToString());
+                Console.WriteLine(result.GetProperty("text").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItems_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            await foreach (BinaryData item in client.GetTextBlocklistItemsAsync("<Name>", 1234, 1234, 1234, null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
+                Console.WriteLine(result.GetProperty("description").ToString());
+                Console.WriteLine(result.GetProperty("text").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklistItem_GetTextBlocklistItems_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            foreach (TextBlocklistItem item in client.GetTextBlocklistItems("<Name>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklistItem_GetTextBlocklistItems_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            await foreach (TextBlocklistItem item in client.GetTextBlocklistItemsAsync("<Name>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklist_GetTextBlocklists_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
@@ -401,9 +785,9 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklist_GetTextBlocklists_GetAllTextBlocklists_Async()
+        public async Task Example_TextBlocklist_GetTextBlocklists_ShortVersion_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
@@ -416,9 +800,9 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_TextBlocklist_GetTextBlocklists_GetAllTextBlocklists_Convenience()
+        public void Example_TextBlocklist_GetTextBlocklists_ShortVersion_Convenience()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
@@ -429,9 +813,67 @@ Description = "Hate word",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_TextBlocklist_GetTextBlocklists_GetAllTextBlocklists_Convenience_Async()
+        public async Task Example_TextBlocklist_GetTextBlocklists_ShortVersion_Convenience_Async()
         {
-            Uri endpoint = new Uri("<endpoint>");
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            await foreach (TextBlocklist item in client.GetTextBlocklistsAsync())
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklist_GetTextBlocklists_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            foreach (BinaryData item in client.GetTextBlocklists(null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("blocklistName").ToString());
+                Console.WriteLine(result.GetProperty("description").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklist_GetTextBlocklists_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            await foreach (BinaryData item in client.GetTextBlocklistsAsync(null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("blocklistName").ToString());
+                Console.WriteLine(result.GetProperty("description").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextBlocklist_GetTextBlocklists_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            BlocklistClient client = new BlocklistClient(endpoint, credential);
+
+            foreach (TextBlocklist item in client.GetTextBlocklists())
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextBlocklist_GetTextBlocklists_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 

@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.Network.Samples
             string peeringName = "AzurePrivatePeering";
             ExpressRouteCircuitPeeringData data = new ExpressRouteCircuitPeeringData()
             {
-                PeerASN = 200L,
+                PeerASN = 200,
                 PrimaryPeerAddressPrefix = "192.168.16.252/30",
                 SecondaryPeerAddressPrefix = "192.168.18.252/30",
                 VlanId = 200,

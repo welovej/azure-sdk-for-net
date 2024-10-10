@@ -43,6 +43,8 @@ public static class TypeRegistry
         RegisterExternal<ResponseError>();
         RegisterExternal<ResourceIdentifier>();
         RegisterExternal<ResourceType>();
+        RegisterExternal<SubResource>();
+        RegisterExternal<WritableSubResource>();
     }
 
     public static void RegisterExternal<T>() =>

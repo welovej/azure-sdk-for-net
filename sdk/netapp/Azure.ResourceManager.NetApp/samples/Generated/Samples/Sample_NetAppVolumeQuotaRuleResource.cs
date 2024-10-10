@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.NetApp.Samples
             // invoke the operation
             NetAppVolumeQuotaRulePatch patch = new NetAppVolumeQuotaRulePatch()
             {
-                QuotaSizeInKiBs = 100009L,
+                QuotaSizeInKiBs = 100009,
             };
             ArmOperation<NetAppVolumeQuotaRuleResource> lro = await netAppVolumeQuotaRule.UpdateAsync(WaitUntil.Completed, patch);
             NetAppVolumeQuotaRuleResource result = lro.Value;

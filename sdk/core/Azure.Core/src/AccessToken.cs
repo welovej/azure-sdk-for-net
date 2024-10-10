@@ -19,7 +19,6 @@ namespace Azure.Core
         {
             Token = accessToken;
             ExpiresOn = expiresOn;
-            TokenType = "Bearer";
         }
 
         /// <summary>
@@ -33,22 +32,6 @@ namespace Azure.Core
             Token = accessToken;
             ExpiresOn = expiresOn;
             RefreshOn = refreshOn;
-            TokenType = "Bearer";
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AccessToken"/> using the provided <paramref name="accessToken"/> and <paramref name="expiresOn"/>.
-        /// </summary>
-        /// <param name="accessToken">The access token value.</param>
-        /// <param name="expiresOn">The access token expiry date.</param>
-        /// <param name="refreshOn">Specifies the time when the cached token should be proactively refreshed.</param>
-        /// <param name="tokenType">The access token type.</param>
-        public AccessToken(string accessToken, DateTimeOffset expiresOn, DateTimeOffset? refreshOn, string tokenType)
-        {
-            Token = accessToken;
-            ExpiresOn = expiresOn;
-            RefreshOn = refreshOn;
-            TokenType = tokenType;
         }
 
         /// <summary>
@@ -66,17 +49,12 @@ namespace Azure.Core
         /// </summary>
         public DateTimeOffset? RefreshOn { get; }
 
-        /// <summary>
-        /// Identifies the type of access token.
-        /// </summary>
-        public string TokenType { get; }
-
         /// <inheritdoc />
         public override bool Equals(object? obj)
         {
             if (obj is AccessToken accessToken)
             {
-                return accessToken.ExpiresOn == ExpiresOn && accessToken.Token == Token && accessToken.TokenType == TokenType;
+                return accessToken.ExpiresOn == ExpiresOn && accessToken.Token == Token;
             }
 
             return false;
@@ -85,7 +63,7 @@ namespace Azure.Core
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return HashCodeBuilder.Combine(Token, ExpiresOn, TokenType);
+            return HashCodeBuilder.Combine(Token, ExpiresOn);
         }
     }
 }

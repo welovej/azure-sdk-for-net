@@ -2,7 +2,10 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Buffers;
 using System.IO;
+using Azure.Core;
+using Azure.Storage.Common;
 
 namespace Azure.Storage.Tests.Shared
 {
@@ -42,14 +45,9 @@ namespace Azure.Storage.Tests.Shared
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            if (offset < 0 || offset > buffer.Length - 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
-            if (count < 0 || count > buffer.Length - offset)
-            {
-                throw new ArgumentOutOfRangeException(nameof(count));
-            }
+            Argument.AssertNotNull(buffer, nameof(buffer));
+            Argument.AssertInRange(offset, 0, buffer.Length - 1, nameof(offset));
+            Argument.AssertInRange(count, 0, buffer.Length - offset, nameof(count));
 
             int dataOffset = (int) (Position % _data.Length);
             int toRead = (int)Math.Min(Math.Min(count, _length - Position), _data.Length - dataOffset);

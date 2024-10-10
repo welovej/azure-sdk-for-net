@@ -3,7 +3,6 @@
 
 using Azure.Core;
 using System.ClientModel.Primitives;
-using System.Collections.Generic;
 using System.Net;
 
 namespace Azure.AI.OpenAI;
@@ -34,7 +33,7 @@ internal partial class AzureTokenAuthenticationPolicy : PipelinePolicy
                 TokenRequestContext tokenRequestContext = CreateRequestContext(message.Request);
                 _currentToken = _credential.GetToken(tokenRequestContext, cancellationToken: default);
             }
-            message?.Request?.Headers?.Set("Authorization", $"Bearer {_currentToken.Value.Token}");
+            message?.Request?.Headers?.Add("Authorization", $"Bearer {_currentToken.Value.Token}");
         }
         ProcessNext(message, pipeline, currentIndex);
         if (message?.Response?.Status == (int)HttpStatusCode.Unauthorized)
@@ -53,7 +52,7 @@ internal partial class AzureTokenAuthenticationPolicy : PipelinePolicy
                 _currentToken
                     = await _credential.GetTokenAsync(tokenRequestContext, cancellationToken: default).ConfigureAwait(false);
             }
-            message?.Request?.Headers?.Set("Authorization", $"Bearer {_currentToken.Value.Token}");
+            message?.Request?.Headers?.Add("Authorization", $"Bearer {_currentToken.Value.Token}");
         }
         await ProcessNextAsync(message, pipeline, currentIndex).ConfigureAwait(false);
         if (message?.Response?.Status == (int)HttpStatusCode.Unauthorized)

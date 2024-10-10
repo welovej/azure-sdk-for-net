@@ -39,7 +39,7 @@ internal class JobBuilder
         ClientDiagnostics = clientDiagnostics;
     }
 
-    public virtual async Task<(DataTransfer Transfer, TransferJobInternal TransferInternal)> BuildJobAsync(
+    public async Task<(DataTransfer Transfer, TransferJobInternal TransferInternal)> BuildJobAsync(
         StorageResource sourceResource,
         StorageResource destinationResource,
         DataTransferOptions transferOptions,

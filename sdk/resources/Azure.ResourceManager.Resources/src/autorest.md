@@ -20,7 +20,6 @@ head-as-boolean: false
 modelerfour:
   lenient-model-deduplication: true
 use-model-reader-writer: true
-use-write-core: true
 enable-bicep-serialization: true
 
 #mgmt-debug:
@@ -29,9 +28,6 @@ enable-bicep-serialization: true
 rename-mapping:
   DecompileOperationSuccessResponse: DecompileOperationSuccessResult
   FileDefinition: DecompiledFileDefinition
-  DataBoundary: DataBoundaryRegion
-  DataBoundaryDefinition: DataBoundary
-  DefaultName: DataBoundaryName
 
 patch-initializer-customization:
   ArmDeploymentContent:
@@ -67,7 +63,6 @@ request-path-to-scope-resource-types:
     - subscriptions
     - resourceGroups
     - managementGroups
-
 override-operation-name:
   DeploymentOperations_ListAtScope: GetDeploymentOperations
   DeploymentOperations_GetAtScope: GetDeploymentOperation
@@ -124,7 +119,7 @@ models-to-treat-empty-string-as-null:
   - ArmApplicationPackageSupportUris
 
 suppress-abstract-base-class:
-  - ArmDeploymentScriptData
+- ArmDeploymentScriptData
 
 directive:
   - remove-operation: checkResourceName
@@ -192,7 +187,6 @@ directive:
   - remove-operation: DeploymentStacks_CreateOrUpdateAtManagementGroup
   - remove-operation: DeploymentStacks_GetAtManagementGroup
   - remove-operation: DeploymentStacks_DeleteAtManagementGroup
-  - remove-operation: Operations_List
 
   - from: managedapplications.json
     where: $['x-ms-paths']
@@ -324,14 +318,6 @@ directive:
       $.TemplateLink['x-ms-client-name'] = 'ArmDeploymentTemplateLink';
       $.WhatIfChange.properties.changeType['x-ms-enum'].name = 'WhatIfChangeType';
       $.WhatIfPropertyChange.properties.propertyChangeType['x-ms-enum'].name = 'WhatIfPropertyChangeType';
-  - from: dataBoundaries.json
-    where: $.definitions
-    transform: >
-      $.DataBoundaryProperties.properties.provisioningState['x-ms-enum'].name = 'DataBoundaryProvisioningState';
-  - from: dataBoundaries.json
-    where: $.paths..parameters[?(@.name === 'default')]
-    transform: >
-      $['x-ms-client-name'] = 'name';
   - from: resources.json
     where: $.paths['/providers/Microsoft.Resources/deployments/{deploymentName}/whatIf'].post.parameters[1].schema
     transform: $['$ref'] = '#/definitions/DeploymentWhatIf'
@@ -674,6 +660,7 @@ directive:
           }
         }
       };
+  
 ```
 
 ### Tag: package-resources-2022-04
@@ -683,11 +670,11 @@ These settings apply only when `--tag=package-resources-2022-04` is specified on
 
 ```yaml $(tag) == 'package-resources-2022-04'
 input-file:
-    - https://github.com/Azure/azure-rest-api-specs/blob/a6074b7654c388dec49c9969d0136cfeb03575c9/specification/resources/resource-manager/Microsoft.Resources/stable/2021-05-01/templateSpecs.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/a6074b7654c388dec49c9969d0136cfeb03575c9/specification/resources/resource-manager/Microsoft.Resources/stable/2020-10-01/deploymentScripts.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/a6074b7654c388dec49c9969d0136cfeb03575c9/specification/resources/resource-manager/Microsoft.Resources/stable/2024-03-01/resources.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/a6074b7654c388dec49c9969d0136cfeb03575c9/specification/resources/resource-manager/Microsoft.Solutions/stable/2019-07-01/managedapplications.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/a6074b7654c388dec49c9969d0136cfeb03575c9/specification/resources/resource-manager/Microsoft.Resources/stable/2023-11-01/bicepClient.json#
-    - https://github.com/Azure/azure-rest-api-specs/blob/a6074b7654c388dec49c9969d0136cfeb03575c9/specification/resources/resource-manager/Microsoft.Resources/stable/2024-03-01/deploymentStacks.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/a6074b7654c388dec49c9969d0136cfeb03575c9/specification/resources/resource-manager/Microsoft.Resources/stable/2024-08-01/dataBoundaries.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a220053360f9700f81abcdb6142769c85c3bcb27/specification/resources/resource-manager/Microsoft.Resources/stable/2021-05-01/templateSpecs.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a220053360f9700f81abcdb6142769c85c3bcb27/specification/resources/resource-manager/Microsoft.Resources/stable/2020-10-01/deploymentScripts.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a220053360f9700f81abcdb6142769c85c3bcb27/specification/resources/resource-manager/Microsoft.Resources/stable/2024-03-01/resources.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a220053360f9700f81abcdb6142769c85c3bcb27/specification/resources/resource-manager/Microsoft.Solutions/stable/2019-07-01/managedapplications.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a220053360f9700f81abcdb6142769c85c3bcb27/specification/resources/resource-manager/Microsoft.Resources/stable/2023-11-01/bicepClient.json#
+    - https://github.com/Azure/azure-rest-api-specs/blob/a220053360f9700f81abcdb6142769c85c3bcb27/specification/resources/resource-manager/Microsoft.Resources/stable/2024-03-01/deploymentStacks.json
 ```
+

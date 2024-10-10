@@ -19,22 +19,41 @@ namespace Azure.ResourceManager.Monitor.Models
 
         void IJsonModel<MultiMetricCriteria>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<MultiMetricCriteria>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(MultiMetricCriteria)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
+            writer.WriteStartObject();
+            writer.WritePropertyName("criterionType"u8);
+            writer.WriteStringValue(CriterionType.ToString());
+            writer.WritePropertyName("name"u8);
+            writer.WriteStringValue(Name);
+            writer.WritePropertyName("metricName"u8);
+            writer.WriteStringValue(MetricName);
+            if (Optional.IsDefined(MetricNamespace))
+            {
+                writer.WritePropertyName("metricNamespace"u8);
+                writer.WriteStringValue(MetricNamespace);
+            }
+            writer.WritePropertyName("timeAggregation"u8);
+            writer.WriteStringValue(TimeAggregation.ToString());
+            if (Optional.IsCollectionDefined(Dimensions))
+            {
+                writer.WritePropertyName("dimensions"u8);
+                writer.WriteStartArray();
+                foreach (var item in Dimensions)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(SkipMetricValidation))
+            {
+                writer.WritePropertyName("skipMetricValidation"u8);
+                writer.WriteBooleanValue(SkipMetricValidation.Value);
+            }
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -47,6 +66,7 @@ namespace Azure.ResourceManager.Monitor.Models
                 }
 #endif
             }
+            writer.WriteEndObject();
         }
 
         MultiMetricCriteria IJsonModel<MultiMetricCriteria>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

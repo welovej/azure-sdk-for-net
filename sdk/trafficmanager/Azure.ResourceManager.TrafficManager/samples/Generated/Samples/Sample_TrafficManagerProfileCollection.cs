@@ -402,16 +402,16 @@ namespace Azure.ResourceManager.TrafficManager.Samples
                 DnsConfig = new TrafficManagerDnsConfig()
                 {
                     RelativeName = "azsmnet6386",
-                    Ttl = 35L,
+                    Ttl = 35,
                 },
                 MonitorConfig = new TrafficManagerMonitorConfig()
                 {
                     Protocol = TrafficManagerMonitorProtocol.Http,
-                    Port = 80L,
+                    Port = 80,
                     Path = "/testpath.aspx",
                 },
                 TrafficViewEnrollmentStatus = TrafficViewEnrollmentStatus.Disabled,
-                MaxReturn = 2L,
+                MaxReturn = 2,
                 Location = new AzureLocation("global"),
             };
             ArmOperation<TrafficManagerProfileResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, profileName, data);
@@ -456,12 +456,12 @@ namespace Azure.ResourceManager.TrafficManager.Samples
                 DnsConfig = new TrafficManagerDnsConfig()
                 {
                     RelativeName = "azsmnet6386",
-                    Ttl = 35L,
+                    Ttl = 35,
                 },
                 MonitorConfig = new TrafficManagerMonitorConfig()
                 {
                     Protocol = TrafficManagerMonitorProtocol.Http,
-                    Port = 80L,
+                    Port = 80,
                     Path = "/testpath.aspx",
                 },
                 Location = new AzureLocation("global"),
@@ -508,16 +508,16 @@ namespace Azure.ResourceManager.TrafficManager.Samples
                 DnsConfig = new TrafficManagerDnsConfig()
                 {
                     RelativeName = "azuresdkfornetautoresttrafficmanager6192",
-                    Ttl = 35L,
+                    Ttl = 35,
                 },
                 MonitorConfig = new TrafficManagerMonitorConfig()
                 {
                     Protocol = TrafficManagerMonitorProtocol.Http,
-                    Port = 80L,
+                    Port = 80,
                     Path = "/testpath.aspx",
-                    IntervalInSeconds = 10L,
-                    TimeoutInSeconds = 5L,
-                    ToleratedNumberOfFailures = 2L,
+                    IntervalInSeconds = 10,
+                    TimeoutInSeconds = 5,
+                    ToleratedNumberOfFailures = 2,
                 },
                 Endpoints =
 {
@@ -578,16 +578,16 @@ AllowedEndpointRecordType.DomainName
                 DnsConfig = new TrafficManagerDnsConfig()
                 {
                     RelativeName = "azuresdkfornetautoresttrafficmanager6192",
-                    Ttl = 35L,
+                    Ttl = 35,
                 },
                 MonitorConfig = new TrafficManagerMonitorConfig()
                 {
                     Protocol = TrafficManagerMonitorProtocol.Http,
-                    Port = 80L,
+                    Port = 80,
                     Path = "/testpath.aspx",
-                    IntervalInSeconds = 10L,
-                    TimeoutInSeconds = 5L,
-                    ToleratedNumberOfFailures = 2L,
+                    IntervalInSeconds = 10,
+                    TimeoutInSeconds = 5,
+                    ToleratedNumberOfFailures = 2,
                     CustomHeaders =
 {
 new TrafficManagerMonitorConfigCustomHeaderInfo()
@@ -677,16 +677,16 @@ ResourceType = new ResourceType("Microsoft.network/TrafficManagerProfiles/Extern
                 DnsConfig = new TrafficManagerDnsConfig()
                 {
                     RelativeName = "azuresdkfornetautoresttrafficmanager6192",
-                    Ttl = 35L,
+                    Ttl = 35,
                 },
                 MonitorConfig = new TrafficManagerMonitorConfig()
                 {
                     Protocol = TrafficManagerMonitorProtocol.Http,
-                    Port = 80L,
+                    Port = 80,
                     Path = "/testpath.aspx",
-                    IntervalInSeconds = 10L,
-                    TimeoutInSeconds = 5L,
-                    ToleratedNumberOfFailures = 2L,
+                    IntervalInSeconds = 10,
+                    TimeoutInSeconds = 5,
+                    ToleratedNumberOfFailures = 2,
                 },
                 Endpoints =
 {
@@ -743,16 +743,16 @@ ResourceType = new ResourceType("Microsoft.network/TrafficManagerProfiles/Extern
                 DnsConfig = new TrafficManagerDnsConfig()
                 {
                     RelativeName = "parentprofile",
-                    Ttl = 35L,
+                    Ttl = 35,
                 },
                 MonitorConfig = new TrafficManagerMonitorConfig()
                 {
                     Protocol = TrafficManagerMonitorProtocol.Http,
-                    Port = 80L,
+                    Port = 80,
                     Path = "/testpath.aspx",
-                    IntervalInSeconds = 10L,
-                    TimeoutInSeconds = 5L,
-                    ToleratedNumberOfFailures = 2L,
+                    IntervalInSeconds = 10,
+                    TimeoutInSeconds = 5,
+                    ToleratedNumberOfFailures = 2,
                 },
                 Endpoints =
 {
@@ -760,22 +760,22 @@ new TrafficManagerEndpointData()
 {
 Target = "firstnestedprofile.tmpreview.watmtest.azure-test.net",
 EndpointStatus = TrafficManagerEndpointStatus.Enabled,
-Weight = 1L,
-Priority = 1L,
-MinChildEndpoints = 2L,
-MinChildEndpointsIPv4 = 1L,
-MinChildEndpointsIPv6 = 2L,
+Weight = 1,
+Priority = 1,
+MinChildEndpoints = 2,
+MinChildEndpointsIPv4 = 1,
+MinChildEndpointsIPv6 = 2,
 Name = "MyFirstNestedEndpoint",
 ResourceType = new ResourceType("Microsoft.Network/trafficManagerProfiles/nestedEndpoints"),
 },new TrafficManagerEndpointData()
 {
 Target = "secondnestedprofile.tmpreview.watmtest.azure-test.net",
 EndpointStatus = TrafficManagerEndpointStatus.Enabled,
-Weight = 1L,
-Priority = 2L,
-MinChildEndpoints = 2L,
-MinChildEndpointsIPv4 = 2L,
-MinChildEndpointsIPv6 = 1L,
+Weight = 1,
+Priority = 2,
+MinChildEndpoints = 2,
+MinChildEndpointsIPv4 = 2,
+MinChildEndpointsIPv6 = 1,
 Name = "MySecondNestedEndpoint",
 ResourceType = new ResourceType("Microsoft.Network/trafficManagerProfiles/nestedEndpoints"),
 }

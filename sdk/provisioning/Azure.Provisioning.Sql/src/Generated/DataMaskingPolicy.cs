@@ -84,15 +84,11 @@ public partial class DataMaskingPolicy : Resource
     /// <summary>
     /// Creates a new DataMaskingPolicy.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the DataMaskingPolicy resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the DataMaskingPolicy.</param>
     /// <param name="resourceVersion">Version of the DataMaskingPolicy.</param>
-    public DataMaskingPolicy(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Sql/servers/databases/dataMaskingPolicies", resourceVersion ?? "2021-11-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public DataMaskingPolicy(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Sql/servers/databases/dataMaskingPolicies", resourceVersion ?? "2021-11-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isOutput: true);
         _dataMaskingState = BicepValue<DataMaskingState>.DefineProperty(this, "DataMaskingState", ["properties", "dataMaskingState"]);
@@ -135,14 +131,9 @@ public partial class DataMaskingPolicy : Resource
     /// <summary>
     /// Creates a reference to an existing DataMaskingPolicy.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the DataMaskingPolicy resource.  This
-    /// can be used to refer to the resource in expressions, but is not the
-    /// Azure name of the resource.  This value can contain letters, numbers,
-    /// and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the DataMaskingPolicy.</param>
     /// <param name="resourceVersion">Version of the DataMaskingPolicy.</param>
     /// <returns>The existing DataMaskingPolicy resource.</returns>
-    public static DataMaskingPolicy FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static DataMaskingPolicy FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

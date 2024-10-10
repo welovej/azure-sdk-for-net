@@ -54,7 +54,7 @@ function GetMetadata($moniker) {
   return $metadata
 }
 
-function PackageIsValidForDocsOnboarding($package) {
+function ValidatePackageForOnboarding2($package) {
   if (!(Test-Path "Function:$ValidateDocsMsPackagesFn")) {
     return $true
   }
@@ -88,7 +88,7 @@ foreach ($moniker in $MONIKERS) {
         if ($package.ContainsKey('_SkipDocsValidation') -and $true -eq $package['_SkipDocsValidation']) {
           Write-Host "Skip validation for package: $($packageIdentity)"
         }
-        elseif (!(PackageIsValidForDocsOnboarding $package)) {
+        elseif (!(ValidatePackageForOnboarding2 $package)) {
           LogWarning "Skip adding package that did not pass validation: $($packageIdentity)"
           continue
         }
@@ -101,7 +101,7 @@ foreach ($moniker in $MONIKERS) {
       $oldPackage = $alreadyOnboardedPackages[$packageIdentity]
 
       if ($oldPackage.Version -ne $package.Version) {
-        if (!(PackageIsValidForDocsOnboarding $package)) {
+        if (!(ValidatePackageForOnboarding2 $package)) {
           LogWarning "Omitting package that failed validation: $($packageIdentity)@$($package.Version)"
           continue
         }

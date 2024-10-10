@@ -16,12 +16,13 @@
       <PropertyGroup>
         <DefineConstants>PREVIEW_FEATURE_FLAG</DefineConstants>
       </PropertyGroup>
+      <ItemGroup>
+        <PackageReference Include="Azure.Core.Experimental" />
+      </ItemGroup>
     </When>
   </Choose>
   <ItemGroup>
-    <!-- TODO: Revert after Azure.Core ships
-      <PackageReference Include="Azure.Core" /> -->
-    <ProjectReference Include="..\..\..\core\Azure.Core\src\Azure.Core.csproj" />
+    <PackageReference Include="Azure.Core" />
     <PackageReference Include="System.Memory" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="System.Threading.Tasks.Extensions" />

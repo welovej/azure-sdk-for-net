@@ -6,10 +6,13 @@
 #nullable disable
 
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Nginx.Models;
 using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Nginx.Samples
 {
@@ -20,7 +23,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_DeploymentsGet()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_Get.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_Get.json
             // this example is just showing the usage of "Deployments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -54,7 +57,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_DeploymentsGet()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_Get.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_Get.json
             // this example is just showing the usage of "Deployments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -84,7 +87,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_DeploymentsGet()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_Get.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_Get.json
             // this example is just showing the usage of "Deployments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -126,7 +129,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_DeploymentsGetAutoScale()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_Get_AutoScale.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_Get_AutoScale.json
             // this example is just showing the usage of "Deployments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -160,7 +163,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_DeploymentsGetAutoScale()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_Get_AutoScale.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_Get_AutoScale.json
             // this example is just showing the usage of "Deployments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -190,7 +193,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_DeploymentsGetAutoScale()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_Get_AutoScale.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_Get_AutoScale.json
             // this example is just showing the usage of "Deployments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -232,7 +235,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_DeploymentsCreate()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_Create.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_Create.json
             // this example is just showing the usage of "Deployments_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -252,7 +255,46 @@ namespace Azure.ResourceManager.Nginx.Samples
 
             // invoke the operation
             string deploymentName = "myDeployment";
-            NginxDeploymentData data = new NginxDeploymentData(new AzureLocation("placeholder"));
+            NginxDeploymentData data = new NginxDeploymentData(new AzureLocation("West US"))
+            {
+                Properties = new NginxDeploymentProperties()
+                {
+                    ManagedResourceGroup = "myManagedResourceGroup",
+                    NetworkProfile = new NginxNetworkProfile()
+                    {
+                        FrontEndIPConfiguration = new NginxFrontendIPConfiguration()
+                        {
+                            PublicIPAddresses =
+{
+new WritableSubResource()
+{
+Id = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Network/publicIPAddresses/myPublicIPAddress"),
+}
+},
+                            PrivateIPAddresses =
+{
+new NginxPrivateIPAddress()
+{
+PrivateIPAddress = IPAddress.Parse("1.1.1.1"),
+PrivateIPAllocationMethod = NginxPrivateIPAllocationMethod.Static,
+SubnetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"),
+}
+},
+                        },
+                        NetworkInterfaceSubnetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"),
+                    },
+                    ScalingProperties = new NginxDeploymentScalingProperties()
+                    {
+                        Capacity = 10,
+                    },
+                    UpgradeChannel = "stable",
+                    UserPreferredEmail = "example@example.email",
+                },
+                Tags =
+{
+["Environment"] = "Dev",
+},
+            };
             ArmOperation<NginxDeploymentResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, deploymentName, data);
             NginxDeploymentResource result = lro.Value;
 
@@ -268,7 +310,7 @@ namespace Azure.ResourceManager.Nginx.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_DeploymentsListByResourceGroup()
         {
-            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-06-01-preview/examples/Deployments_ListByResourceGroup.json
+            // Generated from example definition: specification/nginx/resource-manager/NGINX.NGINXPLUS/preview/2024-01-01-preview/examples/Deployments_ListByResourceGroup.json
             // this example is just showing the usage of "Deployments_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

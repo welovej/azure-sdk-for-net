@@ -105,15 +105,11 @@ public partial class CommunicationDomain : Resource
     /// <summary>
     /// Creates a new CommunicationDomain.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the CommunicationDomain resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the CommunicationDomain.</param>
     /// <param name="resourceVersion">Version of the CommunicationDomain.</param>
-    public CommunicationDomain(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.Communication/emailServices/domains", resourceVersion ?? "2023-04-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public CommunicationDomain(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.Communication/emailServices/domains", resourceVersion, context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -132,37 +128,11 @@ public partial class CommunicationDomain : Resource
     }
 
     /// <summary>
-    /// Supported CommunicationDomain resource versions.
-    /// </summary>
-    public static class ResourceVersions
-    {
-        /// <summary>
-        /// 2023-06-01-preview.
-        /// </summary>
-        public static readonly string V2023_06_01_preview = "2023-06-01-preview";
-
-        /// <summary>
-        /// 2023-04-01.
-        /// </summary>
-        public static readonly string V2023_04_01 = "2023-04-01";
-
-        /// <summary>
-        /// 2023-03-31.
-        /// </summary>
-        public static readonly string V2023_03_31 = "2023-03-31";
-    }
-
-    /// <summary>
     /// Creates a reference to an existing CommunicationDomain.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the CommunicationDomain resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the CommunicationDomain.</param>
     /// <param name="resourceVersion">Version of the CommunicationDomain.</param>
     /// <returns>The existing CommunicationDomain resource.</returns>
-    public static CommunicationDomain FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static CommunicationDomain FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

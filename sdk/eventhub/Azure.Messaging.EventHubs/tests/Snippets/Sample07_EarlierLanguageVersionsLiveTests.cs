@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Identity;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Producer;
 using NUnit.Framework;
@@ -35,19 +34,14 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample07_Publish
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
-            var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+            var producer = new EventHubProducerClient(connectionString, eventHubName);
 
             try
             {
@@ -82,21 +76,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample07_ReadAllPartitions
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = scope.EventHubName;
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                connectionString,
+                eventHubName);
 
             try
             {

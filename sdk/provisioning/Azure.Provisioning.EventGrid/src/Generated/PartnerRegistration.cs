@@ -65,15 +65,11 @@ public partial class PartnerRegistration : Resource
     /// <summary>
     /// Creates a new PartnerRegistration.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the PartnerRegistration resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the PartnerRegistration.</param>
     /// <param name="resourceVersion">Version of the PartnerRegistration.</param>
-    public PartnerRegistration(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.EventGrid/partnerRegistrations", resourceVersion ?? "2022-06-15")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public PartnerRegistration(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.EventGrid/partnerRegistrations", resourceVersion ?? "2022-06-15", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -103,14 +99,9 @@ public partial class PartnerRegistration : Resource
     /// <summary>
     /// Creates a reference to an existing PartnerRegistration.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the PartnerRegistration resource.
-    /// This can be used to refer to the resource in expressions, but is not
-    /// the Azure name of the resource.  This value can contain letters,
-    /// numbers, and underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the PartnerRegistration.</param>
     /// <param name="resourceVersion">Version of the PartnerRegistration.</param>
     /// <returns>The existing PartnerRegistration resource.</returns>
-    public static PartnerRegistration FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static PartnerRegistration FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

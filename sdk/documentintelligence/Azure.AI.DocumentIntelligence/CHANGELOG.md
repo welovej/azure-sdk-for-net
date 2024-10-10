@@ -7,7 +7,6 @@
 ### Breaking Changes
 
 ### Bugs Fixed
-- Fixed a bug where calling `Operation.Id` would sometimes return an `InvalidOperationException` with message "The operation ID was not present in the service response.".
 
 ### Other Changes
 

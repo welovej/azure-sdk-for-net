@@ -8,7 +8,6 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Identity;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Producer;
 using NUnit.Framework;
@@ -35,13 +34,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_ProducerTransportFullConnectionOptions
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = "fake";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
             var producerOptions = new EventHubProducerClientOptions
@@ -53,9 +50,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             };
 
             var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 producerOptions);
 
             #endregion
@@ -76,22 +72,19 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_ProducerTransportProperty
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = "fake";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
             var producerOptions = new EventHubProducerClientOptions();
             producerOptions.ConnectionOptions.TransportType = EventHubsTransportType.AmqpWebSockets;
 
             var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 producerOptions);
 
             #endregion
@@ -112,13 +105,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_ProducerProxyFullConnectionOptions
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = "fake";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
             var producerOptions = new EventHubProducerClientOptions
@@ -131,9 +122,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             };
 
             var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 producerOptions);
 
             #endregion
@@ -154,13 +144,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_ProducerProxyProperty
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = "fake";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
             var producerOptions = new EventHubProducerClientOptions();
@@ -168,9 +156,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             producerOptions.ConnectionOptions.Proxy = new WebProxy("https://proxyserver:80", true);
 
             var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 producerOptions);
 
             #endregion
@@ -191,22 +178,19 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_ConnectionOptionsCustomEndpoint
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = "fake";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
 
             var producerOptions = new EventHubProducerClientOptions();
             producerOptions.ConnectionOptions.CustomEndpointAddress = new Uri("amqps://app-gateway.mycompany.com");
 
             var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 producerOptions);
 
             #endregion
@@ -227,13 +211,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_RemoteCertificateValidationCallback
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
-            var eventHubName = "fakse";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
+            var eventHubName = "fake";
 #endif
 
             static bool ValidateServerCertificate(
@@ -257,9 +239,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             producerOptions.ConnectionOptions.CertificateValidationCallback = ValidateServerCertificate;
 
             var producer = new EventHubProducerClient(
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 producerOptions);
 
             #endregion
@@ -280,13 +261,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_ConsumerRetryWithFullOptions
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = "fake";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
@@ -303,9 +282,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 consumerOptions);
 
             #endregion
@@ -326,13 +304,11 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample02_ConsumerRetryByProperty
 
 #if SNIPPET
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var connectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
-            var credential = new DefaultAzureCredential();
 #else
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var connectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = "fake";
-            var credential = EventHubsTestEnvironment.Instance.Credential;
 #endif
             var consumerGroup = EventHubConsumerClient.DefaultConsumerGroupName;
 
@@ -342,9 +318,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
 
             var consumer = new EventHubConsumerClient(
                 consumerGroup,
-                fullyQualifiedNamespace,
+                connectionString,
                 eventHubName,
-                credential,
                 consumerOptions);
 
             #endregion

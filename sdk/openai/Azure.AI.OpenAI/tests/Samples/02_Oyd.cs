@@ -39,13 +39,13 @@ public partial class AzureOpenAISamples
             ],
             options);
 
-        ChatMessageContext onYourDataContext = completion.GetMessageContext();
+        AzureChatMessageContext onYourDataContext = completion.GetAzureMessageContext();
 
         if (onYourDataContext?.Intent is not null)
         {
             Console.WriteLine($"Intent: {onYourDataContext.Intent}");
         }
-        foreach (ChatCitation citation in onYourDataContext?.Citations ?? [])
+        foreach (AzureChatCitation citation in onYourDataContext?.Citations ?? [])
         {
             Console.WriteLine($"Citation: {citation.Content}");
         }

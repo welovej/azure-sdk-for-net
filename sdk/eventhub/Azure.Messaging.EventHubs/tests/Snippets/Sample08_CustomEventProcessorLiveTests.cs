@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
-using Azure.Identity;
 using Azure.Messaging.EventHubs.Consumer;
 using Azure.Messaging.EventHubs.Primitives;
 using Azure.Messaging.EventHubs.Processor;
@@ -49,26 +48,18 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
             #region Snippet:EventHubs_Sample08_CustomProcessorUse
 
 #if SNIPPET
-            var credential = new DefaultAzureCredential();
-
-            var storageAccountEndpoint = "<< Account Uri (likely similar to https://{your-account}.blob.core.windows.net) >>";
+            var storageConnectionString = "<< CONNECTION STRING FOR THE STORAGE ACCOUNT >>";
             var blobContainerName = "<< NAME OF THE BLOB CONTAINER >>";
 
-            var fullyQualifiedNamespace = "<< NAMESPACE (likely similar to {your-namespace}.servicebus.windows.net) >>";
+            var eventHubsConnectionString = "<< CONNECTION STRING FOR THE EVENT HUBS NAMESPACE >>";
             var eventHubName = "<< NAME OF THE EVENT HUB >>";
             var consumerGroup = "<< NAME OF THE EVENT HUB CONSUMER GROUP >>";
 
-            var blobUriBuilder = new BlobUriBuilder(new Uri(storageAccountEndpoint))
-            {
-                BlobContainerName = blobContainerName
-            };
-
             var storageClient = new BlobContainerClient(
-                blobUriBuilder.ToUri(),
-                credential);
+                storageConnectionString,
+                blobContainerName);
 #else
-            var credential = EventHubsTestEnvironment.Instance.Credential;
-            var fullyQualifiedNamespace = EventHubsTestEnvironment.Instance.FullyQualifiedNamespace;
+            var eventHubsConnectionString = EventHubsTestEnvironment.Instance.EventHubsConnectionString;
             var eventHubName = eventHubScope.EventHubName;
             var consumerGroup = eventHubScope.ConsumerGroups.First();
             var storageClient = Mock.Of<BlobContainerClient>();
@@ -80,9 +71,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
                 storageClient,
                 maximumBatchSize,
                 consumerGroup,
-                fullyQualifiedNamespace,
-                eventHubName,
-                credential);
+                eventHubsConnectionString,
+                eventHubName);
 
             using var cancellationSource = new CancellationTokenSource();
             cancellationSource.CancelAfter(TimeSpan.FromSeconds(30));
@@ -123,9 +113,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
                 BlobContainerClient storageClient,
                 int eventBatchMaximumCount,
                 string consumerGroup,
-                string fullyQualifiedNamespace,
+                string connectionString,
                 string eventHubName,
-                TokenCredential credential,
                 EventProcessorOptions clientOptions = default)
                     : base(
 #if SNIPPET
@@ -135,9 +124,8 @@ namespace Azure.Messaging.EventHubs.Tests.Snippets
 #endif
                         eventBatchMaximumCount,
                         consumerGroup,
-                        fullyQualifiedNamespace,
+                        connectionString,
                         eventHubName,
-                        credential,
                         clientOptions)
             {
             }

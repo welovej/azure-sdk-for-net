@@ -64,15 +64,11 @@ public partial class ManagedHsm : Resource
     /// <summary>
     /// Creates a new ManagedHsm.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the ManagedHsm resource.  This can be
-    /// used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ManagedHsm.</param>
     /// <param name="resourceVersion">Version of the ManagedHsm.</param>
-    public ManagedHsm(string identifierName, string? resourceVersion = default)
-        : base(identifierName, "Microsoft.KeyVault/managedHSMs", resourceVersion ?? "2023-07-01")
+    /// <param name="context">Provisioning context for this resource.</param>
+    public ManagedHsm(string resourceName, string? resourceVersion = default, ProvisioningContext? context = default)
+        : base(resourceName, "Microsoft.KeyVault/managedHSMs", resourceVersion ?? "2023-07-01", context)
     {
         _name = BicepValue<string>.DefineProperty(this, "Name", ["name"], isRequired: true);
         _location = BicepValue<AzureLocation>.DefineProperty(this, "Location", ["location"], isRequired: true);
@@ -127,14 +123,9 @@ public partial class ManagedHsm : Resource
     /// <summary>
     /// Creates a reference to an existing ManagedHsm.
     /// </summary>
-    /// <param name="identifierName">
-    /// The the Bicep identifier name of the ManagedHsm resource.  This can be
-    /// used to refer to the resource in expressions, but is not the Azure
-    /// name of the resource.  This value can contain letters, numbers, and
-    /// underscores.
-    /// </param>
+    /// <param name="resourceName">Name of the ManagedHsm.</param>
     /// <param name="resourceVersion">Version of the ManagedHsm.</param>
     /// <returns>The existing ManagedHsm resource.</returns>
-    public static ManagedHsm FromExisting(string identifierName, string? resourceVersion = default) =>
-        new(identifierName, resourceVersion) { IsExistingResource = true };
+    public static ManagedHsm FromExisting(string resourceName, string? resourceVersion = default) =>
+        new(resourceName, resourceVersion) { IsExistingResource = true };
 }

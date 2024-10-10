@@ -20,21 +20,13 @@ namespace Azure.ResourceManager.Hci.Models
 
         void IJsonModel<DeploymentSettingQosPolicyOverrides>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<DeploymentSettingQosPolicyOverrides>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DeploymentSettingQosPolicyOverrides)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(PriorityValue8021ActionCluster))
             {
                 writer.WritePropertyName("priorityValue8021Action_Cluster"u8);
@@ -65,6 +57,7 @@ namespace Azure.ResourceManager.Hci.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         DeploymentSettingQosPolicyOverrides IJsonModel<DeploymentSettingQosPolicyOverrides>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

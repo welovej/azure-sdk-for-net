@@ -10,9 +10,7 @@ extends:
     Location: canadacentral
     CloudConfig:
       Preview:
-        ServiceConnection: azure-sdk-tests-preview
-        SubscriptionConfigurationFilePaths:
-          - eng/common/TestResources/sub-config/AzurePreviewMsft.json
+        SubscriptionConfiguration: $(sub-config-azure-cloud-test-resources-preview)
       PrivatePreview:
         SubscriptionConfiguration: $(sub-config-storage-test-resources)
     Clouds: Preview

@@ -110,7 +110,7 @@ namespace Azure.Storage.DataMovement.Blobs.Tests
         {
             const string containerName = "mycontainer";
             const string prefix = "my/prefix";
-            Uri uri = new Uri($"https://myaccount.blob.core.windows.net/{containerName}" + (withPrefix ? $"/{prefix}" : ""));
+            string uri = $"https://myaccount.blob.core.windows.net/{containerName}" + (withPrefix ? $"/{prefix}" : "");
             (Mock<StorageSharedKeyCredential> SharedKey, Mock<TokenCredential> Token, Mock<AzureSasCredential> Sas) mockCreds = GetMockCreds();
 
             BlobsStorageResourceProvider provider = credType switch
@@ -124,8 +124,8 @@ namespace Azure.Storage.DataMovement.Blobs.Tests
             BlobStorageResourceContainer resource = provider.FromContainer(uri) as BlobStorageResourceContainer;
 
             Assert.IsNotNull(resource);
-            Assert.AreEqual(uri, resource.Uri);
-            Assert.AreEqual(uri, resource.BlobContainerClient.Uri);
+            Assert.AreEqual(uri, resource.Uri.ToString());
+            Assert.AreEqual(uri, resource.BlobContainerClient.Uri.ToString());
             AssertCredPresent(resource.BlobContainerClient.ClientConfiguration, credType);
         }
 
@@ -137,7 +137,7 @@ namespace Azure.Storage.DataMovement.Blobs.Tests
         {
             const string containerName = "mycontainer";
             const string blobName = "my/blob.txt";
-            Uri uri = new Uri($"https://myaccount.blob.core.windows.net/{containerName}/{blobName}");
+            string uri = $"https://myaccount.blob.core.windows.net/{containerName}/{blobName}";
             (Mock<StorageSharedKeyCredential> SharedKey, Mock<TokenCredential> Token, Mock<AzureSasCredential> Sas) mockCreds = GetMockCreds();
 
             BlobsStorageResourceProvider provider = credType switch
@@ -160,8 +160,8 @@ namespace Azure.Storage.DataMovement.Blobs.Tests
 
             Assert.IsNotNull(resource);
             AssertBlobStorageResourceType(resource, blobType, out BlobBaseClient underlyingClient);
-            Assert.AreEqual(uri, resource.Uri);
-            Assert.AreEqual(uri, underlyingClient.Uri);
+            Assert.AreEqual(uri, resource.Uri.ToString());
+            Assert.AreEqual(uri, underlyingClient.Uri.ToString());
             AssertCredPresent(underlyingClient.ClientConfiguration, credType);
         }
     }
