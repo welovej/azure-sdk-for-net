@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Grafana.Models
         /// <param name="location"> The location. </param>
         /// <param name="skuName"> The Sku of the grafana resource. </param>
         /// <param name="properties"> Properties specific to the grafana resource. </param>
-        /// <param name="identity"> The managed identity of the grafana resource. </param>
+        /// <param name="identity"> The managed service identities assigned to this resource. </param>
         /// <returns> A new <see cref="Grafana.ManagedGrafanaData"/> instance for mocking. </returns>
         public static ManagedGrafanaData ManagedGrafanaData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string skuName = null, ManagedGrafanaProperties properties = null, ManagedServiceIdentity identity = null)
         {
@@ -121,33 +121,6 @@ namespace Azure.ResourceManager.Grafana.Models
             return new GrafanaPlugin(pluginId, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Grafana.GrafanaPrivateLinkResourceData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="provisioningState"> Provisioning state of the resource. </param>
-        /// <param name="groupId"> The private link resource group id. </param>
-        /// <param name="requiredMembers"> The private link resource required member names. </param>
-        /// <param name="requiredZoneNames"> The private link resource Private link DNS zone name. </param>
-        /// <returns> A new <see cref="Grafana.GrafanaPrivateLinkResourceData"/> instance for mocking. </returns>
-        public static GrafanaPrivateLinkResourceData GrafanaPrivateLinkResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, GrafanaProvisioningState? provisioningState = null, string groupId = null, IEnumerable<string> requiredMembers = null, IEnumerable<string> requiredZoneNames = null)
-        {
-            requiredMembers ??= new List<string>();
-            requiredZoneNames ??= new List<string>();
-
-            return new GrafanaPrivateLinkResourceData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                provisioningState,
-                groupId,
-                requiredMembers?.ToList(),
-                requiredZoneNames?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.EnterpriseDetails"/>. </summary>
         /// <param name="saasSubscriptionDetails"> SaaS subscription details of a Grafana instance. </param>
         /// <param name="marketplaceTrialQuota"> The allocation details of the per subscription free trial slot of the subscription. </param>
@@ -196,6 +169,33 @@ namespace Azure.ResourceManager.Grafana.Models
         public static GrafanaAvailablePlugin GrafanaAvailablePlugin(string pluginId = null, string name = null)
         {
             return new GrafanaAvailablePlugin(pluginId, name, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Grafana.GrafanaPrivateLinkResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="provisioningState"> Provisioning state of the resource. </param>
+        /// <param name="groupId"> The private link resource group id. </param>
+        /// <param name="requiredMembers"> The private link resource required member names. </param>
+        /// <param name="requiredZoneNames"> The private link resource Private link DNS zone name. </param>
+        /// <returns> A new <see cref="Grafana.GrafanaPrivateLinkResourceData"/> instance for mocking. </returns>
+        public static GrafanaPrivateLinkResourceData GrafanaPrivateLinkResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, GrafanaProvisioningState? provisioningState = null, string groupId = null, IEnumerable<string> requiredMembers = null, IEnumerable<string> requiredZoneNames = null)
+        {
+            requiredMembers ??= new List<string>();
+            requiredZoneNames ??= new List<string>();
+
+            return new GrafanaPrivateLinkResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                provisioningState,
+                groupId,
+                requiredMembers?.ToList(),
+                requiredZoneNames?.ToList(),
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Grafana.ManagedPrivateEndpointModelData"/>. </summary>

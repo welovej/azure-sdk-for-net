@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Grafana.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Grafana_Get</description>
+        /// <description>ManagedGrafana_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.Grafana.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Grafana_Get</description>
+        /// <description>ManagedGrafana_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.Grafana.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.Grafana.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>

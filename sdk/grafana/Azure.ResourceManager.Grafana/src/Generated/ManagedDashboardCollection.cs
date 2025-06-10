@@ -27,8 +27,6 @@ namespace Azure.ResourceManager.Grafana
     {
         private readonly ClientDiagnostics _managedDashboardClientDiagnostics;
         private readonly ManagedDashboardsRestOperations _managedDashboardRestClient;
-        private readonly ClientDiagnostics _managedDashboardDashboardsClientDiagnostics;
-        private readonly DashboardsRestOperations _managedDashboardDashboardsRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="ManagedDashboardCollection"/> class for mocking. </summary>
         protected ManagedDashboardCollection()
@@ -43,9 +41,6 @@ namespace Azure.ResourceManager.Grafana
             _managedDashboardClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Grafana", ManagedDashboardResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ManagedDashboardResource.ResourceType, out string managedDashboardApiVersion);
             _managedDashboardRestClient = new ManagedDashboardsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, managedDashboardApiVersion);
-            _managedDashboardDashboardsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Grafana", ManagedDashboardResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ManagedDashboardResource.ResourceType, out string managedDashboardDashboardsApiVersion);
-            _managedDashboardDashboardsRestClient = new DashboardsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, managedDashboardDashboardsApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -66,7 +61,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedDashboards_Create</description>
+        /// <description>ManagedDashboard_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -115,7 +110,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedDashboards_Create</description>
+        /// <description>ManagedDashboard_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -164,7 +159,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -184,11 +179,11 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNullOrEmpty(dashboardName, nameof(dashboardName));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardCollection.Get");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardCollection.Get");
             scope.Start();
             try
             {
-                var response = await _managedDashboardDashboardsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken).ConfigureAwait(false);
+                var response = await _managedDashboardRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ManagedDashboardResource(Client, response.Value), response.GetRawResponse());
@@ -209,7 +204,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -229,11 +224,11 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNullOrEmpty(dashboardName, nameof(dashboardName));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardCollection.Get");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardCollection.Get");
             scope.Start();
             try
             {
-                var response = _managedDashboardDashboardsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken);
+                var response = _managedDashboardRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ManagedDashboardResource(Client, response.Value), response.GetRawResponse());
@@ -254,7 +249,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_List</description>
+        /// <description>ManagedDashboard_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -270,9 +265,9 @@ namespace Azure.ResourceManager.Grafana
         /// <returns> An async collection of <see cref="ManagedDashboardResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ManagedDashboardResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _managedDashboardDashboardsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _managedDashboardDashboardsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ManagedDashboardResource(Client, ManagedDashboardData.DeserializeManagedDashboardData(e)), _managedDashboardDashboardsClientDiagnostics, Pipeline, "ManagedDashboardCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _managedDashboardRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _managedDashboardRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ManagedDashboardResource(Client, ManagedDashboardData.DeserializeManagedDashboardData(e)), _managedDashboardClientDiagnostics, Pipeline, "ManagedDashboardCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -284,7 +279,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_List</description>
+        /// <description>ManagedDashboard_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -300,9 +295,9 @@ namespace Azure.ResourceManager.Grafana
         /// <returns> A collection of <see cref="ManagedDashboardResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ManagedDashboardResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _managedDashboardDashboardsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _managedDashboardDashboardsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ManagedDashboardResource(Client, ManagedDashboardData.DeserializeManagedDashboardData(e)), _managedDashboardDashboardsClientDiagnostics, Pipeline, "ManagedDashboardCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _managedDashboardRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _managedDashboardRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ManagedDashboardResource(Client, ManagedDashboardData.DeserializeManagedDashboardData(e)), _managedDashboardClientDiagnostics, Pipeline, "ManagedDashboardCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -314,7 +309,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -334,11 +329,11 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNullOrEmpty(dashboardName, nameof(dashboardName));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardCollection.Exists");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _managedDashboardDashboardsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _managedDashboardRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -357,7 +352,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -377,11 +372,11 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNullOrEmpty(dashboardName, nameof(dashboardName));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardCollection.Exists");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardCollection.Exists");
             scope.Start();
             try
             {
-                var response = _managedDashboardDashboardsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken);
+                var response = _managedDashboardRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -400,7 +395,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -420,11 +415,11 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNullOrEmpty(dashboardName, nameof(dashboardName));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardCollection.GetIfExists");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _managedDashboardDashboardsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _managedDashboardRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<ManagedDashboardResource>(response.GetRawResponse());
                 return Response.FromValue(new ManagedDashboardResource(Client, response.Value), response.GetRawResponse());
@@ -445,7 +440,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -465,11 +460,11 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNullOrEmpty(dashboardName, nameof(dashboardName));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardCollection.GetIfExists");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _managedDashboardDashboardsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken);
+                var response = _managedDashboardRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, dashboardName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<ManagedDashboardResource>(response.GetRawResponse());
                 return Response.FromValue(new ManagedDashboardResource(Client, response.Value), response.GetRawResponse());

@@ -52,6 +52,7 @@ namespace Azure.ResourceManager.Grafana
         }
 
         /// <summary>
+        /// Create a IntegrationFabric
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -59,7 +60,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Create</description>
+        /// <description>IntegrationFabric_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -100,6 +101,7 @@ namespace Azure.ResourceManager.Grafana
         }
 
         /// <summary>
+        /// Create a IntegrationFabric
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -107,7 +109,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Create</description>
+        /// <description>IntegrationFabric_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -148,6 +150,7 @@ namespace Azure.ResourceManager.Grafana
         }
 
         /// <summary>
+        /// Get a IntegrationFabric
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -155,7 +158,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Get</description>
+        /// <description>IntegrationFabric_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -192,6 +195,7 @@ namespace Azure.ResourceManager.Grafana
         }
 
         /// <summary>
+        /// Get a IntegrationFabric
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -199,7 +203,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Get</description>
+        /// <description>IntegrationFabric_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -236,6 +240,7 @@ namespace Azure.ResourceManager.Grafana
         }
 
         /// <summary>
+        /// List IntegrationFabric resources by ManagedGrafana
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -243,7 +248,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_List</description>
+        /// <description>IntegrationFabric_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -265,6 +270,7 @@ namespace Azure.ResourceManager.Grafana
         }
 
         /// <summary>
+        /// List IntegrationFabric resources by ManagedGrafana
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -272,7 +278,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_List</description>
+        /// <description>IntegrationFabric_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -302,7 +308,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Get</description>
+        /// <description>IntegrationFabric_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -345,7 +351,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Get</description>
+        /// <description>IntegrationFabric_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -388,7 +394,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Get</description>
+        /// <description>IntegrationFabric_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -433,7 +439,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationFabrics_Get</description>
+        /// <description>IntegrationFabric_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>

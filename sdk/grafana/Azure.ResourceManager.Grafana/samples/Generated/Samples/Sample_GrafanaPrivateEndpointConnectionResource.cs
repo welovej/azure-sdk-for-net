@@ -19,8 +19,8 @@ namespace Azure.ResourceManager.Grafana.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_PrivateEndpointConnectionsGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_Get.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_Get.json
+            // this example is just showing the usage of "PrivateEndpointConnection_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -50,8 +50,8 @@ namespace Azure.ResourceManager.Grafana.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_PrivateEndpointConnectionsDelete()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_Delete.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Delete" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_Delete.json
+            // this example is just showing the usage of "PrivateEndpointConnection_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -77,8 +77,8 @@ namespace Azure.ResourceManager.Grafana.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_PrivateEndpointConnectionsApprove()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_Approve.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Approve" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_Approve.json
+            // this example is just showing the usage of "PrivateEndpointConnection_Approve" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -95,8 +95,9 @@ namespace Azure.ResourceManager.Grafana.Samples
             GrafanaPrivateEndpointConnectionResource grafanaPrivateEndpointConnection = client.GetGrafanaPrivateEndpointConnectionResource(grafanaPrivateEndpointConnectionResourceId);
 
             // invoke the operation
+            string accept = null;
             GrafanaPrivateEndpointConnectionData data = new GrafanaPrivateEndpointConnectionData();
-            ArmOperation<GrafanaPrivateEndpointConnectionResource> lro = await grafanaPrivateEndpointConnection.UpdateAsync(WaitUntil.Completed, data);
+            ArmOperation<GrafanaPrivateEndpointConnectionResource> lro = await grafanaPrivateEndpointConnection.UpdateAsync(WaitUntil.Completed, accept, data);
             GrafanaPrivateEndpointConnectionResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well

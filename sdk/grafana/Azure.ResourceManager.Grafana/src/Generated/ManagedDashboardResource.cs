@@ -35,8 +35,6 @@ namespace Azure.ResourceManager.Grafana
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _managedDashboardDashboardsClientDiagnostics;
-        private readonly DashboardsRestOperations _managedDashboardDashboardsRestClient;
         private readonly ClientDiagnostics _managedDashboardClientDiagnostics;
         private readonly ManagedDashboardsRestOperations _managedDashboardRestClient;
         private readonly ManagedDashboardData _data;
@@ -63,9 +61,6 @@ namespace Azure.ResourceManager.Grafana
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal ManagedDashboardResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _managedDashboardDashboardsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Grafana", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string managedDashboardDashboardsApiVersion);
-            _managedDashboardDashboardsRestClient = new DashboardsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, managedDashboardDashboardsApiVersion);
             _managedDashboardClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Grafana", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string managedDashboardApiVersion);
             _managedDashboardRestClient = new ManagedDashboardsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, managedDashboardApiVersion);
@@ -104,7 +99,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -119,11 +114,11 @@ namespace Azure.ResourceManager.Grafana
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<ManagedDashboardResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.Get");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.Get");
             scope.Start();
             try
             {
-                var response = await _managedDashboardDashboardsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _managedDashboardRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ManagedDashboardResource(Client, response.Value), response.GetRawResponse());
@@ -144,7 +139,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -159,11 +154,11 @@ namespace Azure.ResourceManager.Grafana
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<ManagedDashboardResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.Get");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.Get");
             scope.Start();
             try
             {
-                var response = _managedDashboardDashboardsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var response = _managedDashboardRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ManagedDashboardResource(Client, response.Value), response.GetRawResponse());
@@ -184,7 +179,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedDashboards_Delete</description>
+        /// <description>ManagedDashboard_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -228,7 +223,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedDashboards_Delete</description>
+        /// <description>ManagedDashboard_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -272,7 +267,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedDashboards_Update</description>
+        /// <description>ManagedDashboard_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -314,7 +309,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedDashboards_Update</description>
+        /// <description>ManagedDashboard_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -356,7 +351,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -377,7 +372,7 @@ namespace Azure.ResourceManager.Grafana
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.AddTag");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.AddTag");
             scope.Start();
             try
             {
@@ -386,7 +381,7 @@ namespace Azure.ResourceManager.Grafana
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _managedDashboardDashboardsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _managedDashboardRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new ManagedDashboardResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -418,7 +413,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -439,7 +434,7 @@ namespace Azure.ResourceManager.Grafana
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.AddTag");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.AddTag");
             scope.Start();
             try
             {
@@ -448,7 +443,7 @@ namespace Azure.ResourceManager.Grafana
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _managedDashboardDashboardsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _managedDashboardRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new ManagedDashboardResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -480,7 +475,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -499,7 +494,7 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.SetTags");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.SetTags");
             scope.Start();
             try
             {
@@ -509,7 +504,7 @@ namespace Azure.ResourceManager.Grafana
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _managedDashboardDashboardsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _managedDashboardRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new ManagedDashboardResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -537,7 +532,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -556,7 +551,7 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.SetTags");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.SetTags");
             scope.Start();
             try
             {
@@ -566,7 +561,7 @@ namespace Azure.ResourceManager.Grafana
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _managedDashboardDashboardsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _managedDashboardRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new ManagedDashboardResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -594,7 +589,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -613,7 +608,7 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.RemoveTag");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.RemoveTag");
             scope.Start();
             try
             {
@@ -622,7 +617,7 @@ namespace Azure.ResourceManager.Grafana
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _managedDashboardDashboardsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _managedDashboardRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new ManagedDashboardResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -654,7 +649,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -673,7 +668,7 @@ namespace Azure.ResourceManager.Grafana
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _managedDashboardDashboardsClientDiagnostics.CreateScope("ManagedDashboardResource.RemoveTag");
+            using var scope = _managedDashboardClientDiagnostics.CreateScope("ManagedDashboardResource.RemoveTag");
             scope.Start();
             try
             {
@@ -682,7 +677,7 @@ namespace Azure.ResourceManager.Grafana
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _managedDashboardDashboardsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _managedDashboardRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new ManagedDashboardResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else

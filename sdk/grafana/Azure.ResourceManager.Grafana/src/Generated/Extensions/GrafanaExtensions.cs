@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Grafana_Get</description>
+        /// <description>ManagedGrafana_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Grafana_Get</description>
+        /// <description>ManagedGrafana_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -265,7 +265,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -303,7 +303,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_Get</description>
+        /// <description>ManagedDashboard_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -341,7 +341,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Grafana_List</description>
+        /// <description>ManagedGrafana_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -377,7 +377,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Grafana_List</description>
+        /// <description>ManagedGrafana_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -413,7 +413,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_ListBySubscription</description>
+        /// <description>ManagedDashboard_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -449,7 +449,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Dashboards_ListBySubscription</description>
+        /// <description>ManagedDashboard_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>

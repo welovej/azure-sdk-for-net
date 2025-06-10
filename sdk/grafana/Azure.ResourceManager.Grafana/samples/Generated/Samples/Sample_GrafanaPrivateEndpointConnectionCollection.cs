@@ -9,19 +9,18 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.Grafana.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Grafana.Samples
 {
-    public partial class Sample_IntegrationFabricCollection
+    public partial class Sample_GrafanaPrivateEndpointConnectionCollection
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_IntegrationFabricsCreate()
+        public async Task CreateOrUpdate_PrivateEndpointConnectionsApprove()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_Create.json
-            // this example is just showing the usage of "IntegrationFabrics_Create" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_Approve.json
+            // this example is just showing the usage of "PrivateEndpointConnection_Approve" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -36,36 +35,29 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this IntegrationFabricResource
-            IntegrationFabricCollection collection = managedGrafana.GetIntegrationFabrics();
+            // get the collection of this GrafanaPrivateEndpointConnectionResource
+            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
 
             // invoke the operation
-            string integrationFabricName = "sampleIntegration";
-            IntegrationFabricData data = new IntegrationFabricData(new AzureLocation("West US"))
-            {
-                Properties = new IntegrationFabricProperties
-                {
-                    TargetResourceId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ContainerService/managedClusters/myAks"),
-                    DataSourceResourceId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Monitor/accounts/myAmw"),
-                    Scenarios = { "scenario1", "scenario2" },
-                },
-            };
-            ArmOperation<IntegrationFabricResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, integrationFabricName, data);
-            IntegrationFabricResource result = lro.Value;
+            string privateEndpointConnectionName = "myConnection";
+            string accept = null;
+            GrafanaPrivateEndpointConnectionData data = new GrafanaPrivateEndpointConnectionData();
+            ArmOperation<GrafanaPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, accept, data);
+            GrafanaPrivateEndpointConnectionResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            IntegrationFabricData resourceData = result.Data;
+            GrafanaPrivateEndpointConnectionData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_IntegrationFabricsGet()
+        public async Task Get_PrivateEndpointConnectionsGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_Get.json
-            // this example is just showing the usage of "IntegrationFabrics_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_Get.json
+            // this example is just showing the usage of "PrivateEndpointConnection_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -80,26 +72,26 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this IntegrationFabricResource
-            IntegrationFabricCollection collection = managedGrafana.GetIntegrationFabrics();
+            // get the collection of this GrafanaPrivateEndpointConnectionResource
+            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
 
             // invoke the operation
-            string integrationFabricName = "sampleIntegration";
-            IntegrationFabricResource result = await collection.GetAsync(integrationFabricName);
+            string privateEndpointConnectionName = "myConnection";
+            GrafanaPrivateEndpointConnectionResource result = await collection.GetAsync(privateEndpointConnectionName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            IntegrationFabricData resourceData = result.Data;
+            GrafanaPrivateEndpointConnectionData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetAll_IntegrationFabricsList()
+        public async Task GetAll_PrivateEndpointConnectionsList()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_List.json
-            // this example is just showing the usage of "IntegrationFabrics_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_List.json
+            // this example is just showing the usage of "PrivateEndpointConnection_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -114,15 +106,15 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this IntegrationFabricResource
-            IntegrationFabricCollection collection = managedGrafana.GetIntegrationFabrics();
+            // get the collection of this GrafanaPrivateEndpointConnectionResource
+            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
 
             // invoke the operation and iterate over the result
-            await foreach (IntegrationFabricResource item in collection.GetAllAsync())
+            await foreach (GrafanaPrivateEndpointConnectionResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                IntegrationFabricData resourceData = item.Data;
+                GrafanaPrivateEndpointConnectionData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -132,10 +124,10 @@ namespace Azure.ResourceManager.Grafana.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_IntegrationFabricsGet()
+        public async Task Exists_PrivateEndpointConnectionsGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_Get.json
-            // this example is just showing the usage of "IntegrationFabrics_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_Get.json
+            // this example is just showing the usage of "PrivateEndpointConnection_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -150,22 +142,22 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this IntegrationFabricResource
-            IntegrationFabricCollection collection = managedGrafana.GetIntegrationFabrics();
+            // get the collection of this GrafanaPrivateEndpointConnectionResource
+            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
 
             // invoke the operation
-            string integrationFabricName = "sampleIntegration";
-            bool result = await collection.ExistsAsync(integrationFabricName);
+            string privateEndpointConnectionName = "myConnection";
+            bool result = await collection.ExistsAsync(privateEndpointConnectionName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_IntegrationFabricsGet()
+        public async Task GetIfExists_PrivateEndpointConnectionsGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_Get.json
-            // this example is just showing the usage of "IntegrationFabrics_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateEndpointConnections_Get.json
+            // this example is just showing the usage of "PrivateEndpointConnection_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -180,13 +172,13 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this IntegrationFabricResource
-            IntegrationFabricCollection collection = managedGrafana.GetIntegrationFabrics();
+            // get the collection of this GrafanaPrivateEndpointConnectionResource
+            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
 
             // invoke the operation
-            string integrationFabricName = "sampleIntegration";
-            NullableResponse<IntegrationFabricResource> response = await collection.GetIfExistsAsync(integrationFabricName);
-            IntegrationFabricResource result = response.HasValue ? response.Value : null;
+            string privateEndpointConnectionName = "myConnection";
+            NullableResponse<GrafanaPrivateEndpointConnectionResource> response = await collection.GetIfExistsAsync(privateEndpointConnectionName);
+            GrafanaPrivateEndpointConnectionResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -196,7 +188,7 @@ namespace Azure.ResourceManager.Grafana.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                IntegrationFabricData resourceData = result.Data;
+                GrafanaPrivateEndpointConnectionData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }

@@ -13,14 +13,14 @@ using NUnit.Framework;
 
 namespace Azure.ResourceManager.Grafana.Samples
 {
-    public partial class Sample_GrafanaPrivateEndpointConnectionCollection
+    public partial class Sample_GrafanaPrivateLinkResourceCollection
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_PrivateEndpointConnectionsApprove()
+        public async Task Get_PrivateLinkResourcesGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_Approve.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Approve" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateLinkResources_Get.json
+            // this example is just showing the usage of "PrivateLinkResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -35,28 +35,26 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this GrafanaPrivateEndpointConnectionResource
-            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
+            // get the collection of this GrafanaPrivateLinkResource
+            GrafanaPrivateLinkResourceCollection collection = managedGrafana.GetGrafanaPrivateLinkResources();
 
             // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            GrafanaPrivateEndpointConnectionData data = new GrafanaPrivateEndpointConnectionData();
-            ArmOperation<GrafanaPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
-            GrafanaPrivateEndpointConnectionResource result = lro.Value;
+            string privateLinkResourceName = "grafana";
+            GrafanaPrivateLinkResource result = await collection.GetAsync(privateLinkResourceName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            GrafanaPrivateEndpointConnectionData resourceData = result.Data;
+            GrafanaPrivateLinkResourceData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_PrivateEndpointConnectionsGet()
+        public async Task GetAll_PrivateLinkResourcesList()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_Get.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateLinkResources_List.json
+            // this example is just showing the usage of "PrivateLinkResource_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -71,49 +69,15 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this GrafanaPrivateEndpointConnectionResource
-            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
-
-            // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            GrafanaPrivateEndpointConnectionResource result = await collection.GetAsync(privateEndpointConnectionName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            GrafanaPrivateEndpointConnectionData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetAll_PrivateEndpointConnectionsList()
-        {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_List.json
-            // this example is just showing the usage of "PrivateEndpointConnections_List" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ManagedGrafanaResource created on azure
-            // for more information of creating ManagedGrafanaResource, please refer to the document of ManagedGrafanaResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "myResourceGroup";
-            string workspaceName = "myWorkspace";
-            ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
-            ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
-
-            // get the collection of this GrafanaPrivateEndpointConnectionResource
-            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
+            // get the collection of this GrafanaPrivateLinkResource
+            GrafanaPrivateLinkResourceCollection collection = managedGrafana.GetGrafanaPrivateLinkResources();
 
             // invoke the operation and iterate over the result
-            await foreach (GrafanaPrivateEndpointConnectionResource item in collection.GetAllAsync())
+            await foreach (GrafanaPrivateLinkResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                GrafanaPrivateEndpointConnectionData resourceData = item.Data;
+                GrafanaPrivateLinkResourceData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -123,10 +87,10 @@ namespace Azure.ResourceManager.Grafana.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_PrivateEndpointConnectionsGet()
+        public async Task Exists_PrivateLinkResourcesGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_Get.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateLinkResources_Get.json
+            // this example is just showing the usage of "PrivateLinkResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -141,22 +105,22 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this GrafanaPrivateEndpointConnectionResource
-            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
+            // get the collection of this GrafanaPrivateLinkResource
+            GrafanaPrivateLinkResourceCollection collection = managedGrafana.GetGrafanaPrivateLinkResources();
 
             // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            bool result = await collection.ExistsAsync(privateEndpointConnectionName);
+            string privateLinkResourceName = "grafana";
+            bool result = await collection.ExistsAsync(privateLinkResourceName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_PrivateEndpointConnectionsGet()
+        public async Task GetIfExists_PrivateLinkResourcesGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/PrivateEndpointConnections_Get.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/PrivateLinkResources_Get.json
+            // this example is just showing the usage of "PrivateLinkResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -171,13 +135,13 @@ namespace Azure.ResourceManager.Grafana.Samples
             ResourceIdentifier managedGrafanaResourceId = ManagedGrafanaResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workspaceName);
             ManagedGrafanaResource managedGrafana = client.GetManagedGrafanaResource(managedGrafanaResourceId);
 
-            // get the collection of this GrafanaPrivateEndpointConnectionResource
-            GrafanaPrivateEndpointConnectionCollection collection = managedGrafana.GetGrafanaPrivateEndpointConnections();
+            // get the collection of this GrafanaPrivateLinkResource
+            GrafanaPrivateLinkResourceCollection collection = managedGrafana.GetGrafanaPrivateLinkResources();
 
             // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            NullableResponse<GrafanaPrivateEndpointConnectionResource> response = await collection.GetIfExistsAsync(privateEndpointConnectionName);
-            GrafanaPrivateEndpointConnectionResource result = response.HasValue ? response.Value : null;
+            string privateLinkResourceName = "grafana";
+            NullableResponse<GrafanaPrivateLinkResource> response = await collection.GetIfExistsAsync(privateLinkResourceName);
+            GrafanaPrivateLinkResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -187,7 +151,7 @@ namespace Azure.ResourceManager.Grafana.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                GrafanaPrivateEndpointConnectionData resourceData = result.Data;
+                GrafanaPrivateLinkResourceData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }

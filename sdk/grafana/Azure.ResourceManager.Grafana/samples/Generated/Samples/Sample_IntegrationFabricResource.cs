@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.Grafana.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_IntegrationFabricsGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_Get.json
-            // this example is just showing the usage of "IntegrationFabrics_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/IntegrationFabrics_Get.json
+            // this example is just showing the usage of "IntegrationFabric_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -51,8 +51,8 @@ namespace Azure.ResourceManager.Grafana.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_IntegrationFabricsDelete()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_Delete.json
-            // this example is just showing the usage of "IntegrationFabrics_Delete" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/IntegrationFabrics_Delete.json
+            // this example is just showing the usage of "IntegrationFabric_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -78,8 +78,8 @@ namespace Azure.ResourceManager.Grafana.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_IntegrationFabricsUpdate()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2024-11-01-preview/examples/IntegrationFabrics_Update.json
-            // this example is just showing the usage of "IntegrationFabrics_Update" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-11-01-preview/IntegrationFabrics_Update.json
+            // this example is just showing the usage of "IntegrationFabric_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
